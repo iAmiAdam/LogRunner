@@ -47,7 +47,7 @@ public class LogRunner extends ApplicationAdapter {
 	@Override
 	public void create () {
 		
-		world = new World(new Vector2(0, -50), true);
+		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
 		logImage = new Texture(Gdx.files.internal("log.png"));
@@ -98,7 +98,7 @@ public class LogRunner extends ApplicationAdapter {
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 1.0f;
+		fixtureDef.density = 2.0f;
 		fixtureDef.friction = 0.4f;
 		fixtureDef.restitution = 0.2f;
 		fixture = playerBody.createFixture(fixtureDef);
@@ -155,7 +155,7 @@ public class LogRunner extends ApplicationAdapter {
 		}
 		
 		if(Gdx.input.isTouched() && landed == true) {
-				playerBody.applyForceToCenter(0, 15f, true);
+				playerBody.applyLinearImpulse(0, 1, pos.x, pos.y, true);
 				landed = false;
 		}	
 		
