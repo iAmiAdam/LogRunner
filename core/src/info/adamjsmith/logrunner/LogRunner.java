@@ -41,11 +41,13 @@ public class LogRunner extends ApplicationAdapter {
 	Fixture fixture;
 	Rectangle rectangle;
 	Boolean landed;
+	Vector2 pos;
+	Iterator<Rectangle> iter;
 	
 	@Override
 	public void create () {
 		
-		world = new World(new Vector2(0, -10), true);
+		world = new World(new Vector2(0, -50), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
 		logImage = new Texture(Gdx.files.internal("log.png"));
@@ -87,7 +89,7 @@ public class LogRunner extends ApplicationAdapter {
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
-		playerDef.position.set(390, 140);
+		playerDef.position.set(390, 150);
 		
 		playerBody = world.createBody(playerDef);
 		
@@ -102,7 +104,6 @@ public class LogRunner extends ApplicationAdapter {
 		fixture = playerBody.createFixture(fixtureDef);
 		
 		landed = false;
-		
 	}
 	
 	private void spawnLog() {
@@ -120,7 +121,18 @@ public class LogRunner extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		Vector2 pos = playerBody.getPosition();
+		pos = playerBody.getPosition();
+		player.y = pos.y;
+		
+		iter = logs.iterator();
+		while(iter.hasNext()) {
+			Rectangle log = iter.next();
+			if(player.overlaps(log)) {
+				landed = true;
+				break;
+			}
+			landed = false;
+		}
 		
 		camera.update();
 		
@@ -135,31 +147,24 @@ public class LogRunner extends ApplicationAdapter {
 		batch.draw(playerImage, player.x, player.y);
 		batch.end();
 		
-		Iterator<Rectangle> iter = logs.iterator();
+		iter = logs.iterator();
 		while(iter.hasNext()) {
 			Rectangle log = iter.next();
 			log.x -= 250 * Gdx.graphics.getDeltaTime();
 			if(log.x + 230 == 0) iter.remove();
-			if(player.overlaps(log))
-				landed = true;
-			else
-				landed = false;
 		}
-		if(Gdx.input.isTouched() && landed == true ) {
-				playerBody.applyForceToCenter(0, 15f, true);
-		}	
 		
-		if (landed == true) {
-			player.y = 115;
-		} else {
-			pos = playerBody.getPosition();
-			player.y = pos.y;
-		}
+		if(Gdx.input.isTouched() && landed == true) {
+				playerBody.applyForceToCenter(0, 15f, true);
+				landed = false;
+		}	
 		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 1) spawnLog();
 		
-		debugRenderer.render(world, camera.combined);
-		world.step(1/45f, 6, 2);
+		if (landed == false) {
+			debugRenderer.render(world, camera.combined);
+			world.step(1/45f, 6, 2);
+		}
 	}
 	
 	@Override
