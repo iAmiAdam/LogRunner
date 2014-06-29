@@ -16,16 +16,16 @@ public class Log extends Object {
 	FixtureDef logFixtures;
 	Body logBody;
 	Fixture fixture;
-	public int x;
-	public int y;
+	float x;
+	float y;
 	float width;
 	float height;
 	
-	public Log(Rectangle log, int x, int y, World world) {
+	public Log(Rectangle log, float x, float y, World world) {
 		this.x = x;
 		this.y = y;
-		this.width = 150f;
-		this.height = 30f;
+		this.width = 4f;
+		this.height = 0.5f;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
@@ -35,9 +35,9 @@ public class Log extends Object {
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 30f);
-		vertices[2] = new Vector2(200f, 30f);
-		vertices[3] = new Vector2(200f, 0f);
+		vertices[1] = new Vector2(0f, 0.5f);
+		vertices[2] = new Vector2(4f, 0.5f);
+		vertices[3] = new Vector2(4f, 0.5f);
 		
 		shape.set(vertices);
 		
@@ -49,7 +49,7 @@ public class Log extends Object {
 		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-10000, 0));
+		logBody.setLinearVelocity(new Vector2(-12f, 0));
 		logBody.createFixture(fixtureDef);
 
 		

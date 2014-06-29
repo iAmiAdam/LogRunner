@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LogRunner extends ApplicationAdapter {
 	OrthographicCamera camera;
@@ -47,11 +50,9 @@ public class LogRunner extends ApplicationAdapter {
 	Iterator<Log> iter;
 	Sprite playerSprite;
 	
+	
 	@Override
 	public void create () {
-		
-		Gdx.gl20.glViewport(0,  0,  Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
@@ -62,36 +63,36 @@ public class LogRunner extends ApplicationAdapter {
 		playerSprite = new Sprite(playerImage);
 				
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 25f, 15f);
 		
 		river = new Rectangle();
 		river.x = 0;
-		river.y = 30;
-		river.width = 800;
-		river.height = 70;
+		river.y = 2f;
+		river.width = 25f;
+		river.height = 2f;
 		
 		bank = new Rectangle();
 		bank.x = 0;
 		bank.y = 0;
-		bank.width = 800;
-		bank.height = 30;
+		bank.width = 25f;
+		bank.height = 2f;
 		
 		player = new Rectangle();
-		player.x = 390;
-		player.y = 105; 
-		player.width = 32f;
-		player.height = 64f;
+		player.x = 12f;
+		player.y = 9f; 
+		player.width = 1f;
+		player.height = 2f;
 		
 		batch = new SpriteBatch();
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(log, 200, 80, world));
+		logs.add(new Log(log, 10f, 4f, world));
 		spawnLog();
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
-		playerDef.position.set(390, 105);
+		playerDef.position.set(12f, 9f);
 		
 		playerBody = world.createBody(playerDef);
 		
@@ -99,9 +100,9 @@ public class LogRunner extends ApplicationAdapter {
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 64f);
-		vertices[2] = new Vector2(32f, 64f);
-		vertices[3] = new Vector2(32f, 0f);
+		vertices[1] = new Vector2(0f, 2f);
+		vertices[2] = new Vector2(1f, 2f);
+		vertices[3] = new Vector2(1f, 0f);
 		
 		shape.set(vertices);
 		
@@ -117,12 +118,13 @@ public class LogRunner extends ApplicationAdapter {
 	
 	private void spawnLog() {
 		log = new Rectangle();
-		logs.add(new Log(log, 800, 80, world));
+		logs.add(new Log(log, 25f, 4f, world));
 		lastLogTime = TimeUtils.nanoTime();
 	}
 
 	@Override
 	public void render() {
+		
 		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -156,20 +158,19 @@ public class LogRunner extends ApplicationAdapter {
 			batch.draw(logImage, log.x, log.y, log.width, log.height);
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
-		batch.draw(playerImage, pos.x, pos.y, player.width, player.height);
+		batch.draw(playerImage, player.x, pos.y, player.width, player.height);
 		batch.end();
 		
-		if(Gdx.input.justTouched() && landed == true) {
-				playerBody.applyLinearImpulse(0, 30, pos.x, pos.y, true);
+		if(Gdx.input.justTouched()) {
+				playerBody.applyLinearImpulse(0, 5, pos.x, pos.y, true);
 				landed = false;
 		}	
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 2) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.5) spawnLog();
 		
-		if (landed == false) {
-			debugRenderer.render(world, camera.combined);
-			world.step(1/45f, 6, 2);
-		}
+		
+		debugRenderer.render(world, camera.combined);
+		world.step(1/45f, 8, 10);
 	}
 	
 	@Override
