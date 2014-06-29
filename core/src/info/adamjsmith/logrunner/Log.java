@@ -49,9 +49,8 @@ public class Log extends Object {
 		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-12f, 0));
+		logBody.setLinearVelocity(new Vector2(-6f, 0));
 		logBody.createFixture(fixtureDef);
-
 		
 	}
 }

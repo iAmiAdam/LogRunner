@@ -4,13 +4,12 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -23,7 +22,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LogRunner extends ApplicationAdapter {
 	OrthographicCamera camera;
@@ -49,6 +47,8 @@ public class LogRunner extends ApplicationAdapter {
 	Vector2 logPos;
 	Iterator<Log> iter;
 	Sprite playerSprite;
+	FPSLogger fpsLogger = new FPSLogger();
+
 	
 	
 	@Override
@@ -87,12 +87,13 @@ public class LogRunner extends ApplicationAdapter {
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(log, 10f, 4f, world));
+		logs.add(new Log(log, 16f, 4f, world));
 		spawnLog();
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
 		playerDef.position.set(12f, 9f);
+		playerDef.fixedRotation=true;
 		
 		playerBody = world.createBody(playerDef);
 		
@@ -161,16 +162,18 @@ public class LogRunner extends ApplicationAdapter {
 		batch.draw(playerImage, player.x, pos.y, player.width, player.height);
 		batch.end();
 		
-		if(Gdx.input.justTouched()) {
-				playerBody.applyLinearImpulse(0, 5, pos.x, pos.y, true);
+		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {
+				playerBody.applyLinearImpulse(0, 10, pos.x, pos.y, true);
 				landed = false;
 		}	
 		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.5) spawnLog();
 		
 		
-		debugRenderer.render(world, camera.combined);
+		//debugRenderer.render(world, camera.combined);
 		world.step(1/45f, 8, 10);
+		
+		fpsLogger.log();
 	}
 	
 	@Override
