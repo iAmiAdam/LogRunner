@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -82,9 +83,7 @@ public class GameScreen implements Screen {
 		}
 		
 		
-		batch.setProjectionMatrix(camera.combined);
-		
-		currentPlayer = game.manager.get("jump.png", Texture.class);		
+		batch.setProjectionMatrix(camera.combined);	
 		
 		batch.begin();
 		batch.draw(bankImage, bank.x, bank.y, bank.width, bank.height);
@@ -123,6 +122,8 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
+		currentPlayer = game.manager.get("jump.png", Texture.class);	
+		currentPlayer.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
