@@ -1,5 +1,6 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 public class MainMenuScreen implements Screen {
@@ -12,8 +13,9 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		if(Gdx.input.isTouched()) {
+			game.setScreen(new GameScreen(game));
+		}		
 	}
 
 	@Override
