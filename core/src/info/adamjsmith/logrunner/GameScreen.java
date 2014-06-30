@@ -27,6 +27,8 @@ public class GameScreen implements Screen {
 	Rectangle river;
 	Texture bankImage;
 	Rectangle bank;
+	Texture cloudImage;
+	Rectangle clouds;
 	Texture playerImage;
 	Player player;
 	Array<Log> logs;
@@ -73,6 +75,7 @@ public class GameScreen implements Screen {
 			batch.draw(logImage, log.x, log.y, log.width, log.height);
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
+		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
 		batch.draw(playerImage, player.x, pos.y, player.width, player.height);
 		batch.end();
 		
@@ -103,6 +106,7 @@ public class GameScreen implements Screen {
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
 		playerImage = game.manager.get("player.png", Texture.class);
+		cloudImage = game.manager.get("clouds.png", Texture.class);
 				
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 25f, 15f);
@@ -118,6 +122,12 @@ public class GameScreen implements Screen {
 		bank.y = 0;
 		bank.width = 25f;
 		bank.height = 2f;
+		
+		clouds = new Rectangle();
+		clouds.x = 0;
+		clouds.y = 11f;
+		clouds.width= 25f;
+		clouds.height = 4f;
 		
 		player = new Player(new Rectangle(), world);
 		
