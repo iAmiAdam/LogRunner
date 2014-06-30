@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -89,7 +90,7 @@ public class GameScreen implements Screen {
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
 		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
-		batch.draw(currentFrame, player.x, pos.y, 1f, 2f);
+		batch.draw(currentFrame, player.x, player.y, player.width, player.height);
 		batch.end();
 		
 		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {
@@ -119,6 +120,7 @@ public class GameScreen implements Screen {
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
 		playerImage = game.manager.get("player.png", Texture.class);
+		playerImage.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		cloudImage = game.manager.get("clouds.png", Texture.class);
 				
 		camera = new OrthographicCamera();
@@ -151,7 +153,7 @@ public class GameScreen implements Screen {
 		logs.add(new Log(log, 16f, 4f, world));
 		spawnLog();
 		
-		TextureRegion[][] tmp = TextureRegion.split(playerImage, playerImage.getWidth()/FRAME_COLS, playerImage.getHeight()/FRAME_ROWS);
+		TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
 		
 		walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
 		int index = 0;
