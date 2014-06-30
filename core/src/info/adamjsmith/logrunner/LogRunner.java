@@ -2,13 +2,12 @@ package info.adamjsmith.logrunner;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public class LogRunner extends ApplicationAdapter {
+public class LogRunner extends Game {
 	OrthographicCamera camera;
 	Texture logImage;
 	Rectangle log;
@@ -43,25 +42,18 @@ public class LogRunner extends ApplicationAdapter {
 	Vector2 pos;
 	Vector2 logPos;
 	Iterator<Log> iter;
-	Sprite playerSprite;
-	FPSLogger fpsLogger = new FPSLogger();
-	double accumulator;
-	double currentTime;
-	float step = 1.0f/ 60.0f;
-	BodyDef riverDef;
 	
+	public AssetManager manager = new AssetManager();
 	
 	@Override
 	public void create () {
-		accumulator = 1/60f;
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
-		logImage = new Texture(Gdx.files.internal("log.png"));
-		riverImage = new Texture(Gdx.files.internal("river.png"));
-		bankImage = new Texture(Gdx.files.internal("bank.png"));
-		playerImage = new Texture(Gdx.files.internal("player.png"));
-		playerSprite = new Sprite(playerImage);
+		logImage = manager.get("log.png", Texture.class);
+		riverImage = manager.get("river.png", Texture.class);
+		bankImage = manager.get("bank.png", Texture.class);
+		playerImage = manager.get("player.png", Texture.class);
 				
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 25f, 15f);
@@ -100,13 +92,6 @@ public class LogRunner extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		double newTime =  TimeUtils.millis() / 1000.0;
-		double frameTime =  Math.min(newTime - currentTime, 0.25);
-		float deltaTime =  (float)frameTime;
-		
-		accumulator += deltaTime;
-		
-		currentTime = newTime;
 		
 		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -143,9 +128,9 @@ public class LogRunner extends ApplicationAdapter {
 		
 		
 		debugRenderer.render(world, camera.combined);
-		world.step(step, 6, 4);
+		world.step(1/45f, 6, 4);
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.8) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.9) spawnLog();
 	}
 	
 	@Override
