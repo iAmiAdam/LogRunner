@@ -108,7 +108,7 @@ public class GameScreen implements Screen {
 		debugRenderer.render(world, camera.combined);
 		world.step(1/45f, 6, 4);
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.9) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > 1) spawnLog();
 	}
 
 	@Override

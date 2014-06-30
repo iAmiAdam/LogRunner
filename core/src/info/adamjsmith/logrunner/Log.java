@@ -1,5 +1,7 @@
 package info.adamjsmith.logrunner;
 
+import java.util.Random;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -24,8 +26,13 @@ public class Log extends Object {
 	public Log(Rectangle log, float x, float y, World world) {
 		this.x = x;
 		this.y = y;
-		this.width = 4f;
-		this.height = 0.5f;
+		
+		Random generator = new Random();
+		float number = generator.nextFloat() * 2f; 
+		float height = generator.nextFloat() * 0.5f;
+		
+		this.width = number + 2f;
+		this.height = height + 0.1f;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
@@ -35,9 +42,9 @@ public class Log extends Object {
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 0.5f);
-		vertices[2] = new Vector2(4f, 0.5f);
-		vertices[3] = new Vector2(4f, 0f);
+		vertices[1] = new Vector2(0f, height + 0.1f);
+		vertices[2] = new Vector2(number + 2f, height + 0.1f);
+		vertices[3] = new Vector2(number + 2f, 0f);
 		
 		shape.set(vertices);
 		
