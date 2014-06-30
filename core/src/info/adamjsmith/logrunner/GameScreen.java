@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
 	Texture cloudImage;
 	Rectangle clouds;
 	Texture playerImage;
+	Texture currentPlayer;
 	Player player;
 	Array<Log> logs;
 	SpriteBatch batch;
@@ -83,6 +84,8 @@ public class GameScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		
+		currentPlayer = game.manager.get("jump.png", Texture.class);		
+		
 		batch.begin();
 		batch.draw(bankImage, bank.x, bank.y, bank.width, bank.height);
 		for(Log log: logs) {
@@ -90,7 +93,11 @@ public class GameScreen implements Screen {
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
 		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
-		batch.draw(currentFrame, player.x, player.y, player.width, player.height);
+		if (pos.y > 5f) {
+			batch.draw(currentPlayer, player.x, pos.y, player.width, player.height);
+		} else {
+			batch.draw(currentFrame, player.x, pos.y, player.width, player.height);
+		}
 		batch.end();
 		
 		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {

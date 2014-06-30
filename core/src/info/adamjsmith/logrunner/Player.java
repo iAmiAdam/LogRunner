@@ -53,4 +53,8 @@ public class Player extends Object {
 		fixture = playerBody.createFixture(fixtureDef);
 	}
 	
+	public void animation(float deltaTime) {
+		
+	}
+	
 }
