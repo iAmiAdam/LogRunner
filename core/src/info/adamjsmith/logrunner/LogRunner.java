@@ -14,11 +14,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -32,7 +29,7 @@ public class LogRunner extends ApplicationAdapter {
 	Texture bankImage;
 	Rectangle bank;
 	Texture playerImage;
-	Rectangle player;
+	Player player;
 	Array<Log> logs;
 	SpriteBatch batch;
 	long lastLogTime;
@@ -81,11 +78,7 @@ public class LogRunner extends ApplicationAdapter {
 		bank.width = 25f;
 		bank.height = 2f;
 		
-		player = new Rectangle();
-		player.x = 12f;
-		player.y = 9f; 
-		player.width = 1f;
-		player.height = 2f;
+		player = new Player(new Rectangle(), world);
 		
 		batch = new SpriteBatch();
 		
@@ -94,29 +87,7 @@ public class LogRunner extends ApplicationAdapter {
 		logs.add(new Log(log, 16f, 4f, world));
 		spawnLog();
 		
-		playerDef = new BodyDef();
-		playerDef.type = BodyType.DynamicBody;
-		playerDef.position.set(12f, 9f);
-		playerDef.fixedRotation=true;
 		
-		playerBody = world.createBody(playerDef);
-		
-		PolygonShape shape = new PolygonShape();
-		
-		Vector2[] vertices = new Vector2[4];
-		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 2f);
-		vertices[2] = new Vector2(1f, 2f);
-		vertices[3] = new Vector2(1f, 0f);
-		
-		shape.set(vertices);
-		
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = shape;
-		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 0f;
-		fixtureDef.restitution = 0f;
-		fixture = playerBody.createFixture(fixtureDef);
 		
 		landed = false;
 	}
@@ -140,7 +111,7 @@ public class LogRunner extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
-		pos = playerBody.getPosition();		
+		pos = player.playerBody.getPosition();		
 		
 		iter = logs.iterator();
 		while(iter.hasNext()) {
@@ -166,7 +137,7 @@ public class LogRunner extends ApplicationAdapter {
 		batch.end();
 		
 		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {
-				playerBody.applyLinearImpulse(0, 10, pos.x, pos.y, true);
+				player.playerBody.applyLinearImpulse(0, 10, pos.x, pos.y, true);
 				landed = false;
 		}	
 		
@@ -174,7 +145,7 @@ public class LogRunner extends ApplicationAdapter {
 		debugRenderer.render(world, camera.combined);
 		world.step(step, 6, 4);
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 1) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.8) spawnLog();
 	}
 	
 	@Override

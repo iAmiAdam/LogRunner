@@ -7,50 +7,50 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-public class Log extends Object {
-	
-	BodyDef logDef;
-	FixtureDef logFixtures;
-	Body logBody;
-	Fixture fixture;
+public class Player extends Object {
 	float x;
 	float y;
 	float width;
 	float height;
+	enum state { air, land };
+	BodyDef playerDef;
+	FixtureDef playerFixtures;
+	Body playerBody;
+	Fixture fixture;
 	
-	public Log(Rectangle log, float x, float y, World world) {
-		this.x = x;
-		this.y = y;
-		this.width = 4f;
-		this.height = 0.5f;
+	public Player(Rectangle player, World world) {
+		player = new Rectangle();
+		this.x = 12f;
+		this.y = 9f; 
+		this.width = 1f;
+		this.height = 2f;
 		
-		logDef = new BodyDef();
-		logDef.type = BodyType.KinematicBody;
-		logDef.position.set(x, y);
+		playerDef = new BodyDef();
+		playerDef.type = BodyType.DynamicBody;
+		playerDef.position.set(12f, 9f);
+		playerDef.fixedRotation=true;
+		
+		playerBody = world.createBody(playerDef);
 		
 		PolygonShape shape = new PolygonShape();
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 0.5f);
-		vertices[2] = new Vector2(4f, 0.5f);
-		vertices[3] = new Vector2(4f, 0f);
+		vertices[1] = new Vector2(0f, 2f);
+		vertices[2] = new Vector2(1f, 2f);
+		vertices[3] = new Vector2(1f, 0f);
 		
 		shape.set(vertices);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.density = 0.1f;
+		fixtureDef.density = 1.0f;
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
-		
-		logBody = world.createBody(logDef);
-		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-6f, 0));
-		logBody.createFixture(fixtureDef);
-		
+		fixture = playerBody.createFixture(fixtureDef);
 	}
+	
 }
