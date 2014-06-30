@@ -37,7 +37,7 @@ public class Log extends Object {
 		vertices[0] = new Vector2(0f, 0f);
 		vertices[1] = new Vector2(0f, 0.5f);
 		vertices[2] = new Vector2(4f, 0.5f);
-		vertices[3] = new Vector2(4f, 0.5f);
+		vertices[3] = new Vector2(4f, 0f);
 		
 		shape.set(vertices);
 		
@@ -49,7 +49,7 @@ public class Log extends Object {
 		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-6f, 0));
+		logBody.setLinearVelocity(new Vector2(-12f, 0));
 		logBody.createFixture(fixtureDef);
 		
 	}

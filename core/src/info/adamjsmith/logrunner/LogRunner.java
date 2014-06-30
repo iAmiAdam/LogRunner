@@ -48,11 +48,15 @@ public class LogRunner extends ApplicationAdapter {
 	Iterator<Log> iter;
 	Sprite playerSprite;
 	FPSLogger fpsLogger = new FPSLogger();
-
+	double accumulator;
+	double currentTime;
+	float step = 1.0f/ 60.0f;
+	BodyDef riverDef;
 	
 	
 	@Override
 	public void create () {
+		accumulator = 1/60f;
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
@@ -125,31 +129,30 @@ public class LogRunner extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		double newTime =  TimeUtils.millis() / 1000.0;
+		double frameTime =  Math.min(newTime - currentTime, 0.25);
+		float deltaTime =  (float)frameTime;
+		
+		accumulator += deltaTime;
+		
+		currentTime = newTime;
 		
 		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		pos = playerBody.getPosition();
-		
-		iter = logs.iterator();
-		while(iter.hasNext()) {
-			Log log = iter.next();
-			if(player.y == log.y) {
-				landed = true;
-				break;
-			}
-			landed = false;
-		}
-		
 		camera.update();
+		pos = playerBody.getPosition();		
 		
 		iter = logs.iterator();
 		while(iter.hasNext()) {
 			Log log = iter.next();
 			logPos = log.logBody.getPosition();
-			log.x = (int) logPos.x;
-			if(log.x + 230 == 0) iter.remove();
+			log.x = logPos.x;
+			if(log.x + 4f == 0) {
+				iter.remove();
+				log = null;
+			}
 		}
+		
 		
 		batch.setProjectionMatrix(camera.combined);
 		
@@ -167,13 +170,11 @@ public class LogRunner extends ApplicationAdapter {
 				landed = false;
 		}	
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 0.5) spawnLog();
 		
+		debugRenderer.render(world, camera.combined);
+		world.step(step, 6, 4);
 		
-		//debugRenderer.render(world, camera.combined);
-		world.step(1/45f, 8, 10);
-		
-		fpsLogger.log();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000 > 1) spawnLog();
 	}
 	
 	@Override
@@ -183,6 +184,19 @@ public class LogRunner extends ApplicationAdapter {
 		playerImage.dispose();
 		bankImage.dispose();
 		batch.dispose();
+	}
+	
+	public void interpolate() {
+		iter = logs.iterator();
+		while(iter.hasNext()) {
+			Log log = iter.next();
+			logPos = log.logBody.getPosition();
+			log.x = (int) logPos.x;
+			if(log.x + 4f == 0) {
+				iter.remove();
+				log = null;
+			}
+		}
 	}
 	
 	@Override
