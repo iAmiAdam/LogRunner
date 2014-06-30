@@ -7,7 +7,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -45,6 +47,14 @@ public class GameScreen implements Screen {
 	Vector2 logPos;
 	Iterator<Log> iter;
 	
+	Animation walkAnimation;
+	TextureRegion[] walkFrames;
+	TextureRegion currentFrame;
+	float stateTime;
+	
+	private static final int FRAME_COLS = 8;
+	private static final int FRAME_ROWS = 1;
+	
 	public GameScreen(LogRunner game) {
 		this.game = game;
 	}
@@ -54,6 +64,9 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		pos = player.playerBody.getPosition();		
+		
+		stateTime += Gdx.graphics.getDeltaTime();
+		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
 		iter = logs.iterator();
 		while(iter.hasNext()) {
@@ -76,7 +89,7 @@ public class GameScreen implements Screen {
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
 		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
-		batch.draw(playerImage, player.x, pos.y, player.width, player.height);
+		batch.draw(currentFrame, player.x, pos.y, 1f, 2f);
 		batch.end();
 		
 		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {
@@ -138,7 +151,19 @@ public class GameScreen implements Screen {
 		logs.add(new Log(log, 16f, 4f, world));
 		spawnLog();
 		
+		TextureRegion[][] tmp = TextureRegion.split(playerImage, playerImage.getWidth()/FRAME_COLS, playerImage.getHeight()/FRAME_ROWS);
 		
+		walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
+		int index = 0;
+		
+		for (int i = 0; i < FRAME_ROWS; i++) {
+			for (int j = 0; j < FRAME_COLS; j++) {
+				walkFrames[index++] = tmp[i][j];
+			}
+		}
+		
+		walkAnimation = new Animation(0.10f, walkFrames);
+		stateTime = 0f;
 		
 		landed = false;
 	}
