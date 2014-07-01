@@ -62,9 +62,6 @@ public class GameRenderer {
 		playerImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		cloudImage = game.manager.get("clouds.png", Texture.class);
 		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		fishImage = game.manager.get("fish.png", Texture.class);
-		hillsImage = game.manager.get("hills.png", Texture.class);
-		hillsImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
@@ -120,6 +117,9 @@ public class GameRenderer {
 		riverImage.dispose();
 		playerImage.dispose();
 		bankImage.dispose();
+		cloudImage.dispose();
+		currentPlayer.dispose();
+		bg.dispose();
 		batch.dispose();
 	}
 }

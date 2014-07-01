@@ -39,9 +39,9 @@ public class GameUpdate {
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(4f, 10f, logVelocity, world));
-		logs.add(new Log(9f, 10f, logVelocity, world));
-		logs.add(new Log(15f, 10f, logVelocity, world));
+		logs.add(new Log(4f,logVelocity, world));
+		logs.add(new Log(9f, logVelocity, world));
+		logs.add(new Log(14f, logVelocity, world));
 		currentState = false;
 	}
 	
@@ -69,17 +69,13 @@ public class GameUpdate {
 			}
 		}
 		
-		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 11f) {
+		if(Gdx.input.justTouched() && pos.y > 9 && pos.y <= 10.3f) {
 			player.jump();
-		}
-		
-		if(pos.y < 9) {
-			reset();
 		}
 	
 		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
-			logs.add(new Log(15f, 10f, logVelocity, world));
+			logs.add(new Log(15f, logVelocity, world));
 			spawnedLogs++;
 			if(spawnedLogs == 10 ) {
 				logVelocity -= 0.25f;
@@ -90,20 +86,29 @@ public class GameUpdate {
 		}
 		
 		world.step(1/45f, 6, 4);
+		
+		if(pos.y < 9f) {
+			currentState = false;
+			reset();
+		}
 	}
 	
 	public void reset() {
 		player.destroy();
+		world.dispose();
+		world = null;
+		world = new World(new Vector2(0, -10f), false);
+		player = null;
 		player = new Player(new Rectangle(), world);
 		spawnedLogs = 0;
 		logVelocity = -5.5f;
 		spawnInterval = 0.75f;
+		logs = null;
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(4f, 10f, logVelocity, world));
-		logs.add(new Log(9f, 10f, logVelocity, world));
-		logs.add(new Log(15f, 10f, logVelocity, world));
-		currentState = false;		
+		logs.add(new Log(4f, logVelocity, world));
+		logs.add(new Log(9f, logVelocity, world));	
+		logs.add(new Log(14f, logVelocity, world));
 	}
 	
 	public Player getPlayer() {

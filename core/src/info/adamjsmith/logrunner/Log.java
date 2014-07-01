@@ -32,9 +32,9 @@ public class Log extends Object {
 	public float logVelocity;
 	public float spawnInterval;
 	
-	public Log(float x, float y, float velocity, World world) {
+	public Log(float x, float velocity, World world) {
 		this.x = x;
-		this.y = y - 0.2f;
+		this.y = 9.8f;
 		
 		Random generator = new Random();
 		float number = generator.nextFloat(); 
