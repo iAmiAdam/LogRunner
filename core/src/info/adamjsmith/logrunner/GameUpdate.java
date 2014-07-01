@@ -99,8 +99,7 @@ public class GameUpdate {
 		spawnInterval = 0.70f;
 		
 		logs.add(new Log(4f, logVelocity, world));
-		logs.add(new Log(9f, logVelocity, world));	
-		logs.add(new Log(14f, logVelocity, world));
+		logs.add(new Log(9.5f, logVelocity, world));	
 		
 		currentState = GameState.READY;
 	}
