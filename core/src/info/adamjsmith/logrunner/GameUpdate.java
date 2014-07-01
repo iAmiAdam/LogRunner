@@ -13,7 +13,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameUpdate {
 	
 	protected World world;
-	boolean currentState;
+	private GameState currentState;
+	public enum GameState {
+		READY, RUNNING
+	}
 	
 	Player player;
 	public Array<Log> logs;
@@ -42,17 +45,22 @@ public class GameUpdate {
 		logs.add(new Log(4f,logVelocity, world));
 		logs.add(new Log(9f, logVelocity, world));
 		logs.add(new Log(14f, logVelocity, world));
-		currentState = false;
+		
+		currentState = GameState.READY;
 	}
 	
 	public void update() {
-		if(Gdx.input.justTouched()) currentState = true;
-		
-		if(currentState == true) {
+		switch (currentState) {
+		case READY:
+			if(Gdx.input.justTouched())
+				currentState = GameState.RUNNING;
+			break;
+		case RUNNING:
 			updateRunning();
-		} else {
-			
+			break;
 		}
+		
+		
 	}
 	
 	public void updateRunning() {
@@ -88,12 +96,12 @@ public class GameUpdate {
 		world.step(1/45f, 6, 4);
 		
 		if(pos.y < 9f) {
-			currentState = false;
 			reset();
 		}
 	}
 	
 	public void reset() {
+		currentState = GameState.READY;
 		player.destroy();
 		world.dispose();
 		world = null;

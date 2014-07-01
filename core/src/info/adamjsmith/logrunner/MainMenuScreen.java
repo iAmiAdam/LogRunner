@@ -1,7 +1,6 @@
 package info.adamjsmith.logrunner;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,8 +39,8 @@ public class MainMenuScreen implements Screen {
 		batch.draw(bg, 0f, 10f, 15f, 4f);
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
-		batch.draw(logo, 2f, 21f, 11f, 3f);
-		batch.draw(play, 4f, 17f, 7f, 2f);
+		batch.draw(logo, 0f, 21f, 15f, 3.75f);
+		batch.draw(play, 2.85f, 17f, 9.3f, 3.1f);
 		batch.end();
 		
 		if (Gdx.input.isTouched()) {

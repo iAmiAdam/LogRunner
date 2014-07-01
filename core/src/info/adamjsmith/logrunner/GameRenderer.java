@@ -92,6 +92,7 @@ public class GameRenderer {
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
+		player = updater.getPlayer();
 		logs = updater.getLogs();
 		
 		batch.setProjectionMatrix(camera.combined);			
@@ -103,7 +104,7 @@ public class GameRenderer {
 		}
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
-		if (player.getY() > 10.6f) {
+		if (player.getY() > 10.5f) {
 			batch.draw(currentPlayer, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
