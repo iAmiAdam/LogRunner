@@ -73,8 +73,8 @@ public class GameScreen implements Screen {
 		camera.update();
 		pos = player.playerBody.getPosition();		
 		
-		//stateTime += Gdx.graphics.getDeltaTime();
-		//currentFrame = walkAnimation.getKeyFrame(stateTime, true);
+		stateTime += Gdx.graphics.getDeltaTime();
+		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
 		iter = logs.iterator();
 		while(iter.hasNext()) {
@@ -98,15 +98,15 @@ public class GameScreen implements Screen {
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
 		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
-		if (pos.y > 10.5f) {
+		if (pos.y > 10.6f) {
 			batch.draw(currentPlayer, player.x, pos.y, player.width, player.height);
 		} else {
-			batch.draw(playerImage, player.x, pos.y, 1f, 2f);
+			batch.draw(currentFrame, player.x, pos.y, player.width, player.height);
 		}
 		batch.end();
 		
-		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 10.5f) {
-				player.playerBody.applyLinearImpulse(0, 10, pos.x, pos.y, true);
+		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 11f) {
+				player.playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
 				landed = false;
 		}	
 		
@@ -114,7 +114,7 @@ public class GameScreen implements Screen {
 		debugRenderer.render(world, camera.combined);
 		world.step(1/45f, 6, 4);
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > 1) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > 0.75) spawnLog();
 	}
 
 	@Override
@@ -129,11 +129,11 @@ public class GameScreen implements Screen {
 		debugRenderer = new Box2DDebugRenderer();
 		
 		currentPlayer = game.manager.get("jump.png", Texture.class);	
-		currentPlayer.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		currentPlayer.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
-		playerImage = game.manager.get("playert.png", Texture.class);
+		playerImage = game.manager.get("player.png", Texture.class);
 		playerImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		cloudImage = game.manager.get("clouds.png", Texture.class);
 		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
@@ -171,21 +171,22 @@ public class GameScreen implements Screen {
 		logs = new Array<Log>();
 		log = new Rectangle();
 		logs.add(new Log(log, 4f, 10f, world));
+		logs.add(new Log(log, 9f, 10f, world));
 		spawnLog();
 		
-		//TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
+		TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
 		
-		//walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
-		//int index = 0;
+		walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
+		int index = 0;
 		
-		//for (int i = 0; i < FRAME_ROWS; i++) {
-			//for (int j = 0; j < FRAME_COLS; j++) {
-				//walkFrames[index++] = tmp[i][j];
-			//}
-		//}
+		for (int i = 0; i < FRAME_ROWS; i++) {
+			for (int j = 0; j < FRAME_COLS; j++) {
+				walkFrames[index++] = tmp[i][j];
+			}
+		}
 		
-		//walkAnimation = new Animation(0.10f, walkFrames);
-		//stateTime = 0f;
+		walkAnimation = new Animation(0.10f, walkFrames);
+		stateTime = 0f;
 
 	}
 	

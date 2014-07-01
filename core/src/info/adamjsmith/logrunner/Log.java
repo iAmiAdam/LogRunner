@@ -32,19 +32,19 @@ public class Log extends Object {
 		float height = generator.nextFloat() * 0.3f;
 		
 		this.width = number + 1.5f;
-		this.height = height + 0.3f;
+		this.height = height + 0.4f;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
-		logDef.position.set(x, y);
+		logDef.position.set(x, y - 0.2f);
 		
 		PolygonShape shape = new PolygonShape();
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, height + 0.1f);
-		vertices[2] = new Vector2(number + 1f, height + 0.1f);
-		vertices[3] = new Vector2(number + 1f, 0f);
+		vertices[1] = new Vector2(0f, this.height);
+		vertices[2] = new Vector2(this.width, this.height);
+		vertices[3] = new Vector2(this.width, this.height);
 		
 		shape.set(vertices);
 		
@@ -56,7 +56,7 @@ public class Log extends Object {
 		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-6f, 0));
+		logBody.setLinearVelocity(new Vector2(-5.5f, 0));
 		logBody.createFixture(fixtureDef);
 		
 	}

@@ -25,8 +25,8 @@ public class Player extends Object {
 		player = new Rectangle();
 		this.x = 4f;
 		this.y = 10f; 
-		this.width = 1f;
-		this.height = 2f;
+		this.width = 0.7f;
+		this.height = 1.5f;
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
@@ -39,9 +39,9 @@ public class Player extends Object {
 		
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, 2f);
-		vertices[2] = new Vector2(1f, 2f);
-		vertices[3] = new Vector2(1f, 0f);
+		vertices[1] = new Vector2(0f, this.height);
+		vertices[2] = new Vector2(this.width, this.height);
+		vertices[3] = new Vector2(this.width, 0f);
 		
 		shape.set(vertices);
 		
