@@ -205,7 +205,7 @@ public class GameScreen implements Screen {
 		spawnedLogs++;
 		if(spawnedLogs == 10 ) {
 			logVelocity -= 0.25f;
-			spawnInterval -= 0.05f;
+			spawnInterval -= 0.02f;
 			spawnedLogs = 0;
 		}
 		lastLogTime = TimeUtils.nanoTime();

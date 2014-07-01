@@ -2,9 +2,16 @@ package info.adamjsmith.logrunner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
+	
+	SpriteBatch batch;
+	Texture logo;
 	
 	public MainMenuScreen(LogRunner game) {
 		this.game = game;
@@ -13,8 +20,15 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0.450f, 0.772f, 1f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		batch.begin();
+		batch.draw(logo, 40, 800, 200, 100);
+		batch.end();
+		
 		if(Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			//game.setScreen(new GameScreen(game));
 		}		
 	}
 
@@ -26,7 +40,9 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		logo = game.manager.get("logo.png", Texture.class);
+		logo.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		batch = new SpriteBatch();
 		
 	}
 
