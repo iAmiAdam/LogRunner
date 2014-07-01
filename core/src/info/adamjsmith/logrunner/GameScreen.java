@@ -53,6 +53,11 @@ public class GameScreen implements Screen {
 	Texture hillsImage;
 	Texture bg;
 	
+	float spawnInterval;
+	
+	int spawnedLogs;	
+	float logVelocity;
+	
 	TextureRegion playerI;
 	
 	Animation walkAnimation;
@@ -114,7 +119,7 @@ public class GameScreen implements Screen {
 		debugRenderer.render(world, camera.combined);
 		world.step(1/45f, 6, 4);
 		
-		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > 0.75) spawnLog();
+		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) spawnLog();
 	}
 
 	@Override
@@ -143,6 +148,10 @@ public class GameScreen implements Screen {
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
+		spawnedLogs = 0;
+		logVelocity = -5.5f;
+		spawnInterval = 0.75f;
+		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
 		
@@ -156,7 +165,7 @@ public class GameScreen implements Screen {
 		bank.x = 0;
 		bank.y = 0;
 		bank.width = 15f;
-		bank.height = 8f;
+		bank.height = 7f;
 		
 		clouds = new Rectangle();
 		clouds.x = 0;
@@ -170,8 +179,8 @@ public class GameScreen implements Screen {
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(log, 4f, 10f, world));
-		logs.add(new Log(log, 9f, 10f, world));
+		logs.add(new Log(log, 4f, 10f, logVelocity, world));
+		logs.add(new Log(log, 9f, 10f, logVelocity, world));
 		spawnLog();
 		
 		TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
@@ -192,7 +201,13 @@ public class GameScreen implements Screen {
 	
 	private void spawnLog() {
 		log = new Rectangle();
-		logs.add(new Log(log, 15f, 10f, world));
+		logs.add(new Log(log, 15f, 10f, logVelocity, world));
+		spawnedLogs++;
+		if(spawnedLogs == 10 ) {
+			logVelocity -= 0.25f;
+			spawnInterval -= 0.05f;
+			spawnedLogs = 0;
+		}
 		lastLogTime = TimeUtils.nanoTime();
 	}
 

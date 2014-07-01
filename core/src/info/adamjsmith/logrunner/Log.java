@@ -22,8 +22,9 @@ public class Log extends Object {
 	float y;
 	float width;
 	float height;
+	float velocity;
 	
-	public Log(Rectangle log, float x, float y, World world) {
+	public Log(Rectangle log, float x, float y, float velocity, World world) {
 		this.x = x;
 		this.y = y - 0.2f;
 		
@@ -44,7 +45,7 @@ public class Log extends Object {
 		vertices[0] = new Vector2(0f, 0f);
 		vertices[1] = new Vector2(0f, this.height);
 		vertices[2] = new Vector2(this.width, this.height);
-		vertices[3] = new Vector2(this.width, this.height);
+		vertices[3] = new Vector2(this.width, 0);
 		
 		shape.set(vertices);
 		
@@ -56,7 +57,7 @@ public class Log extends Object {
 		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
-		logBody.setLinearVelocity(new Vector2(-5.5f, 0));
+		logBody.setLinearVelocity(new Vector2(velocity, 0));
 		logBody.createFixture(fixtureDef);
 		
 	}
