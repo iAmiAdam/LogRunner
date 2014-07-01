@@ -51,6 +51,7 @@ public class GameScreen implements Screen {
 	Iterator<Log> iter;
 	Texture fishImage;
 	Texture hillsImage;
+	Texture bg;
 	
 	TextureRegion playerI;
 	
@@ -67,7 +68,7 @@ public class GameScreen implements Screen {
 	}
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.5f, 0.7f, 1f, 1);
+		Gdx.gl.glClearColor(0.450f, 0.772f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		pos = player.playerBody.getPosition();		
@@ -91,7 +92,7 @@ public class GameScreen implements Screen {
 		
 		batch.begin();
 		batch.draw(bankImage, bank.x, bank.y, bank.width, bank.height);
-		batch.draw(hillsImage, 0f, 4f, 25f, 4f);
+		batch.draw(bg, 0f, 8f, 15f, 4f);
 		for(Log log: logs) {
 			batch.draw(logImage, log.x, log.y, log.width, log.height);
 		}
@@ -139,26 +140,28 @@ public class GameScreen implements Screen {
 		fishImage = game.manager.get("fish.png", Texture.class);
 		hillsImage = game.manager.get("hills.png", Texture.class);
 		hillsImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-				
+		bg = game.manager.get("background.png", Texture.class);
+		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 25f, 15f);
+		camera.setToOrtho(false, 15f, 25f);
 		
 		river = new Rectangle();
 		river.x = 0;
-		river.y = 2f;
-		river.width = 25f;
-		river.height = 2f;
+		river.y = 4f;
+		river.width = 15f;
+		river.height = 4f;
 		
 		bank = new Rectangle();
 		bank.x = 0;
 		bank.y = 0;
-		bank.width = 25f;
-		bank.height = 2f;
+		bank.width = 15f;
+		bank.height = 4f;
 		
 		clouds = new Rectangle();
 		clouds.x = 0;
-		clouds.y = 11f;
-		clouds.width= 25f;
+		clouds.y = 13f;
+		clouds.width= 15f;
 		clouds.height = 4f;
 		
 		player = new Player(new Rectangle(), world);
@@ -167,7 +170,7 @@ public class GameScreen implements Screen {
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(log, 16f, 4f, world));
+		logs.add(new Log(log, 4f, 8f, world));
 		spawnLog();
 		
 		//TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
@@ -188,7 +191,7 @@ public class GameScreen implements Screen {
 	
 	private void spawnLog() {
 		log = new Rectangle();
-		logs.add(new Log(log, 25f, 4f, world));
+		logs.add(new Log(log, 15f, 8f, world));
 		lastLogTime = TimeUtils.nanoTime();
 	}
 

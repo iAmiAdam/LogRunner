@@ -23,14 +23,14 @@ public class Player extends Object {
 	
 	public Player(Rectangle player, World world) {
 		player = new Rectangle();
-		this.x = 12f;
+		this.x = 4f;
 		this.y = 9f; 
 		this.width = 1f;
 		this.height = 2f;
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
-		playerDef.position.set(12f, 9f);
+		playerDef.position.set(this.x, this.y);
 		playerDef.fixedRotation=true;
 		
 		playerBody = world.createBody(playerDef);

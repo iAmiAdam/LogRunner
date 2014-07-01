@@ -38,6 +38,7 @@ public class LoadingScreen implements Screen {
 		game.manager.load("jump.png", Texture.class);
 		game.manager.load("fish.png", Texture.class);
 		game.manager.load("hills.png", Texture.class);
+		game.manager.load("background.png", Texture.class);
 		game.manager.finishLoading();
 	}
 

@@ -25,14 +25,14 @@ public class Log extends Object {
 	
 	public Log(Rectangle log, float x, float y, World world) {
 		this.x = x;
-		this.y = y;
+		this.y = y - 0.2f;
 		
 		Random generator = new Random();
-		float number = generator.nextFloat() * 2f; 
-		float height = generator.nextFloat() * 0.5f;
+		float number = generator.nextFloat(); 
+		float height = generator.nextFloat() * 0.3f;
 		
-		this.width = number + 2f;
-		this.height = height + 0.1f;
+		this.width = number + 1f;
+		this.height = height + 0.3f;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
@@ -43,8 +43,8 @@ public class Log extends Object {
 		Vector2[] vertices = new Vector2[4];
 		vertices[0] = new Vector2(0f, 0f);
 		vertices[1] = new Vector2(0f, height + 0.1f);
-		vertices[2] = new Vector2(number + 2f, height + 0.1f);
-		vertices[3] = new Vector2(number + 2f, 0f);
+		vertices[2] = new Vector2(number + 1f, height + 0.1f);
+		vertices[3] = new Vector2(number + 1f, 0f);
 		
 		shape.set(vertices);
 		
