@@ -1,5 +1,7 @@
 package info.adamjsmith.logrunner;
 
+import info.adamjsmith.logrunner.Player.PlayerState;
+
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
@@ -104,7 +106,7 @@ public class GameRenderer {
 		}
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
-		if (player.getY() > 10.5f) {
+		if (player.playerState == PlayerState.AIR) {
 			batch.draw(currentPlayer, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());

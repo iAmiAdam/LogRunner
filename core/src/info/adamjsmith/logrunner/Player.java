@@ -22,6 +22,11 @@ public class Player extends Object {
 	Fixture fixture;
 	Vector2 pos;
 	World world;
+	public enum PlayerState {
+		AIR, LAND
+	}
+	public PlayerState playerState;
+	
 	
 	public Player(Rectangle player, World worldI) {
 		player = new Rectangle();
@@ -55,11 +60,16 @@ public class Player extends Object {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		fixture = playerBody.createFixture(fixtureDef);
+		
+		playerState = PlayerState.AIR;
 	}
 	
 	public void jump() {
-		pos = playerBody.getPosition();
-		playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
+		if(playerState == PlayerState.LAND) {
+			pos = playerBody.getPosition();
+			playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
+			playerState = PlayerState.AIR;
+		}
 	}
 	
 	public void destroy() {
