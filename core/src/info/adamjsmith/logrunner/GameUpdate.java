@@ -96,7 +96,7 @@ public class GameUpdate {
 		
 		spawnedLogs = 0;
 		logVelocity = -5.5f;
-		spawnInterval = 0.75f;
+		spawnInterval = 0.70f;
 		
 		logs.add(new Log(4f, logVelocity, world));
 		logs.add(new Log(9f, logVelocity, world));	
