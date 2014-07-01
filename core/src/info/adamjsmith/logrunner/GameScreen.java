@@ -92,7 +92,7 @@ public class GameScreen implements Screen {
 		
 		batch.begin();
 		batch.draw(bankImage, bank.x, bank.y, bank.width, bank.height);
-		batch.draw(bg, 0f, 8f, 15f, 4f);
+		batch.draw(bg, 0f, 10f, 15f, 4f);
 		for(Log log: logs) {
 			batch.draw(logImage, log.x, log.y, log.width, log.height);
 		}
@@ -148,15 +148,15 @@ public class GameScreen implements Screen {
 		
 		river = new Rectangle();
 		river.x = 0;
-		river.y = 4f;
+		river.y = 8f;
 		river.width = 15f;
-		river.height = 4f;
+		river.height = 2f;
 		
 		bank = new Rectangle();
 		bank.x = 0;
 		bank.y = 0;
 		bank.width = 15f;
-		bank.height = 4f;
+		bank.height = 8f;
 		
 		clouds = new Rectangle();
 		clouds.x = 0;
