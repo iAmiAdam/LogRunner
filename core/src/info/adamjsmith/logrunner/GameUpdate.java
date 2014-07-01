@@ -27,25 +27,10 @@ public class GameUpdate {
 	float spawnInterval;
 	int spawnedLogs;	
 	float logVelocity;
-	Rectangle log;
 	Array<Body> bodies;
 	
 	public GameUpdate() {
-		
-		world = new World(new Vector2(0, -10f), false);
-		spawnedLogs = 0;
-		logVelocity = -5.5f;
-		spawnInterval = 0.75f;
-		
-		player = new Player(new Rectangle(), world);
-		world.setContactListener(new LogListener(player));
-		logs = new Array<Log>();
-		log = new Rectangle();
-		logs.add(new Log(4f,logVelocity, world));
-		logs.add(new Log(9f, logVelocity, world));
-		logs.add(new Log(14f, logVelocity, world));
-		
-		currentState = GameState.READY;
+		init();
 	}
 	
 	public void update() {
@@ -58,13 +43,9 @@ public class GameUpdate {
 			updateRunning();
 			break;
 		}
-		
-		
 	}
 	
 	public void updateRunning() {
-		
-		pos = player.playerBody.getPosition();	
 		iter = logs.iterator();
 		while(iter.hasNext()) {
 			Log log = iter.next();
@@ -80,43 +61,48 @@ public class GameUpdate {
 			player.jump();
 		}
 	
-		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
 			logs.add(new Log(15f, logVelocity, world));
 			spawnedLogs++;
-			if(spawnedLogs == 10 ) {
+			if(spawnedLogs % 10  == 0) {
 				logVelocity -= 0.25f;
 				spawnInterval -= 0.02f;
-				spawnedLogs = 0;
 			}
 			lastLogTime = TimeUtils.nanoTime();
 		}
 		
 		world.step(1/45f, 6, 4);
 		
-		if(pos.y < 9f) {
+		if(player.getY() < 9f) {
 			reset();
 		}
 	}
 	
 	public void reset() {
-		currentState = GameState.READY;
 		player.destroy();
 		world.dispose();
 		world = null;
-		world = new World(new Vector2(0, -10f), false);
 		player = null;
+		logs = null;
+		init();
+	}
+	
+	private void init() {
+		world = new World(new Vector2(0, -10f), false);
 		player = new Player(new Rectangle(), world);
+		logs = new Array<Log>();
+		
 		world.setContactListener(new LogListener(player));
+		
 		spawnedLogs = 0;
 		logVelocity = -5.5f;
 		spawnInterval = 0.75f;
-		logs = null;
-		logs = new Array<Log>();
-		log = new Rectangle();
+		
 		logs.add(new Log(4f, logVelocity, world));
 		logs.add(new Log(9f, logVelocity, world));	
 		logs.add(new Log(14f, logVelocity, world));
+		
+		currentState = GameState.READY;
 	}
 	
 	public Player getPlayer() {

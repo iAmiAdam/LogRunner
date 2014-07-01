@@ -31,7 +31,7 @@ public class Player extends Object {
 	public Player(Rectangle player, World worldI) {
 		player = new Rectangle();
 		this.x = 4f;
-		this.y = 10.6f; 
+		this.y = 10.4f; 
 		this.width = 0.7f;
 		this.height = 1.5f;
 		
@@ -74,10 +74,6 @@ public class Player extends Object {
 	
 	public void destroy() {
 		world.destroyBody(playerBody);
-	}
-	
-	public void animation(float deltaTime) {
-		
 	}
 	
 	public float getX() {
