@@ -20,6 +20,7 @@ public class Player extends Object {
 	FixtureDef playerFixtures;
 	Body playerBody;
 	Fixture fixture;
+	Vector2 pos;
 	
 	public Player(Rectangle player, World world) {
 		player = new Rectangle();
@@ -53,8 +54,30 @@ public class Player extends Object {
 		fixture = playerBody.createFixture(fixtureDef);
 	}
 	
+	public void jump() {
+		playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
+	}
+	
 	public void animation(float deltaTime) {
 		
+	}
+	
+	public float getX() {
+		pos = playerBody.getPosition();
+		return pos.x;
+	}
+	
+	public float getY() {
+		pos = playerBody.getPosition();
+		return pos.y;
+	}
+	
+	public float getWidth() {
+		return this.width;
+	}
+	
+	public float getHeight() {
+		return this.height;
 	}
 	
 }

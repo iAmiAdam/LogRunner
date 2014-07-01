@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Log extends Object {
 	
@@ -24,7 +25,14 @@ public class Log extends Object {
 	float height;
 	float velocity;
 	
-	public Log(Rectangle log, float x, float y, float velocity, World world) {
+	Rectangle log;
+	
+	public int spawnedLogs;
+	public float lastLogTime;
+	public float logVelocity;
+	public float spawnInterval;
+	
+	public Log(float x, float y, float velocity, World world) {
 		this.x = x;
 		this.y = y - 0.2f;
 		
@@ -60,5 +68,16 @@ public class Log extends Object {
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
 		logBody.createFixture(fixtureDef);
 		
+	}
+
+	public void spawnLog() {
+		log = new Rectangle();
+		spawnedLogs++;
+		if(spawnedLogs == 10 ) {
+			logVelocity -= 0.25f;
+			spawnInterval -= 0.02f;
+			spawnedLogs = 0;
+		}
+		lastLogTime = TimeUtils.nanoTime();
 	}
 }
