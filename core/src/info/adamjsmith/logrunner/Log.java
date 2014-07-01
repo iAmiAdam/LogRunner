@@ -31,7 +31,7 @@ public class Log extends Object {
 		float number = generator.nextFloat(); 
 		float height = generator.nextFloat() * 0.3f;
 		
-		this.width = number + 1f;
+		this.width = number + 1.5f;
 		this.height = height + 0.3f;
 		
 		logDef = new BodyDef();

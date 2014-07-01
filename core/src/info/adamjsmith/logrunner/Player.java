@@ -24,7 +24,7 @@ public class Player extends Object {
 	public Player(Rectangle player, World world) {
 		player = new Rectangle();
 		this.x = 4f;
-		this.y = 9f; 
+		this.y = 10f; 
 		this.width = 1f;
 		this.height = 2f;
 		

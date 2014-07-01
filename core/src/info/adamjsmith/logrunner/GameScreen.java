@@ -98,14 +98,14 @@ public class GameScreen implements Screen {
 		}
 		batch.draw(riverImage, river.x, river.y, river.width, river.height);
 		batch.draw(cloudImage, clouds.x, clouds.y, clouds.width, clouds.height);
-		if (pos.y > 5f) {
+		if (pos.y > 10.5f) {
 			batch.draw(currentPlayer, player.x, pos.y, player.width, player.height);
 		} else {
 			batch.draw(playerImage, player.x, pos.y, 1f, 2f);
 		}
 		batch.end();
 		
-		if(Gdx.input.justTouched() && pos.y > 4f && pos.y < 5f) {
+		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 10.5f) {
 				player.playerBody.applyLinearImpulse(0, 10, pos.x, pos.y, true);
 				landed = false;
 		}	
@@ -148,9 +148,9 @@ public class GameScreen implements Screen {
 		
 		river = new Rectangle();
 		river.x = 0;
-		river.y = 8f;
+		river.y = 7f;
 		river.width = 15f;
-		river.height = 2f;
+		river.height = 3f;
 		
 		bank = new Rectangle();
 		bank.x = 0;
@@ -160,9 +160,9 @@ public class GameScreen implements Screen {
 		
 		clouds = new Rectangle();
 		clouds.x = 0;
-		clouds.y = 13f;
+		clouds.y = 15f;
 		clouds.width= 15f;
-		clouds.height = 4f;
+		clouds.height = 3f;
 		
 		player = new Player(new Rectangle(), world);
 		
@@ -170,7 +170,7 @@ public class GameScreen implements Screen {
 		
 		logs = new Array<Log>();
 		log = new Rectangle();
-		logs.add(new Log(log, 4f, 8f, world));
+		logs.add(new Log(log, 4f, 10f, world));
 		spawnLog();
 		
 		//TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
@@ -191,7 +191,7 @@ public class GameScreen implements Screen {
 	
 	private void spawnLog() {
 		log = new Rectangle();
-		logs.add(new Log(log, 15f, 8f, world));
+		logs.add(new Log(log, 15f, 10f, world));
 		lastLogTime = TimeUtils.nanoTime();
 	}
 
