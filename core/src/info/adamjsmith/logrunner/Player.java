@@ -21,13 +21,16 @@ public class Player extends Object {
 	Body playerBody;
 	Fixture fixture;
 	Vector2 pos;
+	World world;
 	
-	public Player(Rectangle player, World world) {
+	public Player(Rectangle player, World worldI) {
 		player = new Rectangle();
 		this.x = 4f;
 		this.y = 10f; 
 		this.width = 0.7f;
 		this.height = 1.5f;
+		
+		world = worldI;
 		
 		playerDef = new BodyDef();
 		playerDef.type = BodyType.DynamicBody;
@@ -55,7 +58,12 @@ public class Player extends Object {
 	}
 	
 	public void jump() {
+		pos = playerBody.getPosition();
 		playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
+	}
+	
+	public void destroy() {
+		world.destroyBody(playerBody);
 	}
 	
 	public void animation(float deltaTime) {

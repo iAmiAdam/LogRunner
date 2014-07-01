@@ -3,10 +3,9 @@ package info.adamjsmith.logrunner;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -14,11 +13,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameUpdate {
 	
 	protected World world;
+	boolean currentState;
 	
-	OrthographicCamera camera;
 	Player player;
 	public Array<Log> logs;
-	SpriteBatch batch;
 	long lastLogTime;
 	Vector2 pos;
 	Vector2 logPos;
@@ -27,6 +25,7 @@ public class GameUpdate {
 	int spawnedLogs;	
 	float logVelocity;
 	Rectangle log;
+	Array<Body> bodies;
 	
 	public GameUpdate() {
 		
@@ -43,9 +42,20 @@ public class GameUpdate {
 		logs.add(new Log(4f, 10f, logVelocity, world));
 		logs.add(new Log(9f, 10f, logVelocity, world));
 		logs.add(new Log(15f, 10f, logVelocity, world));
+		currentState = false;
 	}
 	
 	public void update() {
+		if(Gdx.input.justTouched()) currentState = true;
+		
+		if(currentState == true) {
+			updateRunning();
+		} else {
+			
+		}
+	}
+	
+	public void updateRunning() {
 		
 		pos = player.playerBody.getPosition();	
 		iter = logs.iterator();
@@ -62,6 +72,10 @@ public class GameUpdate {
 		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 11f) {
 			player.jump();
 		}
+		
+		if(pos.y < 9) {
+			reset();
+		}
 	
 		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
@@ -76,6 +90,20 @@ public class GameUpdate {
 		}
 		
 		world.step(1/45f, 6, 4);
+	}
+	
+	public void reset() {
+		player.destroy();
+		player = new Player(new Rectangle(), world);
+		spawnedLogs = 0;
+		logVelocity = -5.5f;
+		spawnInterval = 0.75f;
+		logs = new Array<Log>();
+		log = new Rectangle();
+		logs.add(new Log(4f, 10f, logVelocity, world));
+		logs.add(new Log(9f, 10f, logVelocity, world));
+		logs.add(new Log(15f, 10f, logVelocity, world));
+		currentState = false;		
 	}
 	
 	public Player getPlayer() {

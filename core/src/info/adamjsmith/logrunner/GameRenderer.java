@@ -107,11 +107,12 @@ public class GameRenderer {
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		if (player.getY() > 10.6f) {
-			batch.draw(currentPlayer, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+			batch.draw(currentPlayer, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
-			batch.draw(currentFrame, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
 		batch.end();
+		
 	}
 	
 	public void dispose() {
