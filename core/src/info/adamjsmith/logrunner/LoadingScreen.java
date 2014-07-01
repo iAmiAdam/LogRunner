@@ -3,6 +3,7 @@ package info.adamjsmith.logrunner;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class LoadingScreen implements Screen {
 	
@@ -15,9 +16,7 @@ public class LoadingScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		if(game.manager.update()) {
-			if(Gdx.input.isTouched()) {
-				game.setScreen(new MainMenuScreen(game));
-			}
+			game.setScreen(new MainMenuScreen(game));
 		}
 		
 	}
@@ -40,6 +39,7 @@ public class LoadingScreen implements Screen {
 		game.manager.load("hills.png", Texture.class);
 		game.manager.load("background.png", Texture.class);
 		game.manager.load("logo.png", Texture.class);
+		game.manager.load("play.png", Texture.class);
 		game.manager.finishLoading();
 	}
 

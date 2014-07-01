@@ -112,7 +112,6 @@ public class GameScreen implements Screen {
 		
 		if(Gdx.input.justTouched() && pos.y > 9 && pos.y < 11f) {
 				player.playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
-				landed = false;
 		}	
 		
 		
