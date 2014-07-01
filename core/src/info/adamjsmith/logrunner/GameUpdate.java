@@ -33,13 +33,12 @@ public class GameUpdate {
 	public GameUpdate() {
 		
 		world = new World(new Vector2(0, -10f), false);
-		
 		spawnedLogs = 0;
 		logVelocity = -5.5f;
 		spawnInterval = 0.75f;
 		
 		player = new Player(new Rectangle(), world);
-		
+		world.setContactListener(new LogListener(player));
 		logs = new Array<Log>();
 		log = new Rectangle();
 		logs.add(new Log(4f,logVelocity, world));
@@ -77,7 +76,7 @@ public class GameUpdate {
 			}
 		}
 		
-		if(Gdx.input.justTouched() && pos.y > 9 && pos.y <= 10.3f) {
+		if(Gdx.input.justTouched()) {
 			player.jump();
 		}
 	
@@ -108,6 +107,7 @@ public class GameUpdate {
 		world = new World(new Vector2(0, -10f), false);
 		player = null;
 		player = new Player(new Rectangle(), world);
+		world.setContactListener(new LogListener(player));
 		spawnedLogs = 0;
 		logVelocity = -5.5f;
 		spawnInterval = 0.75f;
