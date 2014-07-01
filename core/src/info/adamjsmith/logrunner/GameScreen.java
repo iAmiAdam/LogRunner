@@ -49,6 +49,10 @@ public class GameScreen implements Screen {
 	Vector2 pos;
 	Vector2 logPos;
 	Iterator<Log> iter;
+	Texture fishImage;
+	Texture hillsImage;
+	
+	TextureRegion playerI;
 	
 	Animation walkAnimation;
 	TextureRegion[] walkFrames;
@@ -68,8 +72,8 @@ public class GameScreen implements Screen {
 		camera.update();
 		pos = player.playerBody.getPosition();		
 		
-		stateTime += Gdx.graphics.getDeltaTime();
-		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
+		//stateTime += Gdx.graphics.getDeltaTime();
+		//currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
 		iter = logs.iterator();
 		while(iter.hasNext()) {
@@ -87,6 +91,7 @@ public class GameScreen implements Screen {
 		
 		batch.begin();
 		batch.draw(bankImage, bank.x, bank.y, bank.width, bank.height);
+		batch.draw(hillsImage, 0f, 4f, 25f, 4f);
 		for(Log log: logs) {
 			batch.draw(logImage, log.x, log.y, log.width, log.height);
 		}
@@ -95,7 +100,7 @@ public class GameScreen implements Screen {
 		if (pos.y > 5f) {
 			batch.draw(currentPlayer, player.x, pos.y, player.width, player.height);
 		} else {
-			batch.draw(currentFrame, player.x, pos.y, player.width, player.height);
+			batch.draw(playerImage, player.x, pos.y, 1f, 2f);
 		}
 		batch.end();
 		
@@ -127,9 +132,13 @@ public class GameScreen implements Screen {
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
-		playerImage = game.manager.get("player.png", Texture.class);
-		playerImage.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		playerImage = game.manager.get("playert.png", Texture.class);
+		playerImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		cloudImage = game.manager.get("clouds.png", Texture.class);
+		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		fishImage = game.manager.get("fish.png", Texture.class);
+		hillsImage = game.manager.get("hills.png", Texture.class);
+		hillsImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 				
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 25f, 15f);
@@ -161,21 +170,20 @@ public class GameScreen implements Screen {
 		logs.add(new Log(log, 16f, 4f, world));
 		spawnLog();
 		
-		TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
+		//TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
 		
-		walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
-		int index = 0;
+		//walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
+		//int index = 0;
 		
-		for (int i = 0; i < FRAME_ROWS; i++) {
-			for (int j = 0; j < FRAME_COLS; j++) {
-				walkFrames[index++] = tmp[i][j];
-			}
-		}
+		//for (int i = 0; i < FRAME_ROWS; i++) {
+			//for (int j = 0; j < FRAME_COLS; j++) {
+				//walkFrames[index++] = tmp[i][j];
+			//}
+		//}
 		
-		walkAnimation = new Animation(0.10f, walkFrames);
-		stateTime = 0f;
-		
-		landed = false;
+		//walkAnimation = new Animation(0.10f, walkFrames);
+		//stateTime = 0f;
+
 	}
 	
 	private void spawnLog() {
