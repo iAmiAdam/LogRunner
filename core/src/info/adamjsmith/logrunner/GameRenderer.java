@@ -46,8 +46,7 @@ public class GameRenderer {
 	float stateTime;
 	Vector2 pos;
 	TextureRegion[][] numbers;
-	Box2DDebugRenderer debugRenderer;
-	
+
 	Player player;
 	
 	private static final int FRAME_COLS = 3;
@@ -90,8 +89,6 @@ public class GameRenderer {
 		walkAnimation = new Animation(0.15f, walkFrames);
 		stateTime = 0f;
 		batch = new SpriteBatch();
-		
-	    debugRenderer = new Box2DDebugRenderer();
 	}
 	
 	public void render() {
@@ -111,18 +108,17 @@ public class GameRenderer {
 		batch.begin();
 		batch.draw(bankImage, 0f, 0f, 15f, 7f);
 		batch.draw(bg, 0f, 10f, 15f, 4f);
+		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		for(Log log : logs) {
 			batch.draw(logImage, log.getX(), log.getY(), log.width, log.height);
 		}
-		batch.draw(riverImage, 0f, 7f, 15f, 3f);
-		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		if (player.playerState == PlayerState.AIR) {
 			batch.draw(jump, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
+		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.end();
-		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {
