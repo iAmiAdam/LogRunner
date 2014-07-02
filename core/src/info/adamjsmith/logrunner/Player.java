@@ -57,11 +57,11 @@ public class Player extends Object {
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.density = 1.0f;
+		fixtureDef.density = 0.9f;
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		fixture = playerBody.createFixture(fixtureDef);
-		playerBody.setUserData(this);
+		playerBody.setUserData("player");
 		
 		playerState = PlayerState.AIR;
 		

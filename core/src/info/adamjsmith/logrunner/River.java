@@ -41,6 +41,6 @@ public class River {
 		riverFixture.restitution = 0f;
 		riverFixture.isSensor = true;
 		riverBody.createFixture(riverFixture);
-		riverBody.setUserData(this);
+		riverBody.setUserData("river");
 	}
 }

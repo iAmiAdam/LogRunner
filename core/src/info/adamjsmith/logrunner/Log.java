@@ -43,7 +43,7 @@ public class Log extends Object {
 		this.height = height + 0.2f;
 		
 		logDef = new BodyDef();
-		logDef.type = BodyType.DynamicBody;
+		logDef.type = BodyType.KinematicBody;
 		logDef.position.set(x, this.y);
 		logDef.fixedRotation=true;
 		
@@ -59,7 +59,7 @@ public class Log extends Object {
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.density = 0.0f;
+		fixtureDef.density = 0.3f;
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		
@@ -67,8 +67,7 @@ public class Log extends Object {
 		logBody.setLinearDamping(0);
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
 		logBody.createFixture(fixtureDef);
-		logBody.setUserData(this);
-		
+		logBody.setUserData("log");
 	}
 	
 	public float getX() {
