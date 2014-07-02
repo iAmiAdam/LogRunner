@@ -49,6 +49,8 @@ public class GameRenderer {
 
 	Player player;
 	
+	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+	
 	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
 	
@@ -119,6 +121,8 @@ public class GameRenderer {
 		}
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.end();
+		
+		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {

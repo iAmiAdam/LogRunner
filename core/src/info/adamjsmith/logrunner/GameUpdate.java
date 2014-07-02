@@ -1,6 +1,7 @@
 package info.adamjsmith.logrunner;
 
 import java.util.Iterator;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
@@ -30,7 +31,10 @@ public class GameUpdate {
 	Array<Body> bodies;
 	River river;
 	
+	Random generator;
+	
 	public GameUpdate() {
+		generator = new Random();
 		init();
 	}
 	
@@ -65,9 +69,9 @@ public class GameUpdate {
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
 			logs.add(new Log(15f, logVelocity, world));
 			spawnedLogs++;
+			spawnInterval = generator.nextFloat() * (0.85f - 0.65f) + 0.65f;
 			if(spawnedLogs % 10  == 0) {
 				logVelocity -= 0.25f;
-				spawnInterval -= 0.02f;
 			}
 			lastLogTime = TimeUtils.nanoTime();
 		}
@@ -97,8 +101,8 @@ public class GameUpdate {
 		world.setContactListener(new LogListener(this));
 		
 		spawnedLogs = 0;
-		logVelocity = -5.5f;
-		spawnInterval = 0.85f;
+		logVelocity = -5.55f;
+		spawnInterval = generator.nextFloat() * (0.85f - 0.65f) + 0.65f;
 		
 		logs.add(new Log(4f, logVelocity, world));
 		logs.add(new Log(9.5f, logVelocity, world));	

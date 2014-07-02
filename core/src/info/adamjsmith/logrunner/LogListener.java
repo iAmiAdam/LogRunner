@@ -32,7 +32,7 @@ public class LogListener implements ContactListener {
 		if(contact.getFixtureA().getBody().getUserData() == "player" &&
 				contact.getFixtureB().getBody().getUserData() == "log") {
 			player.playerState = PlayerState.AIR;
-			contact.getFixtureB().getBody().setLinearVelocity(new Vector2(updater.logVelocity, 0.25f));
+			contact.getFixtureB().getBody().setLinearVelocity(new Vector2(updater.logVelocity, 0.15f));
 		}
 	}
 

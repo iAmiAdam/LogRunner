@@ -2,7 +2,6 @@ package info.adamjsmith.logrunner;
 
 import java.util.Random;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -24,7 +23,6 @@ public class Log extends Object {
 	float height;
 	float velocity;
 	Vector2 pos;
-	Rectangle log;
 	
 	public int spawnedLogs;
 	public float lastLogTime;
@@ -36,11 +34,11 @@ public class Log extends Object {
 		this.y = 9.9f;
 		
 		Random generator = new Random();
-		float number = generator.nextFloat(); 
-		float height = generator.nextFloat() * 0.3f;
+		float number = generator.nextFloat() * (3.5f - 2.3f) + 2.3f; 
+		float height = generator.nextFloat() * (0.7f - 0.3f) + 0.3f;
 		
-		this.width = number + 2.3f;
-		this.height = height + 0.2f;
+		this.width = number;
+		this.height = height;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
