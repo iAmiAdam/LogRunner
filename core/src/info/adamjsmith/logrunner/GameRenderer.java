@@ -2,7 +2,9 @@ package info.adamjsmith.logrunner;
 
 import info.adamjsmith.logrunner.Player.PlayerState;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -36,11 +38,13 @@ public class GameRenderer {
 	SpriteBatch batch;
 	Iterator<Log> iter;
 	Texture bg;
+	Texture numbersImage;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
 	Animation walkAnimation;
 	float stateTime;
 	Vector2 pos;
+	TextureRegion[][] numbers;
 	
 	Player player;
 	
@@ -62,7 +66,9 @@ public class GameRenderer {
 		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		numbersImage = game.manager.get("numbers.png", Texture.class);
 		
+		numbers = TextureRegion.split(numbersImage, 65, 38);
 		TextureRegion[][] tmp = TextureRegion.split(playerImage, 50, 60);
 		
 		jump = tmp[0][0];
@@ -89,6 +95,8 @@ public class GameRenderer {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		
+		renderScore();
+		
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
@@ -108,6 +116,21 @@ public class GameRenderer {
 			batch.draw(jump, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
+		}
+		batch.end();
+		
+	}
+	
+	public void renderScore() {
+		int score = updater.getScore();
+		List<Integer>  digits= new ArrayList<Integer>();
+		while (score > 0) {
+			digits.add(0, score % 10);
+			score = score/10;
+		}
+		batch.begin();
+		for(int i = 0; i < digits.size() ; i++) {
+			batch.draw(numbers[0][i], 5f, 18f, 2f, 1f);
 		}
 		batch.end();
 		
