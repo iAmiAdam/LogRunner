@@ -23,7 +23,7 @@ public class Log extends Object {
 	float width;
 	float height;
 	float velocity;
-	
+	Vector2 pos;
 	Rectangle log;
 	
 	public int spawnedLogs;
@@ -45,6 +45,7 @@ public class Log extends Object {
 		logDef = new BodyDef();
 		logDef.type = BodyType.DynamicBody;
 		logDef.position.set(x, this.y);
+		logDef.fixedRotation=true;
 		
 		PolygonShape shape = new PolygonShape();
 		
@@ -66,6 +67,17 @@ public class Log extends Object {
 		logBody.setLinearDamping(0);
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
 		logBody.createFixture(fixtureDef);
+		logBody.setUserData(this);
 		
+	}
+	
+	public float getX() {
+		pos = logBody.getPosition();
+		return pos.x;
+	}
+	
+	public float getY() {
+		pos = logBody.getPosition();
+		return pos.y;
 	}
 }

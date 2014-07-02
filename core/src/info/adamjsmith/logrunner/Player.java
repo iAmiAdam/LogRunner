@@ -61,6 +61,7 @@ public class Player extends Object {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		fixture = playerBody.createFixture(fixtureDef);
+		playerBody.setUserData(this);
 		
 		playerState = PlayerState.AIR;
 		

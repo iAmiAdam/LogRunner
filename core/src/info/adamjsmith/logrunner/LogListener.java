@@ -16,13 +16,20 @@ public class LogListener implements ContactListener {
 	}
 	@Override
 	public void beginContact(Contact contact) {
-		player.playerState = PlayerState.LAND;		
-		player.score++;
+		if(contact.getFixtureA().getBody().getUserData() == "player" &&
+				contact.getFixtureB().getBody().getUserData() == "log") {
+			player.playerState = PlayerState.LAND;		
+			player.score++;
+		}
+		
 	}
 
 	@Override
 	public void endContact(Contact contact) {
-		player.playerState = PlayerState.AIR;
+		if(contact.getFixtureA().getBody().getUserData() == "player" &&
+				contact.getFixtureB().getBody().getUserData() == "log") {
+			player.playerState = PlayerState.AIR;
+		}
 	}
 
 	@Override

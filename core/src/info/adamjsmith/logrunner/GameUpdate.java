@@ -28,6 +28,7 @@ public class GameUpdate {
 	int spawnedLogs;	
 	float logVelocity;
 	Array<Body> bodies;
+	River river;
 	
 	public GameUpdate() {
 		init();
@@ -90,6 +91,7 @@ public class GameUpdate {
 	private void init() {
 		world = new World(new Vector2(0, -10f), false);
 		player = new Player(new Rectangle(), world);
+		river = new River(world);
 		logs = new Array<Log>();
 		
 		world.setContactListener(new LogListener(player));

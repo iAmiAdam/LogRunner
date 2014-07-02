@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -45,6 +46,7 @@ public class GameRenderer {
 	float stateTime;
 	Vector2 pos;
 	TextureRegion[][] numbers;
+	Box2DDebugRenderer debugRenderer;
 	
 	Player player;
 	
@@ -88,6 +90,8 @@ public class GameRenderer {
 		walkAnimation = new Animation(0.15f, walkFrames);
 		stateTime = 0f;
 		batch = new SpriteBatch();
+		
+	    debugRenderer = new Box2DDebugRenderer();
 	}
 	
 	public void render() {
@@ -108,7 +112,7 @@ public class GameRenderer {
 		batch.draw(bankImage, 0f, 0f, 15f, 7f);
 		batch.draw(bg, 0f, 10f, 15f, 4f);
 		for(Log log : logs) {
-			batch.draw(logImage, log.x, log.y, log.width, log.height);
+			batch.draw(logImage, log.getX(), log.getY(), log.width, log.height);
 		}
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
@@ -118,7 +122,7 @@ public class GameRenderer {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
 		batch.end();
-		
+		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {
