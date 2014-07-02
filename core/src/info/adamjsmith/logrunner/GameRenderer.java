@@ -31,12 +31,10 @@ public class GameRenderer {
 	Texture cloudImage;
 	Rectangle clouds;
 	Texture playerImage;
-	Texture currentPlayer;
+	TextureRegion jump;
 	Array<Log> logs;
 	SpriteBatch batch;
 	Iterator<Log> iter;
-	Texture fishImage;
-	Texture hillsImage;
 	Texture bg;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
@@ -46,7 +44,7 @@ public class GameRenderer {
 	
 	Player player;
 	
-	private static final int FRAME_COLS = 8;
+	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
 	
 	public GameRenderer(GameUpdate gameUpdater, LogRunner gameI) {
@@ -55,8 +53,6 @@ public class GameRenderer {
 		camera.setToOrtho(false, 15f, 25f);
 		game = gameI;
 		
-		currentPlayer = game.manager.get("jump.png", Texture.class);	
-		currentPlayer.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
 		bankImage = game.manager.get("bank.png", Texture.class);
@@ -67,7 +63,9 @@ public class GameRenderer {
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		TextureRegion[][] tmp = TextureRegion.split(playerImage, 32, 64);
+		TextureRegion[][] tmp = TextureRegion.split(playerImage, 50, 60);
+		
+		jump = tmp[0][0];
 		
 		walkFrames = new TextureRegion [FRAME_COLS * FRAME_ROWS];
 		int index = 0;
@@ -81,7 +79,7 @@ public class GameRenderer {
 		player = updater.getPlayer();
 		logs = updater.getLogs();
 		
-		walkAnimation = new Animation(0.10f, walkFrames);
+		walkAnimation = new Animation(0.15f, walkFrames);
 		stateTime = 0f;
 		batch = new SpriteBatch();
 	}
@@ -107,7 +105,7 @@ public class GameRenderer {
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		if (player.playerState == PlayerState.AIR) {
-			batch.draw(currentPlayer, 4f, player.getY(), player.getWidth(), player.getHeight());
+			batch.draw(jump, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
@@ -121,7 +119,6 @@ public class GameRenderer {
 		playerImage.dispose();
 		bankImage.dispose();
 		cloudImage.dispose();
-		currentPlayer.dispose();
 		bg.dispose();
 		batch.dispose();
 	}

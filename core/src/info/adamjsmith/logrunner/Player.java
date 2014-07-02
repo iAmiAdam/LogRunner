@@ -32,8 +32,8 @@ public class Player extends Object {
 		player = new Rectangle();
 		this.x = 4f;
 		this.y = 10.4f; 
-		this.width = 0.7f;
-		this.height = 1.5f;
+		this.width = 1.2f;
+		this.height = 1.35f;
 		
 		world = worldI;
 		
@@ -67,7 +67,7 @@ public class Player extends Object {
 	public void jump() {
 		if(playerState == PlayerState.LAND) {
 			pos = playerBody.getPosition();
-			playerBody.applyLinearImpulse(0, 4, pos.x, pos.y, true);
+			playerBody.applyLinearImpulse(0, 5.5f, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
 		}
 	}

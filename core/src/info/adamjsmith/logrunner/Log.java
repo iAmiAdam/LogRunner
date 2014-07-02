@@ -33,18 +33,18 @@ public class Log extends Object {
 	
 	public Log(float x, float velocity, World world) {
 		this.x = x;
-		this.y = 9.8f;
+		this.y = 9.9f;
 		
 		Random generator = new Random();
 		float number = generator.nextFloat(); 
 		float height = generator.nextFloat() * 0.3f;
 		
-		this.width = number + 1.5f;
-		this.height = height + 0.4f;
+		this.width = number + 2.3f;
+		this.height = height + 0.2f;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
-		logDef.position.set(x, y - 0.2f);
+		logDef.position.set(x, this.y);
 		
 		PolygonShape shape = new PolygonShape();
 		
