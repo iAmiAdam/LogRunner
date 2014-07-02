@@ -20,7 +20,6 @@ public class GameUpdate {
 	
 	public Player player;
 	public Array<Log> logs;
-	public int score;
 	long lastLogTime;
 	Vector2 pos;
 	Vector2 logPos;
@@ -56,7 +55,6 @@ public class GameUpdate {
 				iter.remove();
 				log = null;
 			}
-			if (log.x < 4f) score++;
 		}
 		
 		if(Gdx.input.justTouched()) {
@@ -104,8 +102,6 @@ public class GameUpdate {
 		logs.add(new Log(9.5f, logVelocity, world));	
 		
 		currentState = GameState.READY;
-		
-		score = 0;
 	}
 	
 	public Player getPlayer() {
@@ -115,9 +111,4 @@ public class GameUpdate {
 	public Array<Log> getLogs() {
 		return logs;
 	}
-	
-	public int getScore() {
-		return score;
-	}
-
 }

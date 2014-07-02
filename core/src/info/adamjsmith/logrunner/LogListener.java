@@ -16,8 +16,8 @@ public class LogListener implements ContactListener {
 	}
 	@Override
 	public void beginContact(Contact contact) {
-		player.playerState = PlayerState.LAND;
-		
+		player.playerState = PlayerState.LAND;		
+		player.score++;
 	}
 
 	@Override

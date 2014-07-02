@@ -43,7 +43,7 @@ public class Log extends Object {
 		this.height = height + 0.2f;
 		
 		logDef = new BodyDef();
-		logDef.type = BodyType.KinematicBody;
+		logDef.type = BodyType.DynamicBody;
 		logDef.position.set(x, this.y);
 		
 		PolygonShape shape = new PolygonShape();
@@ -58,7 +58,7 @@ public class Log extends Object {
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.density = 0.1f;
+		fixtureDef.density = 0.0f;
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		

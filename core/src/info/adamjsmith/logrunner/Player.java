@@ -15,6 +15,7 @@ public class Player extends Object {
 	float y;
 	float width;
 	float height;
+	public int score;
 	enum state { air, land };
 	BodyDef playerDef;
 	FixtureDef playerFixtures;
@@ -62,6 +63,8 @@ public class Player extends Object {
 		fixture = playerBody.createFixture(fixtureDef);
 		
 		playerState = PlayerState.AIR;
+		
+		score = 0;
 	}
 	
 	public void jump() {
@@ -92,6 +95,9 @@ public class Player extends Object {
 	
 	public float getHeight() {
 		return this.height;
-	}
+	}	
 	
+	public int getScore() {
+		return score;
+	}
 }

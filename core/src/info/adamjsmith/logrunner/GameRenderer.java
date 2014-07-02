@@ -122,18 +122,25 @@ public class GameRenderer {
 	}
 	
 	public void renderScore() {
-		int score = updater.getScore();
-		List<Integer>  digits= new ArrayList<Integer>();
-		while (score > 0) {
-			digits.add(0, score % 10);
-			score = score/10;
+		int score = player.getScore();
+		List<Integer>  digits = new ArrayList<Integer>();
+		if(score != 0) {
+			while (score > 0) {
+				digits.add(0, score % 10);
+				score /= 10;
+			}
+		} else {
+			digits.add(0);
 		}
+		float width = 2 * digits.size();
+		float x = (15f - width) / 2;
 		batch.begin();
 		for(int i = 0; i < digits.size() ; i++) {
-			batch.draw(numbers[0][i], 5f, 18f, 2f, 1f);
+			int digit = digits.get(i);
+			batch.draw(numbers[0][digit], x + (i * 2), 18f, 2f, 1f);
 		}
 		batch.end();
-		
+		digits = null;
 	}
 	
 	public void dispose() {
