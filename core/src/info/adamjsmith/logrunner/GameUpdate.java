@@ -102,7 +102,7 @@ public class GameUpdate {
 		
 		spawnedLogs = 0;
 		logVelocity = -5.55f;
-		spawnInterval = generator.nextFloat() * (0.85f - 0.65f) + 0.65f;
+		spawnInterval = generator.nextFloat() * (0.86f - 0.75f) + 0.75f;
 		
 		logs.add(new Log(4f, logVelocity, world));
 		logs.add(new Log(9.5f, logVelocity, world));	
