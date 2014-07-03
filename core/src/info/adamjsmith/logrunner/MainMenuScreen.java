@@ -110,8 +110,14 @@ public class MainMenuScreen implements Screen {
 		playButton.setY(buttonY);
 		
 		playButton.addListener(new InputListener() {
+			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				game.setScreen(new GameScreen(game));
+			}
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
 			}
 		});
 		
