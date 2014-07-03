@@ -130,6 +130,20 @@ public class MainMenuScreen implements Screen {
 		TextButton scoresButton = new TextButton("Highscores", style);
 		scoresButton.setX(buttonX);
 		scoresButton.setY(buttonY - 170);
+		
+		scoresButton.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getLeaderboardGPGS();
+				else game.actionResolver.loginGPGS();
+			}
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+		});
+		
 		stage.addActor(scoresButton);
 		
 		TextButton achievementsButton = new TextButton("Achievements", style);
