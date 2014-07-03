@@ -2,10 +2,7 @@ package info.adamjsmith.logrunner;
 
 import info.adamjsmith.logrunner.Player.PlayerState;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -47,8 +44,6 @@ public class GameRenderer {
 	Animation walkAnimation;
 	float stateTime;
 	Vector2 pos;
-	//TextureRegion[][] numbers;
-	
 	BitmapFont numbers;
 
 	Player player;
@@ -73,10 +68,10 @@ public class GameRenderer {
 		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		numbersImage = game.manager.get("numbers.png", Texture.class);
 		
 		numbers = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
-		//numbers = TextureRegion.split(numbersImage, 65, 38);
+		numbers.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
 		TextureRegion[][] tmp = TextureRegion.split(playerImage, 50, 60);
 		
 		jump = tmp[0][0];
@@ -103,7 +98,6 @@ public class GameRenderer {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		
-		int score = player.getScore();
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
@@ -126,38 +120,20 @@ public class GameRenderer {
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.end();
 		
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
-		batch.setProjectionMatrix(normalProjection);
-		batch.begin();
-		numbers.draw(batch, String.valueOf(score), 20, 570);
-		batch.end();
-		
-		//renderScore();
+		renderScore();
 		
 		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {
 		int score = player.getScore();
-		List<Integer>  digits = new ArrayList<Integer>();
-		if(score != 0) {
-			while (score > 0) {
-				digits.add(0, score % 10);
-				score /= 10;
-			}
-		} else {
-			digits.add(0);
-		}
-		float width = 2 * digits.size();
-		float x = (15f - width) / 2;
+		float width = String.valueOf(score).length();
+		float x = (480 - width * 50) / 2;
+		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
+		batch.setProjectionMatrix(normalProjection);
 		batch.begin();
-		numbers.draw(batch, String.valueOf(score), 2f, 570);
-		//for(int i = 0; i < digits.size() ; i++) {
-			//int digit = digits.get(i);
-			//batch.draw(numbers[0][digit], x + (i * 2), 18f, 2f, 1f);
-		//}
+		numbers.draw(batch, String.valueOf(score), x, 600);
 		batch.end();
-		digits = null;
 	}
 	
 	public void dispose() {

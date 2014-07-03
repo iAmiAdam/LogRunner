@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -55,11 +56,14 @@ public class MainMenuScreen implements Screen {
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		batch.draw(logo, 0f, 21f, 15f, 3.75f);
 		batch.end();
-		
+				
+		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
+		batch.setProjectionMatrix(normalProjection);
+		batch.begin();
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
 		Table.drawDebug(stage);
-				
+		batch.end();
 	}
 
 	@Override
@@ -74,9 +78,9 @@ public class MainMenuScreen implements Screen {
 		camera.setToOrtho(false, 15f, 25f);
 		
 		stage = new Stage();
-		//stage.setViewport(new StretchViewport(0, 0));
-		buttonX = (Gdx.graphics.getWidth() - 400f) / 2;
-		buttonY = (Gdx.graphics.getHeight() - 900f);
+		//stage.setViewport(new StretchViewport(15f, 25f));
+		buttonX = (Gdx.graphics.getWidth() - 400) / 2;
+		buttonY = Gdx.graphics.getHeight() / 2;
 		
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
@@ -93,6 +97,7 @@ public class MainMenuScreen implements Screen {
 		buttonDown = game.manager.get("buttondown.png", Texture.class);
 		
 		buttonFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
+		buttonFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 150);
 		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 150);

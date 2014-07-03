@@ -71,7 +71,7 @@ public class Player extends Object {
 	public void jump() {
 		if(playerState == PlayerState.LAND) {
 			pos = playerBody.getPosition();
-			playerBody.applyLinearImpulse(0, 6f, pos.x, pos.y, true);
+			playerBody.applyLinearImpulse(0, 7.5f, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
 		}
 	}
