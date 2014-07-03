@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameUpdate {
 	
 	protected World world;
-	private GameState currentState;
+	public GameState currentState;
 	public enum GameState {
 		READY, RUNNING, GAMEOVER
 	}
@@ -92,6 +92,7 @@ public class GameUpdate {
 		player = null;
 		logs = null;
 		init();
+		currentState = GameState.READY;
 	}
 	
 	private void init() {
