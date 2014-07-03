@@ -12,8 +12,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -45,7 +47,9 @@ public class GameRenderer {
 	Animation walkAnimation;
 	float stateTime;
 	Vector2 pos;
-	TextureRegion[][] numbers;
+	//TextureRegion[][] numbers;
+	
+	BitmapFont numbers;
 
 	Player player;
 	
@@ -71,7 +75,8 @@ public class GameRenderer {
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		numbersImage = game.manager.get("numbers.png", Texture.class);
 		
-		numbers = TextureRegion.split(numbersImage, 65, 38);
+		numbers = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
+		//numbers = TextureRegion.split(numbersImage, 65, 38);
 		TextureRegion[][] tmp = TextureRegion.split(playerImage, 50, 60);
 		
 		jump = tmp[0][0];
@@ -98,8 +103,7 @@ public class GameRenderer {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		
-		renderScore();
-		
+		int score = player.getScore();
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		
@@ -122,6 +126,14 @@ public class GameRenderer {
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.end();
 		
+		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
+		batch.setProjectionMatrix(normalProjection);
+		batch.begin();
+		numbers.draw(batch, String.valueOf(score), 20, 570);
+		batch.end();
+		
+		//renderScore();
+		
 		debugRenderer.render(updater.world, camera.combined);
 	}
 	
@@ -139,10 +151,11 @@ public class GameRenderer {
 		float width = 2 * digits.size();
 		float x = (15f - width) / 2;
 		batch.begin();
-		for(int i = 0; i < digits.size() ; i++) {
-			int digit = digits.get(i);
-			batch.draw(numbers[0][digit], x + (i * 2), 18f, 2f, 1f);
-		}
+		numbers.draw(batch, String.valueOf(score), 2f, 570);
+		//for(int i = 0; i < digits.size() ; i++) {
+			//int digit = digits.get(i);
+			//batch.draw(numbers[0][digit], x + (i * 2), 18f, 2f, 1f);
+		//}
 		batch.end();
 		digits = null;
 	}

@@ -35,7 +35,6 @@ public class MainMenuScreen implements Screen {
 	float buttonX;
 	float buttonY;
 	BitmapFont buttonFont;
-	MainMenuInputProcessor inputProcessor;
 	
 	public MainMenuScreen(LogRunner game) {
 		this.game = game;
