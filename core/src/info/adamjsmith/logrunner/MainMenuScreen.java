@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -29,6 +31,9 @@ public class MainMenuScreen implements Screen {
 	Texture bg;
 	Texture buttonUp;
 	Texture buttonDown;
+	int screenWidth;
+	float buttonX;
+	float buttonY;
 	BitmapFont buttonFont;
 	MainMenuInputProcessor inputProcessor;
 	
@@ -52,8 +57,8 @@ public class MainMenuScreen implements Screen {
 		batch.draw(logo, 0f, 21f, 15f, 3.75f);
 		batch.end();
 		
-		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+		stage.act(Gdx.graphics.getDeltaTime());
 		Table.drawDebug(stage);
 				
 	}
@@ -70,11 +75,9 @@ public class MainMenuScreen implements Screen {
 		camera.setToOrtho(false, 15f, 25f);
 		
 		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		
-		Table table = new Table();
-		table.setFillParent(true);
-		stage.addActor(table);
+		//stage.setViewport(new StretchViewport(0, 0));
+		buttonX = (Gdx.graphics.getWidth() - 400f) / 2;
+		buttonY = (Gdx.graphics.getHeight() - 900f);
 		
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
@@ -92,25 +95,39 @@ public class MainMenuScreen implements Screen {
 		
 		buttonFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
 		
-		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 70);
-		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 70);
+		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 150);
+		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 150);
 		
 		TextButtonStyle style = new TextButtonStyle();
 		style.up =  new TextureRegionDrawable(buttonUpRegion);
 		style.down = new TextureRegionDrawable(buttonDownRegion);
 		style.font = buttonFont;
 		
+		
+		
 		TextButton playButton = new TextButton("Play", style);
-		table.add(playButton);
+		playButton.setX(buttonX);
+		playButton.setY(buttonY);
+		
+		playButton.addListener(new InputListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				game.setScreen(new GameScreen(game));
+			}
+		});
+		
+		stage.addActor(playButton);
 		
 		TextButton scoresButton = new TextButton("Highscores", style);
-		table.add(scoresButton);
+		scoresButton.setX(buttonX);
+		scoresButton.setY(buttonY - 170);
+		stage.addActor(scoresButton);
 		
 		TextButton achievementsButton = new TextButton("Achievements", style);
-		table.add(achievementsButton);
+		achievementsButton.setX(buttonX);
+		achievementsButton.setY(buttonY - 340);
+		stage.addActor(achievementsButton);
 		
-		inputProcessor = new MainMenuInputProcessor(game);
-		Gdx.input.setInputProcessor(inputProcessor);
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
