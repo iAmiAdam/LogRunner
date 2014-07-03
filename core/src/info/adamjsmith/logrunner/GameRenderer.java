@@ -121,8 +121,6 @@ public class GameRenderer {
 		batch.end();
 		
 		renderScore();
-		
-		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {

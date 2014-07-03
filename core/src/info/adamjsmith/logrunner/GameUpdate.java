@@ -16,7 +16,7 @@ public class GameUpdate {
 	protected World world;
 	private GameState currentState;
 	public enum GameState {
-		READY, RUNNING
+		READY, RUNNING, GAMEOVER
 	}
 	
 	public Player player;
@@ -46,6 +46,8 @@ public class GameUpdate {
 			break;
 		case RUNNING:
 			updateRunning();
+			break;
+		case GAMEOVER:
 			break;
 		}
 	}
@@ -78,8 +80,8 @@ public class GameUpdate {
 		
 		world.step(1/45f, 6, 4);
 		
-		if(player.getY() < 9f) {
-			reset();
+		if(player.getY() < 9.35f) {
+			currentState = GameState.GAMEOVER;		
 		}
 	}
 	
