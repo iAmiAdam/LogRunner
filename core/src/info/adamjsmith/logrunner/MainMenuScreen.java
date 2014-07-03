@@ -7,9 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
+	private Stage stage;
+	private OrthographicCamera camera;
 	
 	SpriteBatch batch;
 	Texture logo;
@@ -19,7 +23,6 @@ public class MainMenuScreen implements Screen {
 	Texture cloudImage;
 	Texture bg;
 	Texture play;
-	OrthographicCamera camera;
 	MainMenuInputProcessor inputProcessor;
 	
 	public MainMenuScreen(LogRunner game) {
@@ -32,6 +35,10 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClearColor(0.450f, 0.772f, 1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
+		
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		Table.drawDebug(stage);
 		
 		batch.setProjectionMatrix(camera.combined);	
 		batch.begin();
@@ -60,6 +67,13 @@ public class MainMenuScreen implements Screen {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
+		
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
+		
+		Table table = new Table();
+		table.setFillParent(true);
+		stage.addActor(table);
 		
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
@@ -97,6 +111,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		stage.dispose();
 		
 	}}

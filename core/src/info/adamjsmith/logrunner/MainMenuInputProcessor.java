@@ -6,8 +6,8 @@ public class MainMenuInputProcessor implements InputProcessor {
 	
 	protected LogRunner game;
 	
-	public MainMenuInputProcessor(LogRunner game) {
-		
+	public MainMenuInputProcessor(LogRunner gameI) {
+		game = gameI;
 	}
 	
 	@Override
