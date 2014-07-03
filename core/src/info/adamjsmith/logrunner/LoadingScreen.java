@@ -2,6 +2,7 @@ package info.adamjsmith.logrunner;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class LoadingScreen implements Screen {
 	
@@ -36,6 +37,7 @@ public class LoadingScreen implements Screen {
 		game.manager.load("logo.png", Texture.class);
 		game.manager.load("play.png", Texture.class);
 		game.manager.load("numbers.png", Texture.class);
+		game.manager.load("font.fnt", BitmapFont.class);
 		game.manager.finishLoading();
 	}
 
