@@ -6,9 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -22,7 +27,9 @@ public class MainMenuScreen implements Screen {
 	Texture bankImage;
 	Texture cloudImage;
 	Texture bg;
-	Texture play;
+	Texture buttonUp;
+	Texture buttonDown;
+	BitmapFont buttonFont;
 	MainMenuInputProcessor inputProcessor;
 	
 	public MainMenuScreen(LogRunner game) {
@@ -36,10 +43,6 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-		Table.drawDebug(stage);
-		
 		batch.setProjectionMatrix(camera.combined);	
 		batch.begin();
 		batch.draw(bankImage, 0f, 0f, 15f, 7f);
@@ -47,19 +50,17 @@ public class MainMenuScreen implements Screen {
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
 		batch.draw(logo, 0f, 21f, 15f, 3.75f);
-		batch.draw(play, 2.85f, 17f, 9.3f, 3.1f);
 		batch.end();
 		
-		if (Gdx.input.isTouched()) {
-				game.setScreen(new GameScreen(game));
-		}
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		Table.drawDebug(stage);
 				
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
@@ -84,8 +85,29 @@ public class MainMenuScreen implements Screen {
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		logo = game.manager.get("logo.png", Texture.class);
 		logo.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		play = game.manager.get("play.png", Texture.class);
-		play.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		
+		buttonUp = game.manager.get("buttonup.png", Texture.class);
+		buttonDown = game.manager.get("buttondown.png", Texture.class);
+		
+		buttonFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
+		
+		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 70);
+		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 70);
+		
+		TextButtonStyle style = new TextButtonStyle();
+		style.up =  new TextureRegionDrawable(buttonUpRegion);
+		style.down = new TextureRegionDrawable(buttonDownRegion);
+		style.font = buttonFont;
+		
+		TextButton playButton = new TextButton("Play", style);
+		table.add(playButton);
+		
+		TextButton scoresButton = new TextButton("Highscores", style);
+		table.add(scoresButton);
+		
+		TextButton achievementsButton = new TextButton("Achievements", style);
+		table.add(achievementsButton);
 		
 		inputProcessor = new MainMenuInputProcessor(game);
 		Gdx.input.setInputProcessor(inputProcessor);
