@@ -32,6 +32,6 @@ public class Assets {
 		bank = manager.get("bank.png", Texture.class);
 		player = manager.get("player.png", Texture.class);
 		clouds = manager.get("clouds.png", Texture.class);
-		bg = manager.get("bg.png", Texture.class);
+		bg = manager.get("background.png", Texture.class);
 	}
 }

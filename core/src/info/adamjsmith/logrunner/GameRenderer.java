@@ -8,23 +8,20 @@ import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -33,21 +30,12 @@ public class GameRenderer {
 	private OrthographicCamera camera;
 	private LogRunner game;
 	
-	Texture logImage;
-	Rectangle log;
-	Texture riverImage;
-	Rectangle river;
-	Texture bankImage;
-	Rectangle bank;
-	Texture cloudImage;
-	Rectangle clouds;
-	Texture playerImage;
+	Skin skin;
+	
 	TextureRegion jump;
 	Array<Log> logs;
 	SpriteBatch batch;
 	Iterator<Log> iter;
-	Texture bg;
-	Texture numbersImage;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
 	Animation walkAnimation;
@@ -56,15 +44,9 @@ public class GameRenderer {
 	BitmapFont numbers;
 	
 	Stage stage;
-	Texture buttonUp;
-	Texture buttonDown;
 	BitmapFont buttonFont;
-	float buttonX;
-	float buttonY;
 
 	Player player;
-	
-	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	
 	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
@@ -141,29 +123,20 @@ public class GameRenderer {
 	}
 	
 	public void createStage() {
-		stage = new Stage();
-		buttonX = (Gdx.graphics.getWidth() - 400) / 2;
-		buttonY = Gdx.graphics.getHeight() / 2;
 		
-		buttonUp = game.manager.get("buttonup.png", Texture.class);
-		buttonDown = game.manager.get("buttondown.png", Texture.class);
+		skin = new Skin(Gdx.files.internal("uiskin.json"));
+		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		skin.getFont("header-font").setMarkupEnabled(true);
+		skin.getFont("button-font").setMarkupEnabled(true);
+		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
-		buttonFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
-		buttonFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		stage = new Stage();		
+		Table table = new Table();
+		stage.addActor(table);
 		
-		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 150);
-		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 150);
+		TextButton restartButton = new TextButton("Restart", buttonStyle);
 		
-		TextButtonStyle style = new TextButtonStyle();
-		style.up =  new TextureRegionDrawable(buttonUpRegion);
-		style.down = new TextureRegionDrawable(buttonDownRegion);
-		style.font = buttonFont;
-		
-		TextButton playButton = new TextButton("Restart", style);
-		playButton.setX(buttonX);
-		playButton.setY(buttonY);
-		
-		playButton.addListener(new InputListener() {
+		restartButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				updater.reset();
@@ -175,11 +148,8 @@ public class GameRenderer {
 			}
 		});
 		
-		stage.addActor(playButton);
-		
-		TextButton scoresButton = new TextButton("Submit Score", style);
-		scoresButton.setX(buttonX);
-		scoresButton.setY(buttonY - 170);
+		TextButton scoresButton = new TextButton("Submit Score", buttonStyle);
+		scoresButton.pad(10);
 		scoresButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -195,7 +165,13 @@ public class GameRenderer {
 				return true;
 			}
 		});
-		stage.addActor(scoresButton);
+		
+		table.setSize(480, 800);
+		table.add(restartButton).pad(10);
+		table.row();
+		table.add(scoresButton).pad(10);
+		table.pack();
+		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -212,12 +188,6 @@ public class GameRenderer {
 	}
 	
 	public void dispose() {
-		logImage.dispose();
-		riverImage.dispose();
-		playerImage.dispose();
-		bankImage.dispose();
-		cloudImage.dispose();
-		bg.dispose();
 		batch.dispose();
 		stage.dispose();
 	}

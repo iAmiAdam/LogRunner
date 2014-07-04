@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -24,19 +22,9 @@ public class MainMenuScreen implements Screen {
 	private OrthographicCamera camera;
 	
 	SpriteBatch batch;
-	Texture logo;
-	Texture logImage;
-	Texture riverImage;
-	Texture bankImage;
-	Texture cloudImage;
-	Texture bg;
-	Texture buttonUp;
-	Texture buttonDown;
 	int screenWidth;
 	float buttonX;
 	float buttonY;
-	BitmapFont buttonFont;
-	BitmapFont headerFont;
 	Skin skin;
 	
 	public MainMenuScreen(LogRunner game) {
