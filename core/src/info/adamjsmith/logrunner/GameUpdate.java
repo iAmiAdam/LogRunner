@@ -90,8 +90,14 @@ public class GameUpdate {
 	
 	public void gameOver() {
 		if (game.actionResolver.getSignedInGPGS()) {
-			if (player.score > 10) {
+			if (player.score >= 10) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAA");
+			}
+			if(player.score >= 50) {
+				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAQ");
+			}
+			if (player.score >= 100) {
+				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAg");
 			}
 		}
 	}

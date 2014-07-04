@@ -190,6 +190,17 @@ public class GameRenderer {
 		TextButton scoresButton = new TextButton("Submit Score", style);
 		scoresButton.setX(buttonX);
 		scoresButton.setY(buttonY - 170);
+		scoresButton.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score);
+			}
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+		});
 		stage.addActor(scoresButton);
 		
 		Gdx.input.setInputProcessor(stage);
