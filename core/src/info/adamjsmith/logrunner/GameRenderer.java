@@ -75,20 +75,10 @@ public class GameRenderer {
 		camera.setToOrtho(false, 15f, 25f);
 		game = gameI;
 		
-		logImage = game.manager.get("log.png", Texture.class);
-		riverImage = game.manager.get("river.png", Texture.class);
-		bankImage = game.manager.get("bank.png", Texture.class);
-		playerImage = game.manager.get("player.png", Texture.class);
-		playerImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		cloudImage = game.manager.get("clouds.png", Texture.class);
-		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		bg = game.manager.get("background.png", Texture.class);
-		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		
 		numbers = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
 		numbers.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		TextureRegion[][] tmp = TextureRegion.split(playerImage, 50, 60);
+		TextureRegion[][] tmp = TextureRegion.split(game.assets.player, 50, 60);
 		
 		jump = tmp[0][0];
 		
@@ -123,18 +113,18 @@ public class GameRenderer {
 		
 		batch.setProjectionMatrix(camera.combined);			
 		batch.begin();
-		batch.draw(bankImage, 0f, 0f, 15f, 7f);
-		batch.draw(bg, 0f, 10f, 15f, 4f);
-		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
+		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
+		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
+		batch.draw(game.assets.clouds, 0f, 15f, 15f, 3f);
 		for(Log log : logs) {
-			batch.draw(logImage, log.getX(), log.getY(), log.width, log.height);
+			batch.draw(game.assets.log, log.getX(), log.getY(), log.width, log.height);
 		}
 		if (player.playerState == PlayerState.AIR) {
 			batch.draw(jump, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
-		batch.draw(riverImage, 0f, 7f, 15f, 3f);
+		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
 		batch.end();
 		
 		if(updater.currentState == GameState.GAMEOVER) {

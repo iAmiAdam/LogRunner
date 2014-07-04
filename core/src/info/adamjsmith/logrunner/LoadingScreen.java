@@ -1,7 +1,6 @@
 package info.adamjsmith.logrunner;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 
 public class LoadingScreen implements Screen {
 	
@@ -9,11 +8,12 @@ public class LoadingScreen implements Screen {
 	
 	public LoadingScreen(LogRunner game) {
 		this.game = game;
+		game.assets.load(game);
 	}
 
 	@Override
 	public void render(float delta) {
-		if(game.manager.update()) {
+		if(game.assets.manager.update()) {
 			game.setScreen(new MainMenuScreen(game));
 		}
 		
@@ -27,17 +27,6 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void show() {
-		game.manager.load("log.png", Texture.class);
-		game.manager.load("river.png", Texture.class);
-		game.manager.load("bank.png", Texture.class);
-		game.manager.load("player.png", Texture.class);
-		game.manager.load("clouds.png", Texture.class);
-		game.manager.load("background.png", Texture.class);
-		game.manager.load("logo.png", Texture.class);
-		game.manager.load("numbers.png", Texture.class);
-		game.manager.load("buttonup.png", Texture.class);
-		game.manager.load("buttondown.png", Texture.class);
-		game.manager.finishLoading();
 	}
 
 	@Override

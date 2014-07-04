@@ -52,16 +52,15 @@ public class MainMenuScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);	
 		batch.begin();
-		batch.draw(bankImage, 0f, 0f, 15f, 7f);
-		batch.draw(bg, 0f, 10f, 15f, 4f);
-		batch.draw(riverImage, 0f, 7f, 15f, 3f);
-		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
+		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
+		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
+		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
+		batch.draw(game.assets.clouds, 0f, 15f, 15f, 3f);
 		batch.end();
 
 		stage.act(Gdx.graphics.getDeltaTime());
 		batch.begin();
 		stage.draw();
-		stage.act(Gdx.graphics.getDeltaTime());
 		batch.end();
 	}
 
@@ -83,14 +82,6 @@ public class MainMenuScreen implements Screen {
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
 		stage = new Stage();
-		
-		logImage = game.manager.get("log.png", Texture.class);
-		riverImage = game.manager.get("river.png", Texture.class);
-		bankImage = game.manager.get("bank.png", Texture.class);
-		cloudImage = game.manager.get("clouds.png", Texture.class);
-		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		bg = game.manager.get("background.png", Texture.class);
-		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		Table table = new Table();
 		stage.addActor(table);
@@ -167,18 +158,13 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
 		stage.dispose();
-		
 	}}

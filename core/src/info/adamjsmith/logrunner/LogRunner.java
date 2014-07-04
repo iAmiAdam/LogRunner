@@ -1,15 +1,15 @@
 package info.adamjsmith.logrunner;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.assets.AssetManager;
 
 public class LogRunner extends Game {
 	
-	public AssetManager manager = new AssetManager();
+	public Assets assets;
 	ActionResolver actionResolver;
 	
 	public LogRunner(ActionResolver actionResolver) {
 		this.actionResolver = actionResolver;
+		this.assets = new Assets();
 	}
 	
 	@Override
