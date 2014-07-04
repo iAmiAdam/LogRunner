@@ -36,6 +36,7 @@ public class MainMenuScreen implements Screen {
 	float buttonX;
 	float buttonY;
 	BitmapFont buttonFont;
+	BitmapFont headerFont;
 	
 	public MainMenuScreen(LogRunner game) {
 		this.game = game;
@@ -78,7 +79,6 @@ public class MainMenuScreen implements Screen {
 		camera.setToOrtho(false, 15f, 25f);
 		
 		stage = new Stage();
-		//stage.setViewport(new StretchViewport(15f, 25f));
 		buttonX = (Gdx.graphics.getWidth() - 400) / 2;
 		buttonY = Gdx.graphics.getHeight() / 2;
 		
@@ -135,7 +135,10 @@ public class MainMenuScreen implements Screen {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getLeaderboardGPGS();
-				else game.actionResolver.loginGPGS();
+				else {
+					game.actionResolver.loginGPGS();
+					if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getLeaderboardGPGS();
+				}
 			}
 			
 			@Override
@@ -153,7 +156,10 @@ public class MainMenuScreen implements Screen {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getAchievementsGPGS();
-				else game.actionResolver.loginGPGS();
+				else {
+					game.actionResolver.loginGPGS();
+					if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getAchievementsGPGS();
+				}
 			}
 			
 			@Override

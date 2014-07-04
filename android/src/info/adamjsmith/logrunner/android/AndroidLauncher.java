@@ -2,6 +2,7 @@ package info.adamjsmith.logrunner.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -47,9 +48,10 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 				public void run() {
 					gameHelper.beginUserInitiatedSignIn();
 				}
+				
 			});
 		} catch (final Exception e) {
-			
+			Toast.makeText(this, "Could not log into Google Game Services", Toast.LENGTH_LONG).show();
 		}
 	}
 

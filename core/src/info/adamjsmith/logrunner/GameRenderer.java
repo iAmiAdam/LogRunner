@@ -193,7 +193,11 @@ public class GameRenderer {
 		scoresButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score);
+				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score); 
+				else {
+					game.actionResolver.loginGPGS();
+					if(game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score);
+				}
 			}
 			
 			@Override
@@ -204,7 +208,6 @@ public class GameRenderer {
 		stage.addActor(scoresButton);
 		
 		Gdx.input.setInputProcessor(stage);
-		
 	}
 	
 	public void renderScore() {
