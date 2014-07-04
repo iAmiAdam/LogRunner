@@ -21,7 +21,7 @@ import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 
 import info.adamjsmith.logrunner.LogRunner;
 
-public class AndroidLauncher extends AndroidApplication implements GameHelperListener, info.adamjsmith.logrunner.ActionResolver {
+public class AndroidLauncher extends AndroidApplication implements GameHelperListener, info.adamjsmith.logrunner.ActionResolver, info.adamjsmith.logrunner.IActivityRequestHandler {
 	private GameHelper gameHelper;
 	protected static AdView adView;
 	private final static int SHOW_ADS = 1;
@@ -51,6 +51,9 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		
+		View gameView = initializeForView(new LogRunner(this));
+		layout.addView(gameView);
+		
 		adView = new AdView(this);
 		adView.setAdSize(AdSize.BANNER);
 		adView.setAdUnitId("ca-app-pub-5708097368765164/8542436531");
@@ -65,6 +68,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		adParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+		showAds(true);
 		layout.addView(adView, adParams);
 		
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
@@ -76,8 +80,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		
 		gameHelper.setup(this);
 		//initialize(new LogRunner(this), cfg);
-		View gameView = initializeForView(new LogRunner(this));
-		layout.addView(gameView);
 		setContentView(layout);
 	}
 	
@@ -137,7 +139,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	@Override
 	public void showAds(boolean show) {
 		handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
-		
 	}
 	
 }
