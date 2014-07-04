@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Player extends Object {
+	protected LogRunner game;
 	float x;
 	float y;
 	float width;
@@ -27,15 +28,17 @@ public class Player extends Object {
 		AIR, LAND
 	}
 	public PlayerState playerState;
+	Rectangle player;
 	
 	
-	public Player(Rectangle player, World worldI) {
+	public Player(World worldI, LogRunner gameI) {
 		player = new Rectangle();
 		this.x = 4f;
 		this.y = 10.4f; 
 		this.width = 1.2f;
 		this.height = 1.35f;
 		
+		game = gameI;
 		world = worldI;
 		
 		playerDef = new BodyDef();
@@ -70,10 +73,16 @@ public class Player extends Object {
 	
 	public void jump() {
 		if(playerState == PlayerState.LAND) {
+			game.assets.jump.play(0.5f);
 			pos = playerBody.getPosition();
 			playerBody.applyLinearImpulse(0, 7.5f, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
 		}
+	}
+	
+	public void score() {
+		game.assets.point.play(1f);
+		score++;
 	}
 	
 	public void destroy() {

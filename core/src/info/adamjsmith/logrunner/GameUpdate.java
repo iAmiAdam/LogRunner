@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -115,7 +114,7 @@ public class GameUpdate {
 	
 	private void init() {
 		world = new World(new Vector2(0, -10f), false);
-		player = new Player(new Rectangle(), world);
+		player = new Player(world, game);
 		river = new River(world);
 		logs = new Array<Log>();
 		

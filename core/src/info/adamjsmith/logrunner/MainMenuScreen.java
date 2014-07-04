@@ -83,6 +83,7 @@ public class MainMenuScreen implements Screen {
 			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1.0f);
 				return true;
 			}
 		});
@@ -101,6 +102,7 @@ public class MainMenuScreen implements Screen {
 			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1.0f);
 				return true;
 			}
 		});
@@ -119,6 +121,7 @@ public class MainMenuScreen implements Screen {
 			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1.0f);
 				return true;
 			}
 		});

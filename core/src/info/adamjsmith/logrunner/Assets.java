@@ -1,5 +1,6 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,8 +41,8 @@ public class Assets {
 		player = manager.get("player.png", Texture.class);
 		clouds = manager.get("clouds.png", Texture.class);
 		bg = manager.get("background.png", Texture.class);
-		point = manager.get("point.ogg", Sound.class);
-		jump = manager.get("jump.ogg", Sound.class);
-		click = manager.get("click.ogg", Sound.class);
+		point = Gdx.audio.newSound(Gdx.files.internal("point.ogg"));
+		jump = Gdx.audio.newSound(Gdx.files.internal("jump.ogg"));
+		click = Gdx.audio.newSound(Gdx.files.internal("click.ogg"));
 	}
 }

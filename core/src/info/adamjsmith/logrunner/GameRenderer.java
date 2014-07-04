@@ -125,7 +125,7 @@ public class GameRenderer {
 	public void createStage() {
 		
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		skin.getFont("header-font").setMarkupEnabled(true);
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
@@ -144,6 +144,7 @@ public class GameRenderer {
 			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1f);
 				return true;
 			}
 		});
@@ -162,6 +163,7 @@ public class GameRenderer {
 			
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1f);
 				return true;
 			}
 		});

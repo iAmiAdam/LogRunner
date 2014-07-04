@@ -23,7 +23,7 @@ public class LogListener implements ContactListener {
 				contact.getFixtureB().getBody().getUserData() == "log") {
 			contact.getFixtureB().getBody().setLinearVelocity(new Vector2(updater.logVelocity, -0.75f));
 			player.playerState = PlayerState.LAND;		
-			player.score++;
+			player.score();
 		}
 	}
 
