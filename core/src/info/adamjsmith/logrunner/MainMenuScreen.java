@@ -62,7 +62,7 @@ public class MainMenuScreen implements Screen {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
-		
+		game.actionResolver.showAds(true);
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		skin.getFont("header-font").setMarkupEnabled(true);

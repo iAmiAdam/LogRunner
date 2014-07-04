@@ -100,6 +100,7 @@ public class GameUpdate {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAg");
 			}
 		}
+		game.actionResolver.showAds(true);
 	}
 	
 	public void reset() {
@@ -126,6 +127,8 @@ public class GameUpdate {
 		
 		logs.add(new Log(4f, logVelocity, world));
 		logs.add(new Log(9.5f, logVelocity, world));	
+		
+		game.actionResolver.showAds(false);
 		
 		currentState = GameState.READY;
 	}

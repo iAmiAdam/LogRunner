@@ -1,8 +1,9 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 
-public class LogRunner extends Game {
+public class LogRunner extends Game implements ApplicationListener {
 	
 	public Assets assets;
 	ActionResolver actionResolver;
