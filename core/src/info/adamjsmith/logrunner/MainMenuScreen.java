@@ -149,6 +149,19 @@ public class MainMenuScreen implements Screen {
 		TextButton achievementsButton = new TextButton("Achievements", style);
 		achievementsButton.setX(buttonX);
 		achievementsButton.setY(buttonY - 340);
+		achievementsButton.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.getAchievementsGPGS();
+				else game.actionResolver.loginGPGS();
+			}
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+		});
+		
 		stage.addActor(achievementsButton);
 		
 		Gdx.input.setInputProcessor(stage);

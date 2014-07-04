@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		updater = new GameUpdate();
+		updater = new GameUpdate(game);
 		renderer = new GameRenderer(updater, game);
 	}
 	

@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameUpdate {
 	
 	protected World world;
+	private LogRunner game;
 	public GameState currentState;
 	public enum GameState {
 		READY, RUNNING, GAMEOVER
@@ -33,7 +34,8 @@ public class GameUpdate {
 	
 	Random generator;
 	
-	public GameUpdate() {
+	public GameUpdate(LogRunner game) {
+		this.game = game;
 		generator = new Random();
 		init();
 	}
@@ -81,7 +83,16 @@ public class GameUpdate {
 		world.step(1/45f, 6, 4);
 		
 		if(player.getY() < 9.35f) {
-			currentState = GameState.GAMEOVER;		
+			currentState = GameState.GAMEOVER;
+			gameOver();
+		}
+	}
+	
+	public void gameOver() {
+		if (game.actionResolver.getSignedInGPGS()) {
+			if (player.score > 10) {
+				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAA");
+			}
 		}
 	}
 	
