@@ -2,10 +2,17 @@ package info.adamjsmith.logrunner.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
@@ -19,6 +26,32 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		RelativeLayout layout = new RelativeLayout(this);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+		
+		View gameView = initializeForView(new LogRunner(this));
+		
+		AdView adView = new AdView(this);
+		adView.setAdSize(AdSize.BANNER);
+		adView.setAdUnitId("ca-app-pub-5708097368765164/8542436531");
+		
+		AdRequest adRequest = new AdRequest.Builder()
+		.addTestDevice("EFDE8B52D744910BE7EB01DEC797353A")
+		.build();
+		
+		adView.loadAd(adRequest);
+		
+		layout.addView(gameView);
+		
+		RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		adParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+		layout.addView(adView, adParams);
+		
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 		cfg.useAccelerometer = false;
 		cfg.useCompass = false;
@@ -27,7 +60,9 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		gameHelper.enableDebugLog(true);
 		
 		gameHelper.setup(this);
-		initialize(new LogRunner(this), cfg);
+		//initialize(new LogRunner(this), cfg);
+		
+		setContentView(layout);
 	}
 	
 	@Override
