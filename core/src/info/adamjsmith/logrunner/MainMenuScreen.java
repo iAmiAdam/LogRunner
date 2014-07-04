@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -49,6 +50,7 @@ public class MainMenuScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		batch.begin();
 		stage.draw();
+		Table.drawDebug(stage);
 		batch.end();
 	}
 
@@ -63,12 +65,13 @@ public class MainMenuScreen implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		TextureAtlas uiskin = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
+		skin.addRegions(uiskin);
 		skin.getFont("header-font").setMarkupEnabled(true);
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
-		stage = new Stage();
+		stage = new Stage (new ScreenViewport());
 		
 		Table table = new Table();
 		stage.addActor(table);
@@ -125,16 +128,16 @@ public class MainMenuScreen implements Screen {
 				return true;
 			}
 		});
-		table.setSize(480, 800);
+		table.setFillParent(true);
 		Label logo = new Label("Log\nRunner", skin);		
 		logo.setAlignment(Align.center);
-		table.add(logo).minWidth(480).minHeight(350).fill();
+		table.add(logo).fill();
 		table.row();
-		table.add(playButton).pad(10);
+		table.add(playButton).padTop(20).padBottom(30).fill();
 		table.row();
-		table.add(scoresButton).pad(10);
+		table.add(scoresButton).padTop(20).padBottom(30).fill();
 		table.row();
-		table.add(achievementsButton).pad(10);
+		table.add(achievementsButton).padTop(20).padBottom(20).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		

@@ -125,7 +125,6 @@ public class GameRenderer {
 	public void createStage() {
 		
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		skin.getFont("header-font").setMarkupEnabled(true);
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
@@ -168,10 +167,10 @@ public class GameRenderer {
 			}
 		});
 		
-		table.setSize(480, 800);
-		table.add(restartButton).pad(10);
+		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		table.add(restartButton).pad(20).fill();
 		table.row();
-		table.add(scoresButton).pad(10);
+		table.add(scoresButton).pad(20).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		
