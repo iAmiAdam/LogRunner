@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -37,6 +39,7 @@ public class MainMenuScreen implements Screen {
 	float buttonY;
 	BitmapFont buttonFont;
 	BitmapFont headerFont;
+	Skin skin;
 	
 	public MainMenuScreen(LogRunner game) {
 		this.game = game;
@@ -78,6 +81,12 @@ public class MainMenuScreen implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
 		
+		skin = new Skin(Gdx.files.internal("uiskin.json"));
+		skin.getAtlas().getTextures().iterator().next().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		skin.getFont("header-font").setMarkupEnabled(true);
+		skin.getFont("button-font").setMarkupEnabled(true);
+		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
+		
 		stage = new Stage();
 		buttonX = (Gdx.graphics.getWidth() - 400) / 2;
 		buttonY = Gdx.graphics.getHeight() / 2;
@@ -89,29 +98,14 @@ public class MainMenuScreen implements Screen {
 		cloudImage.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		bg = game.manager.get("background.png", Texture.class);
 		bg.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		logo = game.manager.get("logo.png", Texture.class);
-		logo.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
+		Table table = new Table();
+		stage.addActor(table);
+		table.setPosition(200,65);
 		
-		buttonUp = game.manager.get("buttonup.png", Texture.class);
-		buttonDown = game.manager.get("buttondown.png", Texture.class);
+		table.debug();
 		
-		buttonFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
-		buttonFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		TextureRegion buttonUpRegion = new TextureRegion(buttonUp, 0, 0, 400, 150);
-		TextureRegion buttonDownRegion = new TextureRegion(buttonDown, 0, 0, 400, 150);
-		
-		TextButtonStyle style = new TextButtonStyle();
-		style.up =  new TextureRegionDrawable(buttonUpRegion);
-		style.down = new TextureRegionDrawable(buttonDownRegion);
-		style.font = buttonFont;
-		
-		
-		
-		TextButton playButton = new TextButton("Play", style);
-		playButton.setX(buttonX);
-		playButton.setY(buttonY);
+		TextButton playButton = new TextButton("Play", buttonStyle);
 		
 		playButton.addListener(new InputListener() {
 			@Override
@@ -125,11 +119,7 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 		
-		stage.addActor(playButton);
-		
-		TextButton scoresButton = new TextButton("Highscores", style);
-		scoresButton.setX(buttonX);
-		scoresButton.setY(buttonY - 170);
+		TextButton scoresButton = new TextButton("Highscores", buttonStyle);
 		
 		scoresButton.addListener(new InputListener() {
 			@Override
@@ -147,11 +137,8 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 		
-		stage.addActor(scoresButton);
+		TextButton achievementsButton = new TextButton("Achievements", buttonStyle);
 		
-		TextButton achievementsButton = new TextButton("Achievements", style);
-		achievementsButton.setX(buttonX);
-		achievementsButton.setY(buttonY - 340);
 		achievementsButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -168,7 +155,14 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 		
-		stage.addActor(achievementsButton);
+		table.add(new Label("Log Runner", skin));
+		table.row();
+		table.add(playButton);
+		table.row();
+		table.add(scoresButton);
+		table.row();
+		table.add(achievementsButton);
+		table.pack();
 		
 		Gdx.input.setInputProcessor(stage);
 	}

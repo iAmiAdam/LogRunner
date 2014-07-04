@@ -1,0 +1,9 @@
+{ com.badlogic.gdx.graphics.g2d.BitmapFont: {header-font: {file: header.fnt} },
+ com.badlogic.gdx.graphics.g2d.BitmapFont: {button-font: {file: menu.fnt} },
+
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+default: { down: round-down, up: round-up, font: button-font } },
+
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+default: { font: header-font } },
+}
