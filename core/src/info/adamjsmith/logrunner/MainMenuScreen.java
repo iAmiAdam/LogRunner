@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -58,15 +56,12 @@ public class MainMenuScreen implements Screen {
 		batch.draw(bg, 0f, 10f, 15f, 4f);
 		batch.draw(riverImage, 0f, 7f, 15f, 3f);
 		batch.draw(cloudImage, 0f, 15f, 15f, 3f);
-		batch.draw(logo, 0f, 21f, 15f, 3.75f);
 		batch.end();
-				
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
-		batch.setProjectionMatrix(normalProjection);
+
+		stage.act(Gdx.graphics.getDeltaTime());
 		batch.begin();
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
-		Table.drawDebug(stage);
 		batch.end();
 	}
 
@@ -88,8 +83,6 @@ public class MainMenuScreen implements Screen {
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
 		stage = new Stage();
-		buttonX = (Gdx.graphics.getWidth() - 400) / 2;
-		buttonY = Gdx.graphics.getHeight() / 2;
 		
 		logImage = game.manager.get("log.png", Texture.class);
 		riverImage = game.manager.get("river.png", Texture.class);
@@ -101,9 +94,6 @@ public class MainMenuScreen implements Screen {
 		
 		Table table = new Table();
 		stage.addActor(table);
-		table.setPosition(200,65);
-		
-		table.debug();
 		
 		TextButton playButton = new TextButton("Play", buttonStyle);
 		
@@ -138,7 +128,7 @@ public class MainMenuScreen implements Screen {
 		});
 		
 		TextButton achievementsButton = new TextButton("Achievements", buttonStyle);
-		
+		achievementsButton.pad(10);
 		achievementsButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -154,15 +144,18 @@ public class MainMenuScreen implements Screen {
 				return true;
 			}
 		});
-		
-		table.add(new Label("Log Runner", skin));
+		table.setSize(480, 800);
+		Label logo = new Label("Log\nRunner", skin);		
+		logo.setAlignment(Align.center);
+		table.add(logo).minWidth(480).minHeight(350).fill();
 		table.row();
-		table.add(playButton);
+		table.add(playButton).pad(10);
 		table.row();
-		table.add(scoresButton);
+		table.add(scoresButton).pad(10);
 		table.row();
-		table.add(achievementsButton);
+		table.add(achievementsButton).pad(10);
 		table.pack();
+		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		
 		Gdx.input.setInputProcessor(stage);
 	}
