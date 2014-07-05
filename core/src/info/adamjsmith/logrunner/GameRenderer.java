@@ -131,7 +131,9 @@ public class GameRenderer {
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
-		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 2;
+		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
+		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
+		if(fontScale < 1) fontScale = 1;
 		
 		stage = new Stage();		
 		Table table = new Table();
@@ -172,14 +174,14 @@ public class GameRenderer {
 		});
 		
 		Label gameOver = new Label("Game Over", skin);
-		gameOver.setFontScale(1f);
+		gameOver.setFontScale(fontScale);
 		gameOver.setAlignment(Align.center);
 		table.add(gameOver);		
 		table.row();
 		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(restartButton).pad(20).height(buttonHeight).fill();
+		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.row();
-		table.add(scoresButton).pad(20).height(buttonHeight).fill();
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		

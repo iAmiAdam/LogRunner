@@ -130,17 +130,18 @@ public class MainMenuScreen implements Screen {
 				return true;
 			}
 		});
+		
 		table.setFillParent(true);
 		Label logo = new Label("Log\nRunner", skin);
 		logo.setFontScale(fontScale);
 		logo.setAlignment(Align.center);
 		table.add(logo);
 		table.row();
-		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.row();
-		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).fill();
+		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).minWidth(300);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		
