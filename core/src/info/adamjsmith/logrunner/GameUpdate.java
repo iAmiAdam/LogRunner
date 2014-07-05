@@ -119,7 +119,7 @@ public class GameUpdate {
 		river = new River(world);
 		logs = new Array<Log>();
 		
-		world.setContactListener(new LogListener(this));
+		world.setContactListener(new LogListener());
 		
 		spawnedLogs = 0;
 		logVelocity = -5.55f;

@@ -7,18 +7,25 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class River {
+public class River extends GameObject{
+	BodyDef riverDef;
+	BodyDef floorDef;
+	Body floorBody;
+	Body riverBody;
+	FixtureDef riverFixture;
+	public int ID = GameObject.IDRiver;
+	
 	public River(World worldI) {
 		
-		BodyDef riverDef = new BodyDef();
+		riverDef = new BodyDef();
 		riverDef.position.set(0f, 1f);
 		riverDef.fixedRotation=true;
 		
-		BodyDef floorDef = new BodyDef();
+		floorDef = new BodyDef();
 		floorDef.position.set(0f, 0f);
 		
-		Body floorBody = worldI.createBody(floorDef);		
-		Body riverBody = worldI.createBody(riverDef);
+		floorBody = worldI.createBody(floorDef);		
+		riverBody = worldI.createBody(riverDef);
 		
 		Vector2[] riverVertices = new Vector2[4];
 		riverVertices[0] = new Vector2(0f, 0f);
@@ -34,13 +41,13 @@ public class River {
 		
 		floorBody.createFixture(floorShape, 1.0f);
 		
-		FixtureDef riverFixture = new FixtureDef();
+		riverFixture = new FixtureDef();
 		riverFixture.shape = riverShape;
 		riverFixture.density = 1.0f;
 		riverFixture.friction = 0f;
 		riverFixture.restitution = 0f;
 		riverFixture.isSensor = true;
 		riverBody.createFixture(riverFixture);
-		riverBody.setUserData("river");
+		riverBody.setUserData(this);
 	}
 }

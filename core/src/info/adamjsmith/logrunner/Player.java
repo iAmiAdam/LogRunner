@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-public class Player extends Object {
+public class Player extends GameObject {
 	protected LogRunner game;
 	float x;
 	float y;
@@ -30,6 +30,7 @@ public class Player extends Object {
 	public PlayerState playerState;
 	Rectangle player;
 	
+	public int ID = GameObject.IDPlayer;
 	
 	public Player(World worldI, LogRunner gameI) {
 		player = new Rectangle();
@@ -64,7 +65,7 @@ public class Player extends Object {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		fixture = playerBody.createFixture(fixtureDef);
-		playerBody.setUserData("player");
+		playerBody.setUserData(this);
 		
 		playerState = PlayerState.AIR;
 		

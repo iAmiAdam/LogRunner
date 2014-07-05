@@ -11,28 +11,41 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class LogListener implements ContactListener {
 
 	Player player;
-	GameUpdate updater;
+	Log log;
 	
-	public LogListener(GameUpdate updaterI) {
-		player = updaterI.player;
-		updater = updaterI;
-	}
+	GameObject goA;
+	GameObject goB;
+	
 	@Override
 	public void beginContact(Contact contact) {
-		if(contact.getFixtureA().getBody().getUserData() == "player" &&
-				contact.getFixtureB().getBody().getUserData() == "log") {
-			contact.getFixtureB().getBody().setLinearVelocity(new Vector2(updater.logVelocity, -0.75f));
+		goA = (GameObject)contact.getFixtureA().getBody().getUserData();
+		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
+		
+		if (goA.ID == GameObject.IDPlayer && goB.ID == GameObject.IDLog ){
+			player = (Player)contact.getFixtureA().getBody().getUserData();
+			log = (Log)contact.getFixtureB().getBody().getUserData();
+			
 			player.playerState = PlayerState.LAND;		
-			player.score();
+			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, -0.75f));
+			
+			if (log.scored == false) {
+				log.scored = true;
+				player.score();
+			}
 		}
 	}
 
 	@Override
 	public void endContact(Contact contact) {
-		if(contact.getFixtureA().getBody().getUserData() == "player" &&
-				contact.getFixtureB().getBody().getUserData() == "log") {
-			player.playerState = PlayerState.AIR;
-			contact.getFixtureB().getBody().setLinearVelocity(new Vector2(updater.logVelocity, 0.15f));
+		goA = (GameObject)contact.getFixtureA().getBody().getUserData();
+		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
+		
+		if (goA.ID == GameObject.IDPlayer && goB.ID == GameObject.IDLog ){
+			player = (Player)contact.getFixtureA().getBody().getUserData();
+			log = (Log)contact.getFixtureB().getBody().getUserData();
+			
+			player.playerState = PlayerState.AIR;		
+			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, -0.25f));
 		}
 	}
 

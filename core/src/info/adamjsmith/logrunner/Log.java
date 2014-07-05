@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Log extends Object {
+public class Log extends GameObject {
 	
 	BodyDef logDef;
 	FixtureDef logFixtures;
@@ -29,6 +29,8 @@ public class Log extends Object {
 	public float lastLogTime;
 	public float logVelocity;
 	public float spawnInterval;
+	public boolean scored;
+	public int ID = GameObject.IDLog;
 	
 	public Log(float x, float velocity, World world) {
 		this.x = x;
@@ -36,11 +38,12 @@ public class Log extends Object {
 		this.world = world;
 		
 		Random generator = new Random();
-		float number = generator.nextFloat() * (3.5f - 2.3f) + 2.3f; 
+		float width = generator.nextFloat() * (3.5f - 2.3f) + 2.3f; 
 		float height = generator.nextFloat() * (0.7f - 0.3f) + 0.3f;
 		
-		this.width = number;
+		this.width = width;
 		this.height = height;
+		this.logVelocity = velocity;
 		
 		logDef = new BodyDef();
 		logDef.type = BodyType.KinematicBody;
@@ -67,7 +70,7 @@ public class Log extends Object {
 		logBody.setLinearDamping(0);
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
 		logBody.createFixture(fixtureDef);
-		logBody.setUserData("log");
+		logBody.setUserData(this);
 	}
 	
 	public float getX() {
@@ -82,5 +85,9 @@ public class Log extends Object {
 	
 	public void destroy() {
 		world.destroyBody(logBody);
+	}
+	
+	public boolean scored(Log log) {
+		return log.scored;
 	}
 }
