@@ -71,6 +71,8 @@ public class MainMenuScreen implements Screen {
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
+		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 3;
+		
 		stage = new Stage (new ScreenViewport());
 		
 		Table table = new Table();
@@ -129,15 +131,16 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 		table.setFillParent(true);
-		Label logo = new Label("Log\nRunner", skin);		
+		Label logo = new Label("Log\nRunner", skin);
+		logo.setFontScale(2f, 2f);
 		logo.setAlignment(Align.center);
-		table.add(logo).fill();
+		table.add(logo);
 		table.row();
-		table.add(playButton).padTop(20).padBottom(30).fill();
+		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).fill();
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.row();
-		table.add(achievementsButton).padTop(20).padBottom(20).fill();
+		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		

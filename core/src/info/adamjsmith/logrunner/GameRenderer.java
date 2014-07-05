@@ -18,10 +18,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -129,6 +131,8 @@ public class GameRenderer {
 		skin.getFont("button-font").setMarkupEnabled(true);
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
+		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 2;
+		
 		stage = new Stage();		
 		Table table = new Table();
 		stage.addActor(table);
@@ -167,10 +171,15 @@ public class GameRenderer {
 			}
 		});
 		
-		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(restartButton).pad(20).fill();
+		Label gameOver = new Label("Game Over", skin);
+		gameOver.setFontScale(1.5f, 1.5f);
+		gameOver.setAlignment(Align.center);
+		table.add(gameOver);		
 		table.row();
-		table.add(scoresButton).pad(20).fill();
+		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		table.add(restartButton).pad(20).height(buttonHeight).fill();
+		table.row();
+		table.add(scoresButton).pad(20).height(buttonHeight).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		
