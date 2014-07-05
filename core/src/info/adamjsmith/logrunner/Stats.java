@@ -13,14 +13,15 @@ public class Stats {
 		return Gdx.app.getPreferences("stats");
 	}
 	
-	public void load(Preferences stats) {
-		getStats();
+	public void load() {
+		Preferences stats = getStats();
 		this.deaths = stats.getInteger("deaths", 0);
 		this.logs = stats.getInteger("logs", 0);
 		this.hiScore = stats.getInteger("hiScore", 0);
 	}
 	
-	public void write(boolean death, int score, Preferences stats) {
+	public void save(boolean death, int score) {
+		Preferences stats = getStats();
 		if(death) this.deaths++;
 		stats.putInteger("deaths", this.deaths);
 		stats.putInteger("logs", this.logs + score);

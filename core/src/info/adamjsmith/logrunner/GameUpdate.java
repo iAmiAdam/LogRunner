@@ -33,10 +33,14 @@ public class GameUpdate {
 	Array<Body> bodies;
 	River river;
 	
+	Integer sessionDeaths;
+	float startTime;
+	
 	Random generator;
 	
 	public GameUpdate(LogRunner game) {
 		this.game = game;
+		sessionDeaths = 0;
 		generator = new Random();
 		init();
 	}
@@ -91,7 +95,12 @@ public class GameUpdate {
 	}
 	
 	public void gameOver() {
+		sessionDeaths++;
+		if((startTime / 100000000.0) > 180 || startTime < 0) {
+			startTime = TimeUtils.nanoTime();
+		}
 		if (game.actionResolver.getSignedInGPGS()) {
+			
 			if (player.score >= 10) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAA");
 			}
@@ -101,9 +110,16 @@ public class GameUpdate {
 			if (player.score >= 100) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAg");
 			}
+			if (game.stats.deaths >  50) {
+				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAw");
+			}
+			if (sessionDeaths >= 10 && startTime / 1000000000.0 < 180) {
+				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQBA");
+			}
 		}
 		player.playerState = PlayerState.DEAD;
 		game.actionResolver.showAds(true);
+		game.stats.save(true, player.score);
 	}
 	
 	public void reset() {
