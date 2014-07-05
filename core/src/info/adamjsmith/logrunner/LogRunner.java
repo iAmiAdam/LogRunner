@@ -6,11 +6,13 @@ import com.badlogic.gdx.Game;
 public class LogRunner extends Game implements ApplicationListener {
 	
 	public Assets assets;
-	ActionResolver actionResolver;
+	public ActionResolver actionResolver;
+	public Stats stats;
 	
 	public LogRunner(ActionResolver actionResolver) {
 		this.actionResolver = actionResolver;
 		this.assets = new Assets();
+		this.stats = new Stats();
 	}
 	
 	@Override
