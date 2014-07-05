@@ -60,8 +60,9 @@ public class GameUpdate {
 			logPos = log.logBody.getPosition();
 			log.x = logPos.x;
 			if(log.x + 4f == 0) {
-				iter.remove();
+				log.destroy();
 				log = null;
+				iter.remove();
 			}
 		}
 		

@@ -23,6 +23,7 @@ public class Log extends Object {
 	float height;
 	float velocity;
 	Vector2 pos;
+	World world;
 	
 	public int spawnedLogs;
 	public float lastLogTime;
@@ -32,6 +33,7 @@ public class Log extends Object {
 	public Log(float x, float velocity, World world) {
 		this.x = x;
 		this.y = 9.9f;
+		this.world = world;
 		
 		Random generator = new Random();
 		float number = generator.nextFloat() * (3.5f - 2.3f) + 2.3f; 
@@ -76,5 +78,9 @@ public class Log extends Object {
 	public float getY() {
 		pos = logBody.getPosition();
 		return pos.y;
+	}
+	
+	public void destroy() {
+		world.destroyBody(logBody);
 	}
 }
