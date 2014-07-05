@@ -101,7 +101,7 @@ public class GameRenderer {
 		for(Log log : logs) {
 			batch.draw(game.assets.log, log.getX(), log.getY(), log.width, log.height);
 		}
-		if (player.playerState == PlayerState.AIR) {
+		if (player.playerState == PlayerState.AIR || player.playerState == PlayerState.DEAD) {
 			batch.draw(jump, 4f, player.getY(), player.getWidth(), player.getHeight());
 		} else {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());

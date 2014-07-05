@@ -1,5 +1,7 @@
 package info.adamjsmith.logrunner;
 
+import info.adamjsmith.logrunner.Player.PlayerState;
+
 import java.util.Iterator;
 import java.util.Random;
 
@@ -82,7 +84,7 @@ public class GameUpdate {
 		
 		world.step(1/45f, 6, 4);
 		
-		if(player.getY() < 9.35f) {
+		if(player.getY() < 9.35f || player.getX() != 4f) {
 			currentState = GameState.GAMEOVER;
 			gameOver();
 		}
@@ -100,6 +102,7 @@ public class GameUpdate {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAg");
 			}
 		}
+		player.playerState = PlayerState.DEAD;
 		game.actionResolver.showAds(true);
 	}
 	

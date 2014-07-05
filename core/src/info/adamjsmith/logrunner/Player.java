@@ -17,7 +17,6 @@ public class Player extends GameObject {
 	float width;
 	float height;
 	public int score;
-	enum state { air, land };
 	BodyDef playerDef;
 	FixtureDef playerFixtures;
 	Body playerBody;
@@ -25,7 +24,7 @@ public class Player extends GameObject {
 	Vector2 pos;
 	World world;
 	public enum PlayerState {
-		AIR, LAND
+		AIR, LAND, DEAD
 	}
 	public PlayerState playerState;
 	Rectangle player;
