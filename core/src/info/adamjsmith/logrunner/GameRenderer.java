@@ -172,7 +172,7 @@ public class GameRenderer {
 		});
 		
 		Label gameOver = new Label("Game Over", skin);
-		gameOver.setFontScale(1.5f, 1.5f);
+		gameOver.setFontScale(1f);
 		gameOver.setAlignment(Align.center);
 		table.add(gameOver);		
 		table.row();
@@ -193,7 +193,7 @@ public class GameRenderer {
 		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
 		batch.setProjectionMatrix(normalProjection);
 		batch.begin();
-		numbers.draw(batch, String.valueOf(score), x, 600);
+		numbers.draw(batch, String.valueOf(score), x, 650);
 		batch.end();
 	}
 	

@@ -50,7 +50,6 @@ public class MainMenuScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		batch.begin();
 		stage.draw();
-		Table.drawDebug(stage);
 		batch.end();
 	}
 
@@ -72,6 +71,7 @@ public class MainMenuScreen implements Screen {
 		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 3;
+		float fontScale = (Gdx.graphics.getWidth() / 52) / 6;
 		
 		stage = new Stage (new ScreenViewport());
 		
@@ -132,7 +132,7 @@ public class MainMenuScreen implements Screen {
 		});
 		table.setFillParent(true);
 		Label logo = new Label("Log\nRunner", skin);
-		logo.setFontScale(2f, 2f);
+		logo.setFontScale(fontScale);
 		logo.setAlignment(Align.center);
 		table.add(logo);
 		table.row();
