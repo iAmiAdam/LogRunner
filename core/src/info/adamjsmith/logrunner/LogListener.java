@@ -15,13 +15,18 @@ public class LogListener implements ContactListener {
 	
 	GameObject goA;
 	GameObject goB;
+	Integer fixA;
+	Integer fixB;
+	
 	
 	@Override
 	public void beginContact(Contact contact) {
+		fixA = (Integer)contact.getFixtureA().getUserData();
+		fixB = (Integer)contact.getFixtureB().getUserData();
 		goA = (GameObject)contact.getFixtureA().getBody().getUserData();
 		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 		
-		if (goA.ID == GameObject.IDPlayer && goB.ID == GameObject.IDLog ){
+		if (fixA == GameObject.IDPlayer && fixB == GameObject.IDLog ){
 			player = (Player)contact.getFixtureA().getBody().getUserData();
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			
@@ -37,10 +42,12 @@ public class LogListener implements ContactListener {
 
 	@Override
 	public void endContact(Contact contact) {
+		fixA = (Integer)contact.getFixtureA().getUserData();
+		fixB = (Integer)contact.getFixtureB().getUserData();
 		goA = (GameObject)contact.getFixtureA().getBody().getUserData();
 		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 		
-		if (goA.ID == GameObject.IDPlayer && goB.ID == GameObject.IDLog ){
+		if (fixA == GameObject.IDPlayer && fixB == GameObject.IDLog ){
 			player = (Player)contact.getFixtureA().getBody().getUserData();
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			

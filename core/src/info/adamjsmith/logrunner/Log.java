@@ -36,6 +36,7 @@ public class Log extends GameObject {
 		this.x = x;
 		this.y = 9.9f;
 		this.world = world;
+		this.ID = GameObject.IDLog;
 		
 		Random generator = new Random();
 		float width = generator.nextFloat() * (3.5f - 2.3f) + 2.3f; 
@@ -66,10 +67,12 @@ public class Log extends GameObject {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		
+		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
-		logBody.createFixture(fixtureDef);
+		fixture = logBody.createFixture(fixtureDef);
+		fixture.setUserData(this.ID);
 		logBody.setUserData(this);
 	}
 	

@@ -38,6 +38,7 @@ public class Player extends GameObject {
 		this.y = 10.4f; 
 		this.width = 1.2f;
 		this.height = 1.35f;
+		this.ID = GameObject.IDPlayer;
 		
 		game = gameI;
 		world = worldI;
@@ -65,15 +66,15 @@ public class Player extends GameObject {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		fixture = playerBody.createFixture(fixtureDef);
+		fixture.setUserData(this.ID);
 		playerBody.setUserData(this);
 		
-		playerState = PlayerState.AIR;
-		
-		score = 0;
+		this.playerState = PlayerState.AIR;
+		this.score = 0;
 	}
 	
 	public void jump() {
-		if(playerState == PlayerState.LAND) {
+		if(this.playerState == PlayerState.LAND) {
 			game.assets.jump.play(0.1f);
 			pos = playerBody.getPosition();
 			playerBody.applyLinearImpulse(0, 7.5f, pos.x, pos.y, true);
