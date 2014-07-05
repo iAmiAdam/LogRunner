@@ -73,7 +73,7 @@ public class Player extends Object {
 	
 	public void jump() {
 		if(playerState == PlayerState.LAND) {
-			game.assets.jump.play(0.5f);
+			game.assets.jump.play(0.1f);
 			pos = playerBody.getPosition();
 			playerBody.applyLinearImpulse(0, 7.5f, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
@@ -81,7 +81,7 @@ public class Player extends Object {
 	}
 	
 	public void score() {
-		game.assets.point.play(1f);
+		game.assets.point.play(0.1f);
 		score++;
 	}
 	
