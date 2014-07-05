@@ -27,6 +27,8 @@ public class LogListener implements ContactListener {
 		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 		
 		if (fixA == GameObject.IDPlayer && fixB == GameObject.IDLog ){
+			goA = (GameObject)contact.getFixtureA().getBody().getUserData();
+			goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 			player = (Player)contact.getFixtureA().getBody().getUserData();
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			
@@ -52,7 +54,7 @@ public class LogListener implements ContactListener {
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			
 			player.playerState = PlayerState.AIR;		
-			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, -0.25f));
+			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, 0.15f));
 		}
 	}
 
