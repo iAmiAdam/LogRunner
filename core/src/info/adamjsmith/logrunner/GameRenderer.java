@@ -192,10 +192,14 @@ public class GameRenderer {
 		int score = player.getScore();
 		float width = String.valueOf(score).length();
 		float x = (480 - width * 50) / 2;
+		float hiScoreX = (480 - String.valueOf(game.stats.hiScore).length() * 50) / 2;
 		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
 		batch.setProjectionMatrix(normalProjection);
 		batch.begin();
 		numbers.draw(batch, String.valueOf(score), x, 650);
+		if(updater.currentState == GameState.GAMEOVER) {
+			numbers.draw(batch, String.valueOf(game.stats.hiScore), hiScoreX, 560);
+		}
 		batch.end();
 	}
 	

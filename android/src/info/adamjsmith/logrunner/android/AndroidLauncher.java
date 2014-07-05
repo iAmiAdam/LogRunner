@@ -21,7 +21,7 @@ import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 
 import info.adamjsmith.logrunner.LogRunner;
 
-public class AndroidLauncher extends AndroidApplication implements GameHelperListener, info.adamjsmith.logrunner.ActionResolver, info.adamjsmith.logrunner.IActivityRequestHandler {
+public class AndroidLauncher extends AndroidApplication implements GameHelperListener, info.adamjsmith.logrunner.ActionResolver {
 	private GameHelper gameHelper;
 	protected static AdView adView;
 	private final static int SHOW_ADS = 1;

@@ -8,7 +8,8 @@ public class LoadingScreen implements Screen {
 	
 	public LoadingScreen(LogRunner game) {
 		this.game = game;
-		game.assets.load(game);
+		this.game.assets.load(game);
+		this.game.stats.load();
 	}
 
 	@Override
@@ -29,6 +30,7 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void hide() {
+		this.dispose();
 	}
 
 	@Override

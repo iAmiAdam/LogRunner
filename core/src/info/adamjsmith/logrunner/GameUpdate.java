@@ -104,7 +104,7 @@ public class GameUpdate {
 			if (player.score >= 10) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAA");
 			}
-			if(player.score >= 50) {
+			if (player.score >= 50) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAQ");
 			}
 			if (player.score >= 100) {

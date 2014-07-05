@@ -1,31 +1,38 @@
 package info.adamjsmith.logrunner;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
-
-public class Stats {
-	
-	int deaths;
-	int logs;
-	int hiScore;
-
-	protected Preferences getStats() {
-		return Gdx.app.getPreferences("stats");
-	}
-	
-	public void load() {
-		Preferences stats = getStats();
-		this.deaths = stats.getInteger("deaths", 0);
-		this.logs = stats.getInteger("logs", 0);
-		this.hiScore = stats.getInteger("hiScore", 0);
-	}
-	
-	public void save(boolean death, int score) {
-		Preferences stats = getStats();
-		if(death) this.deaths++;
-		stats.putInteger("deaths", this.deaths);
-		stats.putInteger("logs", this.logs + score);
-		if (score > this.hiScore) this.hiScore = score;
-		stats.putInteger("hiScore", this.hiScore);
-	}
-}
+ 
+ import com.badlogic.gdx.Gdx;
+ import com.badlogic.gdx.files.FileHandle;
+ 
+ public class Stats {
+ 	
+ 	int deaths;
+ 	int logs;
+ 	int hiScore;
+ 	
+ 	public void create() {
+ 		FileHandle stats = Gdx.files.local("stats.txt");
+ 		stats.writeBytes(new byte[] {0, 0, 0}, false);
+ 	}
+ 	
+ 	public void load() {
+ 		FileHandle stats = Gdx.files.local("stats.txt");
+ 		if(stats.exists()) {
+ 			byte[] bytes = stats.readBytes();
+ 			deaths = bytes[0];
+ 			logs = bytes[1];
+ 			hiScore = bytes[2];
+ 		} else {
+ 			create();
+ 		}
+ 	}
+ 	
+ 	public void save(boolean death, int score) {
+ 		FileHandle stats = Gdx.files.local("stats.txt");
+ 		logs += score;
+ 		if(death) deaths++;
+ 		if(score < hiScore) score = hiScore; 
+ 		stats.writeBytes(new byte[] {(byte)deaths, (byte)logs, (byte)score}, false);
+ 		stats = null;
+ 		load();
+ 	}
+ }
