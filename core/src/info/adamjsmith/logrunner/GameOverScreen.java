@@ -150,8 +150,8 @@ public class GameOverScreen implements Screen {
 		table.add(hiScore);
 		table.row();
 		//table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight);
 		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight);
+		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
