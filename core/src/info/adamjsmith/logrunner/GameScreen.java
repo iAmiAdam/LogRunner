@@ -1,6 +1,8 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.input.GestureDetector;
 
 public class GameScreen implements Screen {
 	protected LogRunner game;
@@ -26,6 +28,7 @@ public class GameScreen implements Screen {
 	public void show() {
 		updater = new GameUpdate(game);
 		renderer = new GameRenderer(updater, game);
+		Gdx.input.setInputProcessor(new GestureDetector(new GameInputProcessor(updater.getPlayer())));
 	}
 	
 	@Override

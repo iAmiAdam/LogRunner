@@ -72,11 +72,11 @@ public class Player extends GameObject {
 		this.score = 0;
 	}
 	
-	public void jump() {
+	public void jump(float force) {
 		if(this.playerState == PlayerState.LAND) {
 			game.assets.jump.play(0.1f);
 			pos = playerBody.getPosition();
-			playerBody.applyLinearImpulse(0, 7.5f, pos.x, pos.y, true);
+			playerBody.applyLinearImpulse(0, (-force / 1000.0f) + 7.0f, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
 		}
 	}

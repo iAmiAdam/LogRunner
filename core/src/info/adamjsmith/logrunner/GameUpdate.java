@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -70,10 +71,6 @@ public class GameUpdate {
 				log = null;
 				iter.remove();
 			}
-		}
-		
-		if(Gdx.input.justTouched()) {
-			player.jump();
 		}
 	
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
@@ -149,6 +146,7 @@ public class GameUpdate {
 		game.actionResolver.showAds(false);
 		
 		currentState = GameState.READY;
+		
 	}
 	
 	public Player getPlayer() {
