@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -63,13 +62,10 @@ public class GameOverScreen implements Screen {
 		game.assets.headerFont.draw(batch, String.valueOf(game.stats.hiScore), hiScoreX, 560);
 		batch.end();
 		
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
-		batch.setProjectionMatrix(normalProjection);
-		batch.begin();
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
+		
 		Table.drawDebug(stage);
-		batch.end();	
 	}
 
 	@Override
@@ -99,8 +95,9 @@ public class GameOverScreen implements Screen {
 		
 		stage = new Stage();		
 		Table table = new Table();
+		table.setFillParent(true);
 		stage.addActor(table);
-		
+		table.debug();
 		TextButton restartButton = new TextButton("Restart", buttonStyle);
 		
 		restartButton.addListener(new InputListener() {
@@ -137,16 +134,23 @@ public class GameOverScreen implements Screen {
 		
 		Label gameOver = new Label("Game Over", skin);
 		gameOver.setFontScale(fontScale);
-		gameOver.setAlignment(Align.center);
+		//gameOver.setAlignment(Align.center);
 		table.add(gameOver);		
 		table.row();
-		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
+		Label scoreLabel = new Label(String.valueOf(score), skin);
+		//scoreLabel.setFontScale(fontScale);
+		//scoreLabel.setAlignment(Align.left);
+		table.add(scoreLabel);
+		Label hiScore = new Label(String.valueOf(game.stats.hiScore), skin);
+		//hiScore.setFontScale(fontScale);
+		//hiScore.setAlignment(Align.left);
+		table.add(hiScore);
 		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
+		//table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight);
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
-		
 		Gdx.input.setInputProcessor(stage);
 	}
 
