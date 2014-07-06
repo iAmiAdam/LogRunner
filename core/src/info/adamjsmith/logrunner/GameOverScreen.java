@@ -132,26 +132,18 @@ public class GameOverScreen implements Screen {
 		
 		Label gameOver = new Label("Game Over", skin);
 		gameOver.setFontScale(fontScale);
-		//gameOver.setAlignment(Align.center);
+		Label scoreLabel = new Label("Score\n" + score, skin);
+		scoreLabel.setAlignment(Align.center);
+		Label hiScoreLabel = new Label("High Score\n" + game.stats.hiScore, skin);
+		hiScoreLabel.setAlignment(Align.center);
+		
 		table.add(gameOver).colspan(2);		
 		table.row();
-		Label scoreLabel = new Label("Score", skin);
-		Label hiScoreLabel = new Label("High Score", skin);
 		table.add(scoreLabel);
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.row();
 		table.add(hiScoreLabel);
-		table.row();
-		Label scoreValue = new Label(String.valueOf(score), skin);
-		//scoreLabel.setFontScale(fontScale);
-		//scoreLabel.setAlignment(Align.left);
-		table.add(scoreValue);
-		Label hiScore = new Label(String.valueOf(game.stats.hiScore), skin);
-		//hiScore.setFontScale(fontScale);
-		//hiScore.setAlignment(Align.left);
-		table.add(hiScore);
-		table.row();
-		//table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight);
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight);
+		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
