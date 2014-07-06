@@ -15,15 +15,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -31,8 +22,6 @@ public class GameRenderer {
 	private GameUpdate updater;
 	private OrthographicCamera camera;
 	private LogRunner game;
-	
-	Skin skin;
 	
 	TextureRegion jump;
 	Array<Log> logs;
@@ -44,9 +33,6 @@ public class GameRenderer {
 	float stateTime;
 	Vector2 pos;
 	BitmapFont numbers;
-	
-	Stage stage;
-	BitmapFont buttonFont;
 
 	Player player;
 	
@@ -81,7 +67,6 @@ public class GameRenderer {
 		walkAnimation = new Animation(0.15f, walkFrames);
 		stateTime = 0f;
 		batch = new SpriteBatch();
-		createStage();
 	}
 	
 	public void render() {
@@ -111,81 +96,7 @@ public class GameRenderer {
 		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
 		batch.end();
 		
-		if(updater.currentState == GameState.GAMEOVER) {
-			Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
-			batch.setProjectionMatrix(normalProjection);
-			batch.begin();
-			stage.draw();
-			stage.act(Gdx.graphics.getDeltaTime());
-			Table.drawDebug(stage);
-			batch.end();
-		}
-		
 		renderScore();
-	}
-	
-	public void createStage() {
-		
-		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		skin.getFont("header-font").setMarkupEnabled(true);
-		skin.getFont("button-font").setMarkupEnabled(true);
-		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
-		
-		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
-		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
-		if(fontScale < 1) fontScale = 1;
-		
-		stage = new Stage();		
-		Table table = new Table();
-		stage.addActor(table);
-		
-		TextButton restartButton = new TextButton("Restart", buttonStyle);
-		
-		restartButton.addListener(new InputListener() {
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				updater.reset();
-			}
-			
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				game.assets.click.play(1f);
-				return true;
-			}
-		});
-		
-		TextButton scoresButton = new TextButton("Submit Score", buttonStyle);
-		scoresButton.pad(10);
-		scoresButton.addListener(new InputListener() {
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				if (game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score); 
-				else {
-					game.actionResolver.loginGPGS();
-					if(game.actionResolver.getSignedInGPGS()) game.actionResolver.submitScoreGPGS(player.score);
-				}
-			}
-			
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				game.assets.click.play(1f);
-				return true;
-			}
-		});
-		
-		Label gameOver = new Label("Game Over", skin);
-		gameOver.setFontScale(fontScale);
-		gameOver.setAlignment(Align.center);
-		table.add(gameOver);		
-		table.row();
-		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
-		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
-		table.pack();
-		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
-		
-		Gdx.input.setInputProcessor(stage);
 	}
 	
 	public void renderScore() {
@@ -205,6 +116,5 @@ public class GameRenderer {
 	
 	public void dispose() {
 		batch.dispose();
-		stage.dispose();
 	}
 }

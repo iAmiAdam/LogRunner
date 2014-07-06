@@ -95,8 +95,8 @@ public class GameUpdate {
 	}
 	
 	public void gameOver() {
-		sessionDeaths++;
-		if((startTime / 100000000.0) > 180 || startTime < 0) {
+		game.sessionDeaths++;
+		if((game.startTime / 100000000.0) > 180 ) {
 			startTime = TimeUtils.nanoTime();
 		}
 		if (game.actionResolver.getSignedInGPGS()) {
