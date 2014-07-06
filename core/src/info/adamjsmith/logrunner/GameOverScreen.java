@@ -28,15 +28,16 @@ public class GameOverScreen implements Screen {
 	Array<Log> logs;
 	TextureRegion jump;
 	int score;
-	int y;
+	float y;
 	float hiScoreX;
 	
-	public GameOverScreen(LogRunner game, int score, int y, Array<Log> logs) {
+	public GameOverScreen(LogRunner game, int score, float y, Array<Log> logs) {
 		this.game = game;
 		this.score = score;
 		this.y = y;
 		this.logs = logs;
 		
+		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
 	}
@@ -82,6 +83,7 @@ public class GameOverScreen implements Screen {
 		TextureRegion[][] tmp = TextureRegion.split(game.assets.player, 50, 60);
 		jump = tmp[0][0];
 		hiScoreX = (480 - String.valueOf(game.stats.hiScore).length() * 50) / 2;
+		createStage();
 	}
 	
 	public void createStage() {

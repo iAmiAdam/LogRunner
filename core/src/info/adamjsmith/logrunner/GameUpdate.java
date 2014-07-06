@@ -120,16 +120,15 @@ public class GameUpdate {
 		player.playerState = PlayerState.DEAD;
 		game.actionResolver.showAds(true);
 		game.stats.save(true, player.score);
+		game.setScreen(new GameOverScreen(game, player.getScore(), player.getY(), logs));
 	}
 	
-	public void reset() {
+	public void dispose() {
 		player.destroy();
 		world.dispose();
 		world = null;
 		player = null;
 		logs = null;
-		init();
-		currentState = GameState.READY;
 	}
 	
 	private void init() {
