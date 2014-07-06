@@ -1,6 +1,6 @@
 uiskin.png
 format: RGBA8888
-Filter: Nearest, Nearest
+Filter: Linear, Linear
 repeat: none
 round-up
 	rotate: false
