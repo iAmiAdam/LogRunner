@@ -79,6 +79,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		gameHelper.enableDebugLog(true);
 		
 		gameHelper.setup(this);
+		
 		//initialize(new LogRunner(this), cfg);
 		setContentView(layout);
 	}
@@ -110,7 +111,11 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 
 	@Override
 	public void submitScoreGPGS(int score) {
+		if(!getSignedInGPGS()) {
+			loginGPGS();
+		} 
 		Games.Leaderboards.submitScore(gameHelper.getApiClient(), "CgkIqve61Y4EEAIQBQ", score);
+		Toast.makeText(this, "Score Submitted", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -120,11 +125,17 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 
 	@Override
 	public void getLeaderboardGPGS() {
+		if(!getSignedInGPGS()) {
+			loginGPGS();
+		} 
 		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),"CgkIqve61Y4EEAIQBQ"), 100);
 	}
 
 	@Override
 	public void getAchievementsGPGS() {
+		if(!getSignedInGPGS()) {
+			loginGPGS();
+		} 
 		startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), 101);
 	}
 
@@ -134,6 +145,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 
 	@Override
 	public void onSignInSucceeded() {
+		Toast.makeText(this, "Signed into Google Play Games", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
