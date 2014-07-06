@@ -65,7 +65,6 @@ public class GameOverScreen implements Screen {
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
 		
-		Table.drawDebug(stage);
 	}
 
 	@Override
@@ -97,7 +96,6 @@ public class GameOverScreen implements Screen {
 		Table table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
-		table.debug();
 		TextButton restartButton = new TextButton("Restart", buttonStyle);
 		
 		restartButton.addListener(new InputListener() {
