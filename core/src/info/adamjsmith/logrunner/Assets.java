@@ -17,6 +17,7 @@ public class Assets {
 	Texture player;
 	Texture clouds;
 	Texture bg;
+	Texture platform;
 	BitmapFont headerFont;
 	BitmapFont menuFont;
 	Sound point;
@@ -34,6 +35,7 @@ public class Assets {
 		manager.load("player.png", Texture.class);
 		manager.load("clouds.png", Texture.class);
 		manager.load("background.png", Texture.class);
+		manager.load("platform.png", Texture.class);
 		manager.load("header.fnt", BitmapFont.class);
 		manager.load("point.ogg", Sound.class);
 		manager.load("jump.ogg", Sound.class);
@@ -46,6 +48,7 @@ public class Assets {
 		player = manager.get("player.png", Texture.class);
 		clouds = manager.get("clouds.png", Texture.class);
 		bg = manager.get("background.png", Texture.class);
+		platform = manager.get("platform.png", Texture.class);
 		point = Gdx.audio.newSound(Gdx.files.internal("point.ogg"));
 		jump = Gdx.audio.newSound(Gdx.files.internal("jump.ogg"));
 		click = Gdx.audio.newSound(Gdx.files.internal("click.ogg"));

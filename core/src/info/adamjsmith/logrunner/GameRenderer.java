@@ -28,7 +28,6 @@ public class GameRenderer {
 	TextureRegion currentFrame;
 	Animation walkAnimation;
 	float stateTime;
-
 	BitmapFont numbers;
 	
 	private static final int FRAME_COLS = 3;
@@ -90,7 +89,7 @@ public class GameRenderer {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
 		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
-		batch.draw(game.assets.bank, platform.getX(), platform.getY(), 25f, 6.7f);
+		batch.draw(game.assets.platform, platform.getX(), platform.getY(), 25f, 4f);
 		batch.end();
 		
 		renderScore();
@@ -104,6 +103,10 @@ public class GameRenderer {
 		batch.setProjectionMatrix(normalProjection);
 		batch.begin();
 		numbers.draw(batch, String.valueOf(score), x, 650);
+		numbers.setScale(0.64f);
+		numbers.draw(batch, "Tap to start", platform.getX() * (Gdx.graphics.getWidth() / 15) + 48, (platform.getY() * ( (Gdx.graphics.getHeight() / 25)) / 2 ) + 50);
+		numbers.draw(batch, "Swipe up to jump", platform.getX() * (Gdx.graphics.getWidth() / 15), (platform.getY() * (Gdx.graphics.getHeight() / 25)) / 2);
+		numbers.setScale(1);
 		batch.end();
 	}
 	

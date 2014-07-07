@@ -24,7 +24,7 @@ public class Platform extends GameObject{
 		this.world = world;
 		platformDef = new BodyDef();
 		platformDef.type = BodyType.KinematicBody;
-		platformDef.position.set(0f, 4f);
+		platformDef.position.set(0f, 6.6f);
 		platformDef.fixedRotation=true;
 				
 		platformBody = world.createBody(platformDef);
@@ -33,8 +33,8 @@ public class Platform extends GameObject{
 		
 		Vector2[] platformVertices = new Vector2[4];
 		platformVertices[0] = new Vector2(0f, 0f);
-		platformVertices[1] = new Vector2(0f, 6.7f);
-		platformVertices[2] = new Vector2(25f, 6.7f);
+		platformVertices[1] = new Vector2(0f, 4f);
+		platformVertices[2] = new Vector2(25f, 4f);
 		platformVertices[3] = new Vector2(25f, 0f);
 		
 		PolygonShape platformShape = new PolygonShape();

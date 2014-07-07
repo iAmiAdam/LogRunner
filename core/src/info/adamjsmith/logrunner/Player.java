@@ -68,7 +68,7 @@ public class Player extends GameObject {
 		fixture.setUserData(this.ID);
 		playerBody.setUserData(this);
 		
-		this.playerState = PlayerState.LAND;
+		this.playerState = PlayerState.AIR;
 		this.score = 0;
 	}
 	
