@@ -53,11 +53,14 @@ public class Log extends GameObject {
 		
 		PolygonShape shape = new PolygonShape();
 		
-		Vector2[] vertices = new Vector2[4];
-		vertices[0] = new Vector2(0f, 0f);
-		vertices[1] = new Vector2(0f, this.height);
-		vertices[2] = new Vector2(this.width, this.height);
-		vertices[3] = new Vector2(this.width, 0);
+		Vector2[] vertices = new Vector2[7];
+		vertices[0] = new Vector2(0.5f, 0f);
+		vertices[1] = new Vector2(0f, this.height / 2.0f);
+		vertices[2] = new Vector2(0.5f, this.height);
+		vertices[3] = new Vector2(this.width - 0.5f, this.height);
+		vertices[4] = new Vector2(this.width, this.height / 2.0f);
+		vertices[5] = new Vector2(this.width - 0.5f, 0f);
+		vertices[6] = new Vector2(0.5f, 0f);
 		
 		shape.set(vertices);
 		

@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -34,6 +35,8 @@ public class GameRenderer {
 	BitmapFont numbers;
 
 	Player player;
+	
+	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	
 	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
@@ -96,6 +99,8 @@ public class GameRenderer {
 		batch.end();
 		
 		renderScore();
+		
+		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {
