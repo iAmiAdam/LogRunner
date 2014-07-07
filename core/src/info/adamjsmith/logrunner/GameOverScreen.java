@@ -134,7 +134,7 @@ public class GameOverScreen implements Screen {
 		gameOver.setFontScale(fontScale);
 		Label scoreLabel = new Label("Score\n" + score, skin, "small");
 		scoreLabel.setAlignment(Align.center);
-		Label hiScoreLabel = new Label("High Score\n" + game.stats.hiScore, skin, "small");
+		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, skin, "small");
 		hiScoreLabel.setAlignment(Align.center);
 		
 		table.add(gameOver).colspan(2);		
