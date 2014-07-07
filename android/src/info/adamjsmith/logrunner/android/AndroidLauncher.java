@@ -79,8 +79,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		gameHelper.enableDebugLog(true);
 		
 		gameHelper.setup(this);
-		
-		//initialize(new LogRunner(this), cfg);
+
 		setContentView(layout);
 	}
 	
@@ -105,7 +104,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 				
 			});
 		} catch (final Exception e) {
-			Toast.makeText(this, "Could not log into Google Game Services", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -141,6 +139,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 
 	@Override
 	public void onSignInFailed() {
+		Toast.makeText(this, "Could not log into Google Game Services", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
