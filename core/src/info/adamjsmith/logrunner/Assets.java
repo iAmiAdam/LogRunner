@@ -18,6 +18,7 @@ public class Assets {
 	Texture clouds;
 	Texture bg;
 	BitmapFont headerFont;
+	BitmapFont menuFont;
 	Sound point;
 	Sound jump;
 	Sound click;
@@ -51,5 +52,8 @@ public class Assets {
 		
 		headerFont = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
 		headerFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		menuFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
+		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 }

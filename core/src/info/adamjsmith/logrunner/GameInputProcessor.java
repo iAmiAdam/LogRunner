@@ -1,6 +1,5 @@
 package info.adamjsmith.logrunner;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 
@@ -31,8 +30,7 @@ public class GameInputProcessor implements GestureListener{
 		
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		this.player.jump(velocityY / 1000);
-		Gdx.app.log("Working", String.valueOf(velocityY));
+		this.player.jump(velocityY);
 		return true;
 	}
 	
