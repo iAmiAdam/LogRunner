@@ -126,6 +126,7 @@ public class GameUpdate {
 		world = null;
 		player = null;
 		logs = null;
+		platform = null;
 	}
 	
 	private void init() {

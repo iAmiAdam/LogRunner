@@ -90,6 +90,7 @@ public class GameOverScreen implements Screen {
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
+		float menuFontScale = ((Gdx.graphics.getWidth() / 2) / 30) / 5;
 		if(fontScale < 1) fontScale = 1;
 		
 		stage = new Stage();		
@@ -134,8 +135,10 @@ public class GameOverScreen implements Screen {
 		gameOver.setFontScale(fontScale);
 		Label scoreLabel = new Label("Score\n" + score, skin, "small");
 		scoreLabel.setAlignment(Align.center);
+		scoreLabel.setFontScale(menuFontScale);
 		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, skin, "small");
 		hiScoreLabel.setAlignment(Align.center);
+		hiScoreLabel.setFontScale(menuFontScale);
 		
 		table.add(gameOver).colspan(2);		
 		table.row();
@@ -155,20 +158,15 @@ public class GameOverScreen implements Screen {
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
+	public void pause() {		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
 		stage.dispose();
 	}
-
 }
