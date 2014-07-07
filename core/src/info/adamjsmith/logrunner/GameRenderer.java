@@ -35,6 +35,7 @@ public class GameRenderer {
 	BitmapFont numbers;
 
 	Player player;
+	Platform platform;
 	
 	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	
@@ -63,6 +64,7 @@ public class GameRenderer {
 			}
 		}
 		
+		platform = updater.getPlatform();
 		player = updater.getPlayer();
 		logs = updater.getLogs();
 		
@@ -96,11 +98,10 @@ public class GameRenderer {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
 		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
+		batch.draw(game.assets.bank, platform.getX(), platform.getY(), 25f, 6.7f);
 		batch.end();
 		
 		renderScore();
-		
-		debugRenderer.render(updater.world, camera.combined);
 	}
 	
 	public void renderScore() {

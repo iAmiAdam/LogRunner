@@ -34,7 +34,7 @@ public class Player extends GameObject {
 	public Player(World worldI, LogRunner gameI) {
 		player = new Rectangle();
 		this.x = 4f;
-		this.y = 10.4f; 
+		this.y = 10.8f; 
 		this.width = 1.2f;
 		this.height = 1.35f;
 		this.ID = GameObject.IDPlayer;
@@ -68,7 +68,7 @@ public class Player extends GameObject {
 		fixture.setUserData(this.ID);
 		playerBody.setUserData(this);
 		
-		this.playerState = PlayerState.AIR;
+		this.playerState = PlayerState.LAND;
 		this.score = 0;
 	}
 	

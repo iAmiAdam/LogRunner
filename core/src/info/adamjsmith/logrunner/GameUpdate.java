@@ -32,6 +32,7 @@ public class GameUpdate {
 	float logVelocity;
 	Array<Body> bodies;
 	River river;
+	Platform platform;
 	
 	Integer sessionDeaths;
 	float startTime;
@@ -132,6 +133,7 @@ public class GameUpdate {
 		player = new Player(world, game);
 		river = new River(world);
 		logs = new Array<Log>();
+		platform = new Platform(world);
 		
 		world.setContactListener(new LogListener());
 		
@@ -154,5 +156,9 @@ public class GameUpdate {
 	
 	public Array<Log> getLogs() {
 		return logs;
+	}
+	
+	public Platform getPlatform() {
+		return platform;
 	}
 }
