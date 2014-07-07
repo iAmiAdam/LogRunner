@@ -2,8 +2,6 @@ package info.adamjsmith.logrunner;
 
 import info.adamjsmith.logrunner.Player.PlayerState;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -22,31 +18,27 @@ public class GameRenderer {
 	private GameUpdate updater;
 	private OrthographicCamera camera;
 	private LogRunner game;
+	Player player;
+	Platform platform;
 	
 	TextureRegion jump;
 	Array<Log> logs;
 	SpriteBatch batch;
-	Iterator<Log> iter;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
 	Animation walkAnimation;
 	float stateTime;
-	Vector2 pos;
-	BitmapFont numbers;
 
-	Player player;
-	Platform platform;
-	
-	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+	BitmapFont numbers;
 	
 	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
 	
-	public GameRenderer(GameUpdate gameUpdater, LogRunner gameI) {
-		updater = gameUpdater;
+	public GameRenderer(GameUpdate updater, LogRunner game) {
+		this.updater = updater;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
-		game = gameI;
+		this.game = game;
 		
 		numbers = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
 		numbers.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
