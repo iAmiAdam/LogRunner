@@ -56,6 +56,8 @@ public class GameUpdate {
 	}
 	
 	public void updateRunning() {
+		if(platform.getX() < -25f) platform.platformBody.setLinearVelocity(new Vector2(0, 0));;
+		
 		logCheck();
 		
 		world.step(1/45f, 6, 4);
