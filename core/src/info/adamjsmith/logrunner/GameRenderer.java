@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -60,6 +61,7 @@ public class GameRenderer {
 		logs = updater.getLogs();
 		
 		walkAnimation = new Animation(0.15f, walkFrames);
+		walkAnimation.setPlayMode(PlayMode.LOOP_PINGPONG);
 		stateTime = 0f;
 		batch = new SpriteBatch();
 	}
