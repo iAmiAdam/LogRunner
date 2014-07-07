@@ -106,7 +106,7 @@ public class GameRenderer {
 		batch.begin();
 		numbers.draw(batch, String.valueOf(score), x, 650);
 		numbers.setScale(0.64f);
-		numbers.draw(batch, "Tap to start", platform.getX() * (Gdx.graphics.getWidth() / 15) + 48, (platform.getY() * ( (Gdx.graphics.getHeight() / 25)) / 2 ) + 50);
+		numbers.draw(batch, "Tap to start", platform.getX() * (Gdx.graphics.getWidth() / 15) + 60, (platform.getY() * ( (Gdx.graphics.getHeight() / 25)) / 2 ) + 50);
 		numbers.draw(batch, "Swipe up to jump", platform.getX() * (Gdx.graphics.getWidth() / 15), (platform.getY() * (Gdx.graphics.getHeight() / 25)) / 2);
 		numbers.setScale(1);
 		batch.end();
