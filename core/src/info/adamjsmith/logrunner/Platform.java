@@ -24,7 +24,7 @@ public class Platform extends GameObject{
 		this.world = world;
 		platformDef = new BodyDef();
 		platformDef.type = BodyType.KinematicBody;
-		platformDef.position.set(0f, 6.6f);
+		platformDef.position.set(0f, 6.65f);
 		platformDef.fixedRotation=true;
 				
 		platformBody = world.createBody(platformDef);
