@@ -48,9 +48,7 @@ public class MainMenuScreen implements Screen {
 		batch.end();
 
 		stage.act(Gdx.graphics.getDeltaTime());
-		batch.begin();
 		stage.draw();
-		batch.end();
 	}
 
 	@Override

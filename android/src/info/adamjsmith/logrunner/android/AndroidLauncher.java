@@ -51,7 +51,11 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		
-		View gameView = initializeForView(new LogRunner(this));
+		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+		cfg.useAccelerometer = false;
+		cfg.useCompass = false;
+		
+		View gameView = initializeForView(new LogRunner(this), cfg);
 		layout.addView(gameView);
 		
 		adView = new AdView(this);
@@ -70,10 +74,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		adParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		showAds(true);
 		layout.addView(adView, adParams);
-		
-		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-		cfg.useAccelerometer = false;
-		cfg.useCompass = false;
 		
 		gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 		gameHelper.enableDebugLog(true);
