@@ -80,6 +80,10 @@ public class GameOverScreen implements Screen {
 		hiScoreX = (480 - String.valueOf(game.stats.hiScore).length() * 50) / 2;
 		game.actionResolver.showAds(true);
 		createStage();
+		if (game.actionResolver.getSignedInGPGS()) {
+			Achievements chieves = new Achievements(game);
+			chieves.check();
+		}
 	}
 	
 	public void createStage() {

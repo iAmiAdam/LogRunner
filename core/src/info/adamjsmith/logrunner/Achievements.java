@@ -1,5 +1,7 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 public class Achievements {
 	
 	LogRunner game;
@@ -24,6 +26,7 @@ public class Achievements {
 		if (game.sessionDeaths >= 10 && game.startTime / 1000000000.0 < 180) {
 			unlock("CgkIqve61Y4EEAIQBA");
 		}
+		if((game.startTime / 100000000.0) > 180 ) game.startTime = TimeUtils.nanoTime();
 	}
 	
 	public void unlock(String id) {
