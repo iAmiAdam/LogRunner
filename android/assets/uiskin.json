@@ -5,5 +5,6 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 default: { down: round-down, up: round-up, font: button-font } },
 
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-default: { font: header-font } },
+default: { font: header-font } ,
+small: { font: button-font } }
 }
