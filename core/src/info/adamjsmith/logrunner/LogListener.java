@@ -23,12 +23,8 @@ public class LogListener implements ContactListener {
 	public void beginContact(Contact contact) {
 		fixA = (Integer)contact.getFixtureA().getUserData();
 		fixB = (Integer)contact.getFixtureB().getUserData();
-		goA = (GameObject)contact.getFixtureA().getBody().getUserData();
-		goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 		
 		if (fixA == GameObject.IDPlayer && fixB == GameObject.IDLog ){
-			goA = (GameObject)contact.getFixtureA().getBody().getUserData();
-			goB = (GameObject)contact.getFixtureB().getBody().getUserData();
 			player = (Player)contact.getFixtureA().getBody().getUserData();
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			
@@ -39,6 +35,11 @@ public class LogListener implements ContactListener {
 				log.scored = true;
 				player.score();
 			}
+		}
+		
+		if (fixA == GameObject.IDPlayer  && fixB == GameObject.IDPlatform){
+			player = (Player)contact.getFixtureA().getBody().getUserData();
+			player.playerState = PlayerState.LAND;
 		}
 	}
 
