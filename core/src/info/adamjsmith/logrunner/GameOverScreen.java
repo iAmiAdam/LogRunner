@@ -78,6 +78,7 @@ public class GameOverScreen implements Screen {
 		TextureRegion[][] tmp = TextureRegion.split(game.assets.player, 50, 60);
 		jump = tmp[0][0];
 		hiScoreX = (480 - String.valueOf(game.stats.hiScore).length() * 50) / 2;
+		game.actionResolver.showAds(true);
 		createStage();
 	}
 	

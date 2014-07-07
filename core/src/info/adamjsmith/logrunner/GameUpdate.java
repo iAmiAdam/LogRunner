@@ -33,15 +33,11 @@ public class GameUpdate {
 	Array<Body> bodies;
 	River river;
 	Platform platform;
-	
-	Integer sessionDeaths;
-	float startTime;
-	
+
 	Random generator;
 	
 	public GameUpdate(LogRunner game) {
 		this.game = game;
-		sessionDeaths = 0;
 		generator = new Random();
 		init();
 	}
@@ -93,9 +89,8 @@ public class GameUpdate {
 	
 	public void gameOver() {
 		game.sessionDeaths++;
-		if((game.startTime / 100000000.0) > 180 ) {
-			startTime = TimeUtils.nanoTime();
-		}
+		if((game.startTime / 100000000.0) > 180 ) game.startTime = TimeUtils.nanoTime();
+		
 		if (game.actionResolver.getSignedInGPGS()) {
 			
 			if (player.score >= 10) {
@@ -110,7 +105,7 @@ public class GameUpdate {
 			if (game.stats.deaths >  50) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQAw");
 			}
-			if (sessionDeaths >= 10 && startTime / 1000000000.0 < 180) {
+			if (game.sessionDeaths >= 10 && game.startTime / 1000000000.0 < 180) {
 				game.actionResolver.unlockAchievementGPGS("CgkIqve61Y4EEAIQBA");
 			}
 		}
@@ -126,6 +121,7 @@ public class GameUpdate {
 		world = null;
 		player = null;
 		logs = null;
+		river = null;
 		platform = null;
 	}
 	
