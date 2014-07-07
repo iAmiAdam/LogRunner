@@ -115,7 +115,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 			loginGPGS();
 		} 
 		Games.Leaderboards.submitScore(gameHelper.getApiClient(), "CgkIqve61Y4EEAIQCA", score);
-		Toast.makeText(this, "Score Submitted", Toast.LENGTH_LONG).show();
+		getLeaderboardGPGS();
 	}
 
 	@Override
