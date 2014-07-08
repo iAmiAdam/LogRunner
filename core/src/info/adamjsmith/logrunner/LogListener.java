@@ -18,7 +18,6 @@ public class LogListener implements ContactListener {
 	Integer fixA;
 	Integer fixB;
 	
-	
 	@Override
 	public void beginContact(Contact contact) {
 		fixA = (Integer)contact.getFixtureA().getUserData();

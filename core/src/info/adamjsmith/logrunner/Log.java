@@ -67,7 +67,6 @@ public class Log extends GameObject {
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		
-		
 		logBody = world.createBody(logDef);
 		logBody.setLinearDamping(0);
 		logBody.setLinearVelocity(new Vector2(velocity, 0));
