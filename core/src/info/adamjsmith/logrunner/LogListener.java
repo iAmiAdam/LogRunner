@@ -54,7 +54,7 @@ public class LogListener implements ContactListener {
 			log = (Log)contact.getFixtureB().getBody().getUserData();
 			
 			player.playerState = PlayerState.AIR;		
-			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, 0.10f));
+			log.logBody.setLinearVelocity(new Vector2(log.logVelocity, 0.05f));
 		}
 	}
 

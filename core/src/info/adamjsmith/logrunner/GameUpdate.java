@@ -56,7 +56,7 @@ public class GameUpdate {
 	}
 	
 	public void updateRunning() {
-		if(platform.getX() < -25f) platform.platformBody.setLinearVelocity(new Vector2(0, 0));;
+		if(platform.getX() < -25f) platform.platformBody.setLinearVelocity(new Vector2(0, 0));
 		
 		logCheck();
 		
@@ -114,7 +114,7 @@ public class GameUpdate {
 		}
 		
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
-			logs.add(new Log(25f, logVelocity, world));
+			logs.add(new Log(26f, logVelocity, world));
 			spawnedLogs++;
 			spawnInterval = generator.nextFloat() * (1.1f - 0.75f) + 0.75f;
 			if(spawnedLogs % 10  == 0) {

@@ -28,7 +28,7 @@ public class Platform extends GameObject{
 		platformDef.fixedRotation=true;
 				
 		platformBody = world.createBody(platformDef);
-		platformBody.setLinearVelocity(new Vector2(-6f, 0));
+		platformBody.setLinearVelocity(new Vector2(-5.55f, 0));
 		platformBody.setLinearDamping(0f);
 		
 		Vector2[] platformVertices = new Vector2[4];
