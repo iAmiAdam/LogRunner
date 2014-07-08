@@ -10,17 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 public class GameOverScreen implements Screen {
 	
 	LogRunner game;
-	Skin skin;
 	Stage stage;
 	SpriteBatch batch;
 	OrthographicCamera camera;
@@ -87,8 +84,6 @@ public class GameOverScreen implements Screen {
 	}
 	
 	public void createStage() {
-		
-		//TextButtonStyle buttonStyle = game.assets.uiSkin.get("default", TextButtonStyle.class);
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
