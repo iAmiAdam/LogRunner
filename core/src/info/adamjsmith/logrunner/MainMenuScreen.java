@@ -58,7 +58,7 @@ public class MainMenuScreen implements Screen {
 		camera.setToOrtho(false, 15f, 25f);
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 3;
-		float fontScale = (Gdx.graphics.getWidth() / 52) / 6;
+		float fontScale = (Gdx.graphics.getWidth() / 52) / 7;
 		
 		stage = new Stage (new ScreenViewport());
 		

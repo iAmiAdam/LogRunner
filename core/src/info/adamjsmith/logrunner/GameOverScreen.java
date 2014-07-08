@@ -128,6 +128,21 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
+		TextButton mainMenuButton = new TextButton("Main Menu", game.assets.uiSkin);
+		mainMenuButton.pad(10);
+		mainMenuButton.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				game.setScreen(new MainMenuScreen(game));
+			}
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.assets.click.play(1f);
+				return true;
+			}
+		});
+		
 		Label gameOver = new Label("Game Over", game.assets.uiSkin);
 		gameOver.setFontScale(fontScale);
 		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
@@ -144,6 +159,8 @@ public class GameOverScreen implements Screen {
 		table.row();
 		table.add(hiScoreLabel);
 		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.row();
+		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
