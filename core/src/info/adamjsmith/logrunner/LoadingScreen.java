@@ -1,10 +1,14 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class LoadingScreen implements Screen {
 	
 	protected LogRunner game;
+	private SpriteBatch batch;
 	
 	public LoadingScreen(LogRunner game) {
 		this.game = game;
@@ -17,7 +21,9 @@ public class LoadingScreen implements Screen {
 		if(game.assets.manager.update()) {
 			game.setScreen(new MainMenuScreen(game));
 		}
-		
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.draw(game.assets.logo, 0, (Gdx.graphics.getHeight() - 30) / 2, Gdx.graphics.getWidth(), 30);
 	}
 
 	@Override
@@ -26,6 +32,7 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void show() {
+		batch = new SpriteBatch();
 	}
 
 	@Override

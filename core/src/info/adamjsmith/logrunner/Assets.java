@@ -6,11 +6,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
 	
 	AssetManager manager;
 	
+	Texture logo;
 	Texture log;
 	Texture river;
 	Texture bank;
@@ -23,12 +25,14 @@ public class Assets {
 	Sound point;
 	Sound jump;
 	Sound click;
+	Skin uiSkin;
 	
 	public Assets() {
 		manager = new AssetManager();
 	}
 	
 	public void load(LogRunner game) {
+		manager.load("logo.png", Texture.class);		
 		manager.load("log.png", Texture.class);
 		manager.load("river.png", Texture.class);
 		manager.load("bank.png", Texture.class);
@@ -42,6 +46,7 @@ public class Assets {
 		manager.load("click.ogg", Sound.class);
 		manager.finishLoading();
 		
+		logo = manager.get("logo.png", Texture.class);
 		log = manager.get("log.png", Texture.class);
 		river = manager.get("river.png", Texture.class);
 		bank = manager.get("bank.png", Texture.class);
@@ -58,5 +63,9 @@ public class Assets {
 		
 		menuFont = new BitmapFont(Gdx.files.internal("menu.fnt"), Gdx.files.internal("menu.png"), false);
 		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+		uiSkin.getFont("header-font").setMarkupEnabled(true);
+		uiSkin.getFont("button-font").setMarkupEnabled(true);
 	}
 }

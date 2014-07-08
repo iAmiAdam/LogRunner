@@ -88,10 +88,7 @@ public class GameOverScreen implements Screen {
 	
 	public void createStage() {
 		
-		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		skin.getFont("header-font").setMarkupEnabled(true);
-		skin.getFont("button-font").setMarkupEnabled(true);
-		TextButtonStyle buttonStyle = skin.get("default", TextButtonStyle.class);
+		//TextButtonStyle buttonStyle = game.assets.uiSkin.get("default", TextButtonStyle.class);
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
@@ -102,7 +99,7 @@ public class GameOverScreen implements Screen {
 		Table table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
-		TextButton restartButton = new TextButton("Restart", buttonStyle);
+		TextButton restartButton = new TextButton("Restart", game.assets.uiSkin);
 		
 		restartButton.addListener(new InputListener() {
 			@Override
@@ -117,7 +114,7 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
-		TextButton scoresButton = new TextButton("Submit Score", buttonStyle);
+		TextButton scoresButton = new TextButton("Submit Score", game.assets.uiSkin);
 		scoresButton.pad(10);
 		scoresButton.addListener(new InputListener() {
 			@Override
@@ -136,12 +133,12 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
-		Label gameOver = new Label("Game Over", skin);
+		Label gameOver = new Label("Game Over", game.assets.uiSkin);
 		gameOver.setFontScale(fontScale);
-		Label scoreLabel = new Label("Score\n" + score, skin, "small");
+		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
 		scoreLabel.setAlignment(Align.center);
 		scoreLabel.setFontScale(+menuFontScale);
-		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, skin, "small");
+		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");
 		hiScoreLabel.setAlignment(Align.center);
 		hiScoreLabel.setFontScale(+menuFontScale);
 		
