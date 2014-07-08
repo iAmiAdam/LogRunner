@@ -95,7 +95,7 @@ public class GameUpdate {
 		
 		spawnedLogs = 0;
 		logVelocity = -5.55f;
-		spawnInterval = generator.nextFloat() * (0.85f - 0.60f) + 0.60f;
+		spawnInterval = generator.nextFloat() * (1.1f - 0.75f) + 0.75f;
 		
 		game.actionResolver.showAds(false);
 		
@@ -116,7 +116,7 @@ public class GameUpdate {
 		if((TimeUtils.nanoTime() - lastLogTime) / 1000000000.0 > spawnInterval) { 
 			logs.add(new Log(25f, logVelocity, world));
 			spawnedLogs++;
-			spawnInterval = generator.nextFloat() * (1f - 0.65f) + 0.65f;
+			spawnInterval = generator.nextFloat() * (1.1f - 0.75f) + 0.75f;
 			if(spawnedLogs % 10  == 0) {
 				logVelocity -= 0.25f;
 			}
