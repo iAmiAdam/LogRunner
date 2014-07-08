@@ -5,10 +5,8 @@ import info.adamjsmith.logrunner.Player.PlayerState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
@@ -29,7 +27,6 @@ public class GameRenderer {
 	TextureRegion currentFrame;
 	Animation walkAnimation;
 	float stateTime;
-	BitmapFont numbers;
 	
 	private static final int FRAME_COLS = 3;
 	private static final int FRAME_ROWS = 1;
@@ -39,9 +36,6 @@ public class GameRenderer {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
 		this.game = game;
-		
-		numbers = new BitmapFont(Gdx.files.internal("header.fnt"), Gdx.files.internal("header.png"), false);
-		numbers.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		TextureRegion[][] tmp = TextureRegion.split(game.assets.player, 50, 60);
 		
@@ -104,11 +98,11 @@ public class GameRenderer {
 		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, 480, 800);
 		batch.setProjectionMatrix(normalProjection);
 		batch.begin();
-		numbers.draw(batch, String.valueOf(score), x, 650);
-		numbers.setScale(0.64f);
-		numbers.draw(batch, "Tap to start", platform.getX() * (Gdx.graphics.getWidth() / 15) + 60, (platform.getY() * ( (Gdx.graphics.getHeight() / 25)) / 2 ) + 50);
-		numbers.draw(batch, "Swipe up to jump", platform.getX() * (Gdx.graphics.getWidth() / 15), (platform.getY() * (Gdx.graphics.getHeight() / 25)) / 2);
-		numbers.setScale(1);
+		game.assets.headerFont.draw(batch, String.valueOf(score), x, 650);
+		game.assets.headerFont.setScale(0.64f);
+		game.assets.headerFont.draw(batch, "Tap to start", platform.getX() * (Gdx.graphics.getWidth() / 15) + 60, (platform.getY() * ( (Gdx.graphics.getHeight() / 25)) / 2 ) + 50);
+		game.assets.headerFont.draw(batch, "Swipe up to jump", platform.getX() * (Gdx.graphics.getWidth() / 15), (platform.getY() * (Gdx.graphics.getHeight() / 25)) / 2);
+		game.assets.headerFont.setScale(1);
 		batch.end();
 	}
 	
