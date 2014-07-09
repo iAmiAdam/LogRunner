@@ -77,7 +77,7 @@ public class Player extends GameObject {
 		if(this.playerState == PlayerState.LAND) {
 			game.assets.jump.play(0.1f);
 			pos = playerBody.getPosition();
-			float actualForce = ((-force / Gdx.graphics.getDensity()) / 1000) * 3f;
+			float actualForce = ((-force / Gdx.graphics.getDensity()) / 1000) * 4f;
 			if (actualForce > 8) actualForce = 8;
 			playerBody.applyLinearImpulse(0, actualForce, pos.x, pos.y, true);
 			playerState = PlayerState.AIR;
