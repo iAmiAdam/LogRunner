@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameOverScreen implements Screen {
 	
@@ -92,13 +91,11 @@ public class GameOverScreen implements Screen {
 		if(fontScale < 0) fontScale = 1;
 		if(menuFontScale < 0) menuFontScale = 1;
 		
-		stage = new Stage(new ScreenViewport());		
+		stage = new Stage();		
 		Table table = new Table();
-		table.setFillParent(true);
-		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.addActor(table);
-		TextButton restartButton = new TextButton("Restart", game.assets.uiSkin);
 		
+		TextButton restartButton = new TextButton("Restart", game.assets.uiSkin);
 		restartButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -111,8 +108,11 @@ public class GameOverScreen implements Screen {
 				return true;
 			}
 		});
-		
-		TextButton scoresButton = new TextButton("Submit Score", game.assets.uiSkin);
+		TextButton scoresButton;
+		if(Gdx.graphics.getWidth() > 420)
+			scoresButton = new TextButton("Submit Score", game.assets.uiSkin);
+		else 
+			scoresButton = new TextButton("Submit\nScore", game.assets.uiSkin);
 		scoresButton.pad(10);
 		scoresButton.addListener(new InputListener() {
 			@Override
@@ -146,12 +146,18 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
-		Label gameOver = new Label("Game Over", game.assets.uiSkin);
+		Label gameOver;
+		
+		if(Gdx.graphics.getWidth() > 420)
+			gameOver = new Label("Game Over", game.assets.uiSkin);
+		else 
+			gameOver = new Label("Game Over", game.assets.uiSkin, "small");
+		
 		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
 		scoreLabel.setAlignment(Align.center);
 		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");
 		hiScoreLabel.setAlignment(Align.center);
-		
+		table.debug();
 		table.add(gameOver).colspan(2);		
 		table.row();
 		table.add(scoreLabel);
@@ -160,7 +166,7 @@ public class GameOverScreen implements Screen {
 		table.add(hiScoreLabel);
 		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.row();
-		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2).fill();
+		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
