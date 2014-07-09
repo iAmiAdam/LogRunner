@@ -24,6 +24,7 @@ public class LoadingScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(game.assets.logo, 0, (Gdx.graphics.getHeight() - 30) / 2, Gdx.graphics.getWidth(), 30);
+		batch.end();
 	}
 
 	@Override

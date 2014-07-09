@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameOverScreen implements Screen {
 	
@@ -88,10 +89,10 @@ public class GameOverScreen implements Screen {
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 4;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 9;
 		float menuFontScale = ((Gdx.graphics.getWidth() / 2) / 50) / 5;
-		if(fontScale < 0) fontScale = -fontScale;
-		if(menuFontScale < 0) menuFontScale = -menuFontScale;
+		if(fontScale < 0) fontScale = 1;
+		if(menuFontScale < 0) menuFontScale = 1;
 		
-		stage = new Stage();		
+		stage = new Stage(new ScreenViewport());		
 		Table table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
@@ -144,14 +145,11 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
-		Label gameOver = new Label("Game Over", game.assets.uiSkin);
-		gameOver.setFontScale(fontScale);
+		Label gameOver = new Label("Game\nOver", game.assets.uiSkin);
 		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
 		scoreLabel.setAlignment(Align.center);
-		scoreLabel.setFontScale(menuFontScale);
 		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");
 		hiScoreLabel.setAlignment(Align.center);
-		hiScoreLabel.setFontScale(menuFontScale);
 		
 		table.add(gameOver).colspan(2);		
 		table.row();

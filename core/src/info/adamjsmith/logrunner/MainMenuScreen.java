@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -59,8 +58,9 @@ public class MainMenuScreen implements Screen {
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 3;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 7;
+		if (fontScale < 0) fontScale = 1;
 		
-		stage = new Stage (new ScreenViewport());
+		stage = new Stage ();
 		
 		Table table = new Table();
 		stage.addActor(table);
@@ -120,7 +120,6 @@ public class MainMenuScreen implements Screen {
 		
 		table.setFillParent(true);
 		Label logo = new Label("Log\nRunner", game.assets.uiSkin);
-		logo.setFontScale(fontScale);
 		logo.setAlignment(Align.center);
 		table.add(logo);
 		table.row();

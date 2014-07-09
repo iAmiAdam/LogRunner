@@ -60,7 +60,7 @@ public class GameUpdate {
 		
 		logCheck();
 		
-		world.step(1/45f, 6, 4);
+		world.step(Gdx.graphics.getDeltaTime(), 6, 4);
 		
 		if(player.getY() < 9.35f || player.getX() != 4f) {
 			currentState = GameState.GAMEOVER;
