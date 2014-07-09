@@ -80,7 +80,6 @@ public class Player extends GameObject {
 			float actualForce = ((-force / Gdx.graphics.getDensity()) / 1000) * 3f;
 			if (actualForce > 8) actualForce = 8;
 			playerBody.applyLinearImpulse(0, actualForce, pos.x, pos.y, true);
-			Gdx.app.log("Force", String.valueOf(actualForce));
 			playerState = PlayerState.AIR;
 		}
 	}
