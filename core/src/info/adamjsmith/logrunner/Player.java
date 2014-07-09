@@ -1,5 +1,6 @@
 package info.adamjsmith.logrunner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -76,7 +77,8 @@ public class Player extends GameObject {
 		if(this.playerState == PlayerState.LAND) {
 			game.assets.jump.play(0.1f);
 			pos = playerBody.getPosition();
-			playerBody.applyLinearImpulse(0, (-force / 1000.0f) * 1.5f , pos.x, pos.y, true);
+			playerBody.applyLinearImpulse(0, (-force / 1000.0f) * 2f  , pos.x, pos.y, true);
+			Gdx.app.log("Force", String.valueOf(force));
 			playerState = PlayerState.AIR;
 		}
 	}
