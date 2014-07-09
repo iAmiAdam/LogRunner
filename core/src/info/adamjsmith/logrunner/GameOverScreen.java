@@ -95,6 +95,7 @@ public class GameOverScreen implements Screen {
 		stage = new Stage(new ScreenViewport());		
 		Table table = new Table();
 		table.setFillParent(true);
+		table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.addActor(table);
 		TextButton restartButton = new TextButton("Restart", game.assets.uiSkin);
 		
@@ -145,7 +146,7 @@ public class GameOverScreen implements Screen {
 			}
 		});
 		
-		Label gameOver = new Label("Game\nOver", game.assets.uiSkin);
+		Label gameOver = new Label("Game Over", game.assets.uiSkin);
 		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
 		scoreLabel.setAlignment(Align.center);
 		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");

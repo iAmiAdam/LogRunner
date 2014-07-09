@@ -63,6 +63,7 @@ public class MainMenuScreen implements Screen {
 		stage = new Stage ();
 		
 		Table table = new Table();
+		table.setFillParent(true);
 		stage.addActor(table);
 		
 		TextButton playButton = new TextButton("Play", game.assets.uiSkin);
@@ -118,7 +119,6 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 		
-		table.setFillParent(true);
 		Label logo = new Label("Log\nRunner", game.assets.uiSkin);
 		logo.setAlignment(Align.center);
 		table.add(logo);
