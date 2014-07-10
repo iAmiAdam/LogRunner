@@ -112,7 +112,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		if(!getSignedInGPGS()) {
 			loginGPGS();
 		} 
-		Games.Leaderboards.submitScore(gameHelper.getApiClient(), "CgkIqve61Y4EEAIQCA", score);
+		Games.Leaderboards.submitScore(gameHelper.getApiClient(), "CgkIqve61Y4EEAIQCQ", score);
 		getLeaderboardGPGS();
 	}
 
@@ -126,7 +126,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		if(!getSignedInGPGS()) {
 			loginGPGS();
 		} 
-		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),"CgkIqve61Y4EEAIQCA"), 100);
+		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),"CgkIqve61Y4EEAIQCQ"), 100);
 	}
 
 	@Override
