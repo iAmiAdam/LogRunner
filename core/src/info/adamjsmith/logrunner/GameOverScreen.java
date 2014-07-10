@@ -147,23 +147,29 @@ public class GameOverScreen implements Screen {
 		});
 		
 		Label gameOver;
+		Label scoreLabel;
+		Label hiScoreLabel;
 		
-		if(Gdx.graphics.getWidth() > 420)
+		if(Gdx.graphics.getWidth() > 420) {
 			gameOver = new Label("Game Over", game.assets.uiSkin);
-		else 
+			scoreLabel = new Label("Score\n" + score, game.assets.uiSkin);
+			hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin);
+		} else { 
 			gameOver = new Label("Game Over", game.assets.uiSkin, "small");
+			scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
+			hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");
+		}
 		
-		Label scoreLabel = new Label("Score\n" + score, game.assets.uiSkin, "small");
 		scoreLabel.setAlignment(Align.center);
-		Label hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin, "small");
 		hiScoreLabel.setAlignment(Align.center);
+		
 		table.debug();
 		table.add(gameOver).colspan(2);		
 		table.row();
-		table.add(scoreLabel);
+		table.add(scoreLabel).pad(10);
 		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.row();
-		table.add(hiScoreLabel);
+		table.add(hiScoreLabel).pad(10);
 		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).fill();
 		table.row();
 		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2);
