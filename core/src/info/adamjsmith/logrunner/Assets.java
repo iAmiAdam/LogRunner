@@ -17,7 +17,7 @@ public class Assets {
 	Texture river;
 	Texture bank;
 	Texture player;
-	Texture clouds;
+	Texture cloud;
 	Texture bg;
 	Texture platform;
 	BitmapFont headerFont;
@@ -37,7 +37,7 @@ public class Assets {
 		manager.load("river.png", Texture.class);
 		manager.load("bank.png", Texture.class);
 		manager.load("player.png", Texture.class);
-		manager.load("clouds.png", Texture.class);
+		manager.load("cloud.png", Texture.class);
 		manager.load("background.png", Texture.class);
 		manager.load("platform.png", Texture.class);
 		manager.load("header.fnt", BitmapFont.class);
@@ -51,7 +51,7 @@ public class Assets {
 		river = manager.get("river.png", Texture.class);
 		bank = manager.get("bank.png", Texture.class);
 		player = manager.get("player.png", Texture.class);
-		clouds = manager.get("clouds.png", Texture.class);
+		cloud = manager.get("cloud.png", Texture.class);
 		bg = manager.get("background.png", Texture.class);
 		platform = manager.get("platform.png", Texture.class);
 		point = Gdx.audio.newSound(Gdx.files.internal("point.ogg"));

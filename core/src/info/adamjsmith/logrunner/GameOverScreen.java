@@ -48,7 +48,7 @@ public class GameOverScreen implements Screen {
 		batch.begin();
 		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
 		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
-		batch.draw(game.assets.clouds, 0f, 15f, 15f, 3f);
+		batch.draw(game.assets.cloud, 0f, 15f, 15f, 3f);
 		for(Log log : logs) {
 			batch.draw(game.assets.log, log.getX(), log.getY(), log.width, log.height);
 		}

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -22,6 +24,10 @@ public class MainMenuScreen implements Screen {
 	int screenWidth;
 	float buttonX;
 	float buttonY;
+	
+	private Vector2[] clouds = new Vector2[6];
+	private float cloudTime = TimeUtils.nanoTime();
+	private float cloudTime2 = TimeUtils.nanoTime();
 	
 	public MainMenuScreen(LogRunner game) {
 		this.game = game;
@@ -38,7 +44,26 @@ public class MainMenuScreen implements Screen {
 		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
 		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
 		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
-		batch.draw(game.assets.clouds, 0f, 15f, 15f, 3f);
+		
+		if(TimeUtils.nanoTime() - cloudTime / 100000000.0 > 1) {
+			cloudTime = TimeUtils.nanoTime();
+			for (int i = 0; i < 6; i = i + 2) {
+				batch.draw(game.assets.cloud, clouds[i].x, clouds[i].y, 1f, 1f);
+				clouds[i].x -= 0.01f;
+				if (clouds[i].x < -1f) clouds[i].x = 15f;
+			}
+		}
+		
+		if(TimeUtils.nanoTime() - cloudTime2 / 100000000.0 > 2) {
+			cloudTime2 = TimeUtils.nanoTime();
+			for (int i = 1; i < 6; i = i + 2) {
+				batch.draw(game.assets.cloud, clouds[i].x, clouds[i].y, 1f, 1f);
+				clouds[i].x -= 0.01f;
+				if (clouds[i].x < -1f) clouds[i].x = 15f;
+			}
+		}
+		
+		
 		batch.end();
 
 		stage.act(Gdx.graphics.getDeltaTime());
@@ -55,6 +80,13 @@ public class MainMenuScreen implements Screen {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 15f, 25f);
+		
+		clouds[0] = new Vector2(2f, 15f);
+		clouds[1] = new Vector2(5f, 17f);
+		clouds[2] = new Vector2(8f, 16f);
+		clouds[3] = new Vector2(11f, 15f);
+		clouds[4] = new Vector2(14f, 17f);
+		clouds[5] = new Vector2(17f, 15f);
 		
 		float buttonHeight = (Gdx.graphics.getHeight() / 4) / 3;
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 7;
