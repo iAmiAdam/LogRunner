@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
 	protected LogRunner game;
@@ -96,7 +97,7 @@ public class MainMenuScreen implements Screen {
 		float fontScale = (Gdx.graphics.getWidth() / 52) / 7;
 		if (fontScale < 0) fontScale = 1;
 		
-		stage = new Stage ();
+		stage = new Stage(new ScreenViewport());
 		
 		Table table = new Table();
 		table.setFillParent(true);
@@ -159,14 +160,13 @@ public class MainMenuScreen implements Screen {
 		logo.setAlignment(Align.center);
 		table.add(logo);
 		table.row();
-		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
+		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
 		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
 		table.row();
-		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).minWidth(300);
+		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
-		
 		Gdx.input.setInputProcessor(stage);
 	}
 

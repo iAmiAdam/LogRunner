@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameOverScreen implements Screen {
 	
@@ -127,7 +128,7 @@ public class GameOverScreen implements Screen {
 		if(fontScale < 0) fontScale = 1;
 		if(menuFontScale < 0) menuFontScale = 1;
 		
-		stage = new Stage();		
+		stage = new Stage(new ScreenViewport());		
 		Table table = new Table();
 		stage.addActor(table);
 		
@@ -203,10 +204,10 @@ public class GameOverScreen implements Screen {
 		table.add(gameOver).colspan(2);		
 		table.row();
 		table.add(scoreLabel).pad(10);
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).width(Gdx.graphics.getWidth() / 2);
 		table.row();
 		table.add(hiScoreLabel).pad(10);
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).fill();
+		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).width(Gdx.graphics.getWidth() / 2);
 		table.row();
 		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2);
 		table.pack();
