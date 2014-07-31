@@ -88,7 +88,7 @@ public class MainMenuScreen implements Screen {
 		clouds[1] = new Vector2(5f, 17f);
 		clouds[2] = new Vector2(8f, 15f);
 		clouds[3] = new Vector2(11f, 17f);
-		clouds[4] = new Vector2(14f, 16f);
+		clouds[4] = new Vector2(14f, 15f);
 		
 		cloudTime = TimeUtils.nanoTime();
 		

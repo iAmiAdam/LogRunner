@@ -34,6 +34,10 @@ public class GameUpdate {
 	long lastLogTime;
 	int spawnedLogs;
 	
+	private Vector2[] clouds = new Vector2[5];
+	private boolean flip = true;
+	private float cloudTime;
+	
 	public GameUpdate(LogRunner game) {
 		this.game = game;
 		generator = new Random();
@@ -43,11 +47,13 @@ public class GameUpdate {
 	public void update() {
 		switch (currentState) {
 		case READY:
+			updateClouds();
 			if(Gdx.input.justTouched())
 				currentState = GameState.RUNNING;
 			break;
 		case RUNNING:
 			updateRunning();
+			updateClouds();
 			break;
 		case GAMEOVER:
 			gameOver();
@@ -64,6 +70,25 @@ public class GameUpdate {
 		
 		if(player.getY() < 9.35f || player.getX() != 4f) {
 			currentState = GameState.GAMEOVER;
+		}
+	}
+	
+	private void updateClouds() {
+		if((TimeUtils.nanoTime() - cloudTime) / 1000000000.0 > 1.0) {
+			cloudTime = TimeUtils.nanoTime();
+			if (flip == true) {
+				for (int i = 0; i < 5; i = i + 2) {
+					clouds[i].x -= 0.15f;
+					if (clouds[i].x < -1f) clouds[i].x = 15f;
+				}
+				flip = false;
+			} else {
+				for (int i = 1; i < 5; i = i + 2) {
+					clouds[i].x -= 0.15f;
+					if (clouds[i].x < -1f) clouds[i].x = 15f;
+				}
+				flip = true;
+			}
 		}
 	}
 	
@@ -100,6 +125,14 @@ public class GameUpdate {
 		game.actionResolver.showAds(false);
 		
 		currentState = GameState.READY;
+		
+		clouds[0] = new Vector2(2f, 16f);
+		clouds[1] = new Vector2(5f, 17f);
+		clouds[2] = new Vector2(8f, 15f);
+		clouds[3] = new Vector2(11f, 17f);
+		clouds[4] = new Vector2(14f, 15f);
+		
+		cloudTime = TimeUtils.nanoTime();
 	}
 	
 	private void logCheck() {
@@ -134,5 +167,9 @@ public class GameUpdate {
 	
 	public Platform getPlatform() {
 		return platform;
+	}
+	
+	public Vector2[] getClouds() {
+		return clouds;
 	}
 }

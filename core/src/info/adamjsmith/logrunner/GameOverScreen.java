@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameOverScreen implements Screen {
 	
@@ -26,6 +28,10 @@ public class GameOverScreen implements Screen {
 	int score;
 	float y;
 	float hiScoreX;
+	
+	private Vector2[] clouds = new Vector2[6];
+	private float cloudTime;
+	private boolean flip = true;
 	
 	public GameOverScreen(LogRunner game, int score, float y, Array<Log> logs) {
 		this.game = game;
@@ -48,7 +54,28 @@ public class GameOverScreen implements Screen {
 		batch.begin();
 		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
 		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
-		batch.draw(game.assets.cloud, 0f, 15f, 15f, 3f);
+		
+		for (int i = 0; i < 5; i++) {
+			batch.draw(game.assets.cloud, clouds[i].x, clouds[i].y, 1f, 1f);
+		}
+		
+		if((TimeUtils.nanoTime() - cloudTime) / 1000000000.0 > 1.0) {
+			cloudTime = TimeUtils.nanoTime();
+			if (flip == true) {
+				for (int i = 0; i < 5; i = i + 2) {
+					clouds[i].x -= 0.15f;
+					if (clouds[i].x < -1f) clouds[i].x = 15f;
+				}
+				flip = false;
+			} else {
+				for (int i = 1; i < 5; i = i + 2) {
+					clouds[i].x -= 0.15f;
+					if (clouds[i].x < -1f) clouds[i].x = 15f;
+				}
+				flip = true;
+			}
+		}		
+		
 		for(Log log : logs) {
 			batch.draw(game.assets.log, log.getX(), log.getY(), log.width, log.height);
 		}
@@ -72,6 +99,15 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void show() {
+		
+		clouds[0] = new Vector2(2f, 16f);
+		clouds[1] = new Vector2(5f, 17f);
+		clouds[2] = new Vector2(8f, 15f);
+		clouds[3] = new Vector2(11f, 17f);
+		clouds[4] = new Vector2(14f, 15f);
+		
+		cloudTime = TimeUtils.nanoTime();
+		
 		TextureRegion[][] tmp = TextureRegion.split(game.assets.player, 50, 60);
 		jump = tmp[0][0];
 		hiScoreX = (480 - String.valueOf(game.stats.hiScore).length() * 50) / 2;

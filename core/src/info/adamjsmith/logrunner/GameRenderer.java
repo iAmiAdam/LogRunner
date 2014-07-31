@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class GameRenderer {
@@ -75,7 +76,7 @@ public class GameRenderer {
 		batch.begin();
 		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
 		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
-		batch.draw(game.assets.cloud, 0f, 15f, 15f, 3f);
+		renderClouds();
 		for(Log log : logs) {
 			batch.draw(game.assets.log, log.getX(), log.getY(), log.width, log.height);
 		}
@@ -91,7 +92,7 @@ public class GameRenderer {
 		renderScore();
 	}
 	
-	public void renderScore() {
+	private void renderScore() {
 		int score = player.getScore();
 		float width = String.valueOf(score).length();
 		float x = (480 - width * 50) / 2;
@@ -104,6 +105,13 @@ public class GameRenderer {
 		game.assets.headerFont.draw(batch, "Swipe up to jump", platform.getX() * (Gdx.graphics.getWidth() / 15), (platform.getY() * (Gdx.graphics.getHeight() / 25)) / 2);
 		game.assets.headerFont.setScale(1);
 		batch.end();
+	}
+	
+	private void renderClouds() {
+		Vector2[] clouds = updater.getClouds();
+		for (int i = 0; i < 5; i++) {
+			batch.draw(game.assets.cloud, clouds[i].x, clouds[i].y, 1f, 1f);
+		}
 	}
 	
 	public void dispose() {
