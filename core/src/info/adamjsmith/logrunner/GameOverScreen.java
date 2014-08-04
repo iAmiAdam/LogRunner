@@ -89,7 +89,6 @@ public class GameOverScreen implements Screen {
 		
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
-		
 	}
 
 	@Override
@@ -199,15 +198,14 @@ public class GameOverScreen implements Screen {
 		
 		scoreLabel.setAlignment(Align.center);
 		hiScoreLabel.setAlignment(Align.center);
-		
-		table.debug();
+		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		table.add(gameOver).colspan(2);		
 		table.row();
 		table.add(scoreLabel).pad(10);
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).width(Gdx.graphics.getWidth() / 2);
+		table.add(scoresButton).padTop(20).fill();
 		table.row();
 		table.add(hiScoreLabel).pad(10);
-		table.add(restartButton).padTop(20).padBottom(30).height(buttonHeight).width(Gdx.graphics.getWidth() / 2);
+		table.add(restartButton).padTop(20).padBottom(30).fill();
 		table.row();
 		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2);
 		table.pack();

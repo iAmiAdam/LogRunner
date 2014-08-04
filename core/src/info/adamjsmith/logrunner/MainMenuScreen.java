@@ -101,6 +101,7 @@ public class MainMenuScreen implements Screen {
 		
 		Table table = new Table();
 		table.setFillParent(true);
+		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.addActor(table);
 		
 		TextButton playButton = new TextButton("Play", game.assets.uiSkin);
@@ -160,11 +161,11 @@ public class MainMenuScreen implements Screen {
 		logo.setAlignment(Align.center);
 		table.add(logo);
 		table.row();
-		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
+		table.add(playButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.row();
-		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
+		table.add(scoresButton).padTop(20).padBottom(30).height(buttonHeight).minWidth(300);
 		table.row();
-		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).minWidth(300).width(Gdx.graphics.getWidth() / 2);
+		table.add(achievementsButton).padTop(20).padBottom(20).height(buttonHeight).minWidth(300);
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
