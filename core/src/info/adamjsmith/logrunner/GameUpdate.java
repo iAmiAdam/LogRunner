@@ -38,6 +38,8 @@ public class GameUpdate {
 	private boolean flip = true;
 	private float cloudTime;
 	
+	private BankItem bankItem;
+	
 	public GameUpdate(LogRunner game) {
 		this.game = game;
 		generator = new Random();
@@ -71,6 +73,8 @@ public class GameUpdate {
 		if(player.getY() < 9.35f || player.getX() != 4f) {
 			currentState = GameState.GAMEOVER;
 		}
+		
+		newItem();
 	}
 	
 	private void updateClouds() {
@@ -133,6 +137,8 @@ public class GameUpdate {
 		clouds[4] = new Vector2(14f, 15f);
 		
 		cloudTime = TimeUtils.nanoTime();
+		
+		
 	}
 	
 	private void logCheck() {
@@ -157,6 +163,15 @@ public class GameUpdate {
 		}
 	}
 	
+	private void newItem() {
+		Random rand = new Random();
+		if(rand.nextInt() % 3 == 0) {
+			if (bankItem.getX() < 0f) {
+				bankItem = new BankItem();
+			}
+		}
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
@@ -171,5 +186,9 @@ public class GameUpdate {
 	
 	public Vector2[] getClouds() {
 		return clouds;
+	}
+	
+	public BankItem getItem() {
+		return bankItem;
 	}
 }
