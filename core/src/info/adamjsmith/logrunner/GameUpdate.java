@@ -74,7 +74,11 @@ public class GameUpdate {
 			currentState = GameState.GAMEOVER;
 		}
 		
-		newItem();
+		if(bankItem.getX() < -0.5f) {
+			newItem();
+		} else {
+			bankItem.update();
+		}
 	}
 	
 	private void updateClouds() {

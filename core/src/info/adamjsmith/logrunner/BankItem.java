@@ -22,6 +22,10 @@ public class BankItem {
 		return y;
 	}
 	
+	public void update() {
+		x = x - 0.1f;
+	}
+	
 	private int type() {
 		return rand.nextInt((3 - 1) + 1) + 1;
 	}
