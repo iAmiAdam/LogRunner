@@ -20,6 +20,9 @@ public class Assets {
 	Texture cloud;
 	Texture bg;
 	Texture platform;
+	Texture fish;
+	Texture chest;
+	Texture fossil;
 	BitmapFont headerFont;
 	BitmapFont menuFont;
 	Sound point;
@@ -44,6 +47,9 @@ public class Assets {
 		manager.load("point.ogg", Sound.class);
 		manager.load("jump.ogg", Sound.class);
 		manager.load("click.ogg", Sound.class);
+		manager.load("fish.png", Texture.class);
+		manager.load("chest.png", Texture.class);
+		manager.load("hedgehog.png", Texture.class);
 		manager.finishLoading();
 		
 		logo = manager.get("logo.png", Texture.class);
@@ -54,6 +60,10 @@ public class Assets {
 		cloud = manager.get("cloud.png", Texture.class);
 		bg = manager.get("background.png", Texture.class);
 		platform = manager.get("platform.png", Texture.class);
+		fish = manager.get("fish.png", Texture.class);
+		chest = manager.get("chest.png", Texture.class);
+		fossil = manager.get("hedgehog.png", Texture.class);
+		
 		point = Gdx.audio.newSound(Gdx.files.internal("point.ogg"));
 		jump = Gdx.audio.newSound(Gdx.files.internal("jump.ogg"));
 		click = Gdx.audio.newSound(Gdx.files.internal("click.ogg"));
