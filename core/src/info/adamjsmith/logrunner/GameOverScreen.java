@@ -186,7 +186,7 @@ public class GameOverScreen implements Screen {
 		Label scoreLabel;
 		Label hiScoreLabel;
 		
-		if(Gdx.graphics.getWidth() > 420) {
+		if(Gdx.graphics.getWidth() > 500) {
 			gameOver = new Label("Game Over", game.assets.uiSkin);
 			scoreLabel = new Label("Score\n" + score, game.assets.uiSkin);
 			hiScoreLabel = new Label("Best\n" + game.stats.hiScore, game.assets.uiSkin);
@@ -207,7 +207,7 @@ public class GameOverScreen implements Screen {
 		table.add(hiScoreLabel).pad(10);
 		table.add(restartButton).padTop(20).padBottom(30).fill();
 		table.row();
-		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2);
+		table.add(mainMenuButton).padTop(20).padBottom(3).height(buttonHeight).colspan(2).fill();
 		table.pack();
 		table.setPosition((Gdx.graphics.getWidth() - table.getWidth()) / 2, (Gdx.graphics.getHeight() - table.getHeight()) / 2);
 		Gdx.input.setInputProcessor(stage);
