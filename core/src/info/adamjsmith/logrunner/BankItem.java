@@ -23,7 +23,7 @@ public class BankItem {
 	}
 	
 	public void update() {
-		x = x - 0.1f;
+		x = x - 0.09f;
 	}
 	
 	private int type() {
@@ -31,7 +31,7 @@ public class BankItem {
 	}
 	
 	private float newY() {
-		return (float)rand.nextInt((int) ((6f - 1) + 1)) + 1;
+		return (float)rand.nextInt(((5 - 1) + 1)) + 1;
 	}
 
 }

@@ -118,13 +118,13 @@ public class GameRenderer {
 	private void renderItem() {
 		switch(updater.getItem().id) {
 			case 1: 
-				batch.draw(game.assets.fish, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				batch.draw(game.assets.fish, updater.getItem().getX(), updater.getItem().getY(), 0.7f, 0.7f);
 				break;
 			case 2: 
-				batch.draw(game.assets.chest, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				batch.draw(game.assets.chest, updater.getItem().getX(), updater.getItem().getY(), 0.7f, 0.7f);
 				break;
 			case 3: 
-				batch.draw(game.assets.fossil, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				batch.draw(game.assets.fossil, updater.getItem().getX(), updater.getItem().getY(), 0.7f, 0.7f);
 				break;
 		}
 	}

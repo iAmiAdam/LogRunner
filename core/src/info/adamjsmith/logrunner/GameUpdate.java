@@ -74,7 +74,7 @@ public class GameUpdate {
 			currentState = GameState.GAMEOVER;
 		}
 		
-		if(bankItem.getX() < -0.5f) {
+		if(bankItem.getX() < -1f) {
 			newItem();
 		} else {
 			bankItem.update();
