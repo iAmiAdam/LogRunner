@@ -138,7 +138,7 @@ public class GameUpdate {
 		
 		cloudTime = TimeUtils.nanoTime();
 		
-		
+		bankItem = new BankItem();
 	}
 	
 	private void logCheck() {
