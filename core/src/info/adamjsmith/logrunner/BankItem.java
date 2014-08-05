@@ -7,6 +7,7 @@ public class BankItem {
 	public float y;
 	public int id;
 	private Random rand = new Random();
+	
 	public BankItem() {
 		this.id = type();
 		this.x = 15f;

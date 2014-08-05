@@ -75,6 +75,7 @@ public class GameRenderer {
 		batch.setProjectionMatrix(camera.combined);			
 		batch.begin();
 		batch.draw(game.assets.bank, 0f, 0f, 15f, 7f);
+		renderItem();
 		batch.draw(game.assets.bg, 0f, 10f, 15f, 4f);
 		renderClouds();
 		for(Log log : logs) {
@@ -111,6 +112,20 @@ public class GameRenderer {
 		Vector2[] clouds = updater.getClouds();
 		for (int i = 0; i < 5; i++) {
 			batch.draw(game.assets.cloud, clouds[i].x, clouds[i].y, 1f, 1f);
+		}
+	}
+	
+	private void renderItem() {
+		switch(updater.getItem().id) {
+			case 1: 
+				batch.draw(game.assets.fish, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				break;
+			case 2: 
+				batch.draw(game.assets.chest, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				break;
+			case 3: 
+				batch.draw(game.assets.fossil, updater.getItem().getX(), updater.getItem().getY(), 0.5f, 0.5f);
+				break;
 		}
 	}
 	
