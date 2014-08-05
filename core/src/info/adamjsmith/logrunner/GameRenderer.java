@@ -86,7 +86,7 @@ public class GameRenderer {
 			batch.draw(currentFrame, 4f, player.getY(), player.getWidth(), player.getHeight());
 		}
 		batch.draw(game.assets.river, 0f, 7f, 15f, 3f);
-		batch.draw(game.assets.platform, platform.getX(), platform.getY(), 25f, 4f);
+		batch.draw(game.assets.platform, platform.getX(), 0, 25f, 10.8f);
 		batch.end();
 		
 		renderScore();
