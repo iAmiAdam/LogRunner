@@ -169,8 +169,10 @@ public class GameUpdate {
 	
 	private void newItem() {
 		Random rand = new Random();
-		if(rand.nextInt() % 7 == 0) {
-			if (bankItem.getX() < 0f) {
+		int number = rand.nextInt();
+		if(number % 7 == 0) {
+			Gdx.app.log("Number", String.valueOf(number));
+			if (bankItem.getX() < -1f) {
 				bankItem = null;
 				bankItem = new BankItem();
 			}

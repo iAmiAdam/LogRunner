@@ -121,7 +121,7 @@ public class GameRenderer {
 				batch.draw(game.assets.fish, updater.getItem().getX(), updater.getItem().getY(), 0.8f, 0.8f);
 				break;
 			case 2: 
-				batch.draw(game.assets.chest, updater.getItem().getX(), updater.getItem().getY(), 1f, 1f);
+				batch.draw(game.assets.chest, updater.getItem().getX(), updater.getItem().getY(), 1.3f, 1.3f);
 				break;
 			case 3: 
 				batch.draw(game.assets.fossil, updater.getItem().getX(), updater.getItem().getY(), 0.8f, 0.8f);
