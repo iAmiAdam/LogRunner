@@ -169,8 +169,9 @@ public class GameUpdate {
 	
 	private void newItem() {
 		Random rand = new Random();
-		if(rand.nextInt() % 3 == 0) {
+		if(rand.nextInt() % 7 == 0) {
 			if (bankItem.getX() < 0f) {
+				bankItem = null;
 				bankItem = new BankItem();
 			}
 		}
